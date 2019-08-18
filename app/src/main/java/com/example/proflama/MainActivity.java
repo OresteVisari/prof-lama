@@ -30,8 +30,5 @@ public class MainActivity extends AppCompatActivity {
 
         TextView quote = findViewById(R.id.quote);
         quote.setText(defaultNote.getQuote());
-
-        TextView quote2 = findViewById(R.id.quote2);
-        quote2.setText("Si je devais choisir entre t'aimer et respirer, je voudrais avoir mon dernier souffle pour dire Je t'aime.");
     }
 }

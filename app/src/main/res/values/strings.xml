@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Prof Lama</string>
     <string name="hello">Cześć Kochanie !</string>
+
+    <!-- IMAGES -->
+    <string name="lamaIcon">lamaIcon</string>
 </resources>

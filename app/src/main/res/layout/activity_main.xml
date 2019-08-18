@@ -22,8 +22,8 @@
 
             android:gravity="center_vertical"
 
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="22dp"
+            android:paddingRight="22dp"
 
             android:text="@string/hello"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -34,21 +34,22 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
+        android:paddingBottom="15dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="645dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="90dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -56,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="500dp"
 
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             >
 
             <LinearLayout
@@ -67,20 +68,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+
+                    android:background="@drawable/shape" >
 
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
 
-                        android:layout_weight="1"
-                        android:paddingTop="2dp"
-
-                        android:paddingBottom="2dp"
-                        android:text="Aimer"
+                        android:text="Title title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textStyle="bold" />
 
@@ -88,37 +88,15 @@
                         android:id="@+id/definition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:paddingBottom="5dp"
+                        android:text="definition definition definition definition definition definitiondefinition definition definition definition" />
 
                     <TextView
                         android:id="@+id/quote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:layout_weight="1"
-                        android:paddingTop="2dp"
-
-                        android:paddingBottom="2dp"
-                        android:text="TextView"
+                        android:text="quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote "
                         android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/quote2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_weight="1"
-                        android:paddingTop="2dp"
-
-                        android:paddingBottom="2dp"
-                        android:text="TextView"
-                        android:textStyle="italic" />
-
 
                 </LinearLayout>
             </LinearLayout>
