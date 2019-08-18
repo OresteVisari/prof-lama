@@ -35,7 +35,7 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
@@ -68,9 +68,14 @@
                 android:layout_marginBottom="20dp"
                 >
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:minHeight="100dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
 
                     android:background="@drawable/shape" >
@@ -93,12 +98,6 @@
                         android:paddingBottom="5dp"
                         android:text="definition definition definition definition definition definitiondefinition definition definition definition" />
 
-           <!--         <TextView
-                        android:id="@+id/quote"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote quote "
-                        android:textStyle="italic" />-->
 
                 </LinearLayout>
 
@@ -108,7 +107,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="100dp"
 
                     android:background="@drawable/shape"
                     android:orientation="vertical">
