@@ -1,4 +1,4 @@
-package com.example.proflama;
+package fr.pbenoit.proflama;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.proflama", appContext.getPackageName());
+        assertEquals("fr.pbenoit.proflama", appContext.getPackageName());
     }
 }

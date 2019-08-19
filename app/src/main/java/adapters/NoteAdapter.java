@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.proflama.R;
+import fr.pbenoit.proflama.R;
 
 import java.util.List;
 

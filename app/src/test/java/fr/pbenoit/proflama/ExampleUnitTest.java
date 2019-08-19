@@ -1,4 +1,4 @@
-package com.example.proflama;
+package fr.pbenoit.proflama;
 
 import org.junit.Test;
 

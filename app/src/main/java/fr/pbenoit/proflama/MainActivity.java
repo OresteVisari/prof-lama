@@ -1,22 +1,22 @@
-package com.example.proflama;
+package fr.pbenoit.proflama;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import adapters.NoteAdapter;
 import adapters.NoteTitleAdapter;
 import models.Note;
 
@@ -73,6 +73,18 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(notes);
         NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
         adapter.updateList();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(this.notes);
+        System.out.println(json);
+
+        Type listType = new TypeToken<ArrayList<Note>>(){}.getType();
+        List<Note> yourClassList = new Gson().fromJson(json, listType);
+        System.out.println("after json des: " +  yourClassList.get(0).getTitle() );
+        System.out.println("after json des date: " +  yourClassList.get(0).getCreationDate() );
+
+        File privateDir = this.getExternalFilesDir(null);
+        System.out.println(privateDir.getAbsolutePath());
     }
 
 }
