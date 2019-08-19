@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Note {
+public class Note implements  Comparable<Note>{
 
     private String title;
 
@@ -36,6 +36,10 @@ public class Note {
         this.quote = quote;
     }
 
+    public Date getCreationDate() {
+        return this.creationDate;
+    }
+
     public  Note(String title) {
         this.title = title;
         this.creationDate = new Date(System.currentTimeMillis());
@@ -45,6 +49,11 @@ public class Note {
         this(title);
         this.definition = definition;
         this.quote = quote;
+    }
+
+    @Override
+    public int compareTo(Note note) {
+        return note.getCreationDate().compareTo(this.creationDate);
     }
 }
 

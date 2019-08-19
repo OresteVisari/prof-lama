@@ -24,7 +24,8 @@ public class LaunchScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);                finish();
+                startActivity(intent);
+                finish();
             }
         };
 
