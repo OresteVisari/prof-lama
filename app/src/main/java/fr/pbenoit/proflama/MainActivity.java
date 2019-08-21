@@ -1,17 +1,23 @@
 package fr.pbenoit.proflama;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView notesView;
 
+    private final String FILE_NAME = "notes.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
-        this.notes = new ArrayList<>();
+        this.notes = readNotesFile();
 
         addTitleButton = findViewById(R.id.addTitleButton);
         addTitleButton.setOnClickListener(new View.OnClickListener() {
@@ -43,26 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Note note1 = new Note("Aimer");
-        note1.setDefinition("Eprouver de l'affection, de l'amour ou de l'attachement pour quelqu'un ou quelque chose.");
-        note1.setQuote("\"Aimer, ce n'est pas se regarder l'un l'autre, c'est regarder ensemble dans la même direction.\"\nAntoine De Saint-Exupéry");
-
-        Note note2 = new Note("Passion");
-        note2.setDefinition("État affectif intense et irraisonné qui domine quelqu'un.");
-        note2.setQuote("Nous respectons la raison, mais nous aimons nos passions.");
-
-        Note note3 = new Note("Retrouvailles");
-
-        notes.add(note1);
-        notes.add(note2);
-        notes.add(note1);
-        notes.add(note2);
-        notes.add(note1);
-        notes.add(note2);
-
-        notes.add(note3);
-        notes.add(note3);
-
         this.notesView = findViewById(R.id.notesListView);
         notesView.setAdapter(new NoteTitleAdapter(this, notes));
     }
@@ -70,21 +57,45 @@ public class MainActivity extends AppCompatActivity {
     private void addNewTitle() {
         EditText newTitle = findViewById(R.id.newTitleText);
         notes.add(new Note(newTitle.getText().toString()));
+        newTitle.setText("");
         Collections.sort(notes);
         NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
         adapter.updateList();
+        saveNotesToFile();
+    }
 
+    private void saveNotesToFile() {
         Gson gson = new Gson();
         String json = gson.toJson(this.notes);
-        System.out.println(json);
 
-        Type listType = new TypeToken<ArrayList<Note>>(){}.getType();
-        List<Note> yourClassList = new Gson().fromJson(json, listType);
-        System.out.println("after json des: " +  yourClassList.get(0).getTitle() );
-        System.out.println("after json des date: " +  yourClassList.get(0).getCreationDate() );
+        String externalPath = this.getExternalFilesDir(null).getPath();
+        File helloFile = new File(externalPath, FILE_NAME);
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(helloFile));
+            writer.write(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<Note> readNotesFile() {
+        Gson gson = new Gson();
+        ArrayList<Note> notes = new ArrayList();
 
         File privateDir = this.getExternalFilesDir(null);
-        System.out.println(privateDir.getAbsolutePath());
+        File file = new File(privateDir.getPath(), FILE_NAME);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            Type listType = new TypeToken<ArrayList<Note>>(){}.getType();
+            notes = gson.fromJson(br, listType);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return notes;
     }
 
 }
