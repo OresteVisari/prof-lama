@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,13 +27,19 @@ import java.util.List;
 import adapters.NoteTitleAdapter;
 import models.Note;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener {
 
     private List<Note> notes;
 
     private Button addTitleButton;
 
+    private Button modalButton;
+
     private ListView notesView;
+
+    TextView editTitle;
+
+    TextView editDefinition;
 
     private final String FILE_NAME = "notes.json";
 
@@ -47,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addNewTitle();
+            }
+        });
+
+        editTitle = findViewById(R.id.edit_title);
+        editDefinition = findViewById(R.id.edit_definition);
+
+        modalButton = findViewById(R.id.modalButton);
+        modalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
             }
         });
 
@@ -96,6 +114,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return notes;
+    }
+
+    public void openDialog() {
+        AddNoteDialog addNoteDialog = new AddNoteDialog();
+        addNoteDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void applyTexts(String title, String definition, String quote) {
+        Note note = new Note(title);
+        note.setDefinition(definition);
+        note.setQuote(quote);
+        notes.add(note);
+        Collections.sort(notes);
+        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
+        adapter.updateList();
+        saveNotesToFile();
     }
 
 }
