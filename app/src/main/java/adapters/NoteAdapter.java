@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import fr.pbenoit.proflama.R;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import models.Note;
 
-public class NoteAdapter extends BaseAdapter {
+public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
     private Context context;
 
@@ -53,5 +54,9 @@ public class NoteAdapter extends BaseAdapter {
         TextView definition = view.findViewById(R.id.definition);
         definition.setText(currentNote.getDefinition());
         return view;
+    }
+
+    public void updateList() {
+        this.notifyDataSetChanged();
     }
 }

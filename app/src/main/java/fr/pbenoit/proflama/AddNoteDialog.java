@@ -38,14 +38,14 @@ public class AddNoteDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String username = editTextTitle.getText().toString();
                         String password = editTextDefinition.getText().toString();
-                        String quote = editTextQuote.getText().toString();
-                        listener.applyTexts(username, password, quote);
+                        //String quote = editTextQuote.getText().toString();
+                        listener.applyTexts(username, password, "");
                     }
                 });
 
         editTextTitle = view.findViewById(R.id.edit_title);
         editTextDefinition = view.findViewById(R.id.edit_definition);
-        editTextQuote = view.findViewById(R.id.edit_quote);
+        //editTextQuote = view.findViewById(R.id.edit_quote);
 
         return builder.create();
     }

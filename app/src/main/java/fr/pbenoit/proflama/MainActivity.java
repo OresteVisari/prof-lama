@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import adapters.NoteAdapter;
 import adapters.NoteTitleAdapter;
 import models.Note;
 
@@ -31,56 +34,39 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
 
     private List<Note> notes;
 
-    private Button addTitleButton;
-
     private Button modalButton;
 
     private ListView notesView;
-
-    TextView editTitle;
-
-    TextView editDefinition;
 
     private final String FILE_NAME = "notes.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity_main2);
         this.notes = readNotesFile();
 
-        addTitleButton = findViewById(R.id.addTitleButton);
-        addTitleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewTitle();
-            }
-        });
+        this.notesView = findViewById(R.id.notesListView);
+        notesView.setAdapter(new NoteAdapter(this, notes));
 
-        editTitle = findViewById(R.id.edit_title);
-        editDefinition = findViewById(R.id.edit_definition);
-
-        modalButton = findViewById(R.id.modalButton);
-        modalButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
             }
         });
-
-        this.notesView = findViewById(R.id.notesListView);
-        notesView.setAdapter(new NoteTitleAdapter(this, notes));
     }
 
-    private void addNewTitle() {
-        EditText newTitle = findViewById(R.id.newTitleText);
-        notes.add(new Note(newTitle.getText().toString()));
-        newTitle.setText("");
-        Collections.sort(notes);
-        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
-        adapter.updateList();
-        saveNotesToFile();
-    }
+//    private void addNewTitle() {
+//        EditText newTitle = findViewById(R.id.newTitleText);
+//        notes.add(new Note(newTitle.getText().toString()));
+//        newTitle.setText("");
+//        Collections.sort(notes);
+//        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
+//        adapter.updateList();
+//        saveNotesToFile();
+//    }
 
     private void saveNotesToFile() {
         Gson gson = new Gson();
@@ -128,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         note.setQuote(quote);
         notes.add(note);
         Collections.sort(notes);
-        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
+        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         saveNotesToFile();
     }
