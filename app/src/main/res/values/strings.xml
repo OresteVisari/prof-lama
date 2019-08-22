@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Prof Lama</string>
     <string name="hello">Cześć Kochanie !</string>
+    <string name="process_text_action_name">Prof Lama</string>
 
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>

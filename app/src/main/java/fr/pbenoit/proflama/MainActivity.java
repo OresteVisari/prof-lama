@@ -1,16 +1,14 @@
 package fr.pbenoit.proflama;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,11 +28,9 @@ import adapters.NoteAdapter;
 import adapters.NoteTitleAdapter;
 import models.Note;
 
-public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener {
+public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener, DeleteNoteDialog.DeleteNoteDialogListener {
 
     private List<Note> notes;
-
-    private Button modalButton;
 
     private ListView notesView;
 
@@ -49,24 +45,35 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         this.notesView = findViewById(R.id.notesListView);
         notesView.setAdapter(new NoteAdapter(this, notes));
 
+        notesView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                openDeleteNoteDialog(i);
+                return true;
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openAddNoteDialog();
             }
         });
+
+        CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+        if (text != null && text.length() > 0) {
+            addNewTitle(text.toString());
+        }
     }
 
-//    private void addNewTitle() {
-//        EditText newTitle = findViewById(R.id.newTitleText);
-//        notes.add(new Note(newTitle.getText().toString()));
-//        newTitle.setText("");
-//        Collections.sort(notes);
-//        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
-//        adapter.updateList();
-//        saveNotesToFile();
-//    }
+    private void addNewTitle(String text) {
+        notes.add(new Note(text));
+        Collections.sort(notes);
+        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
+        adapter.updateList();
+        saveNotesToFile();
+    }
 
     private void saveNotesToFile() {
         Gson gson = new Gson();
@@ -102,10 +109,16 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         return notes;
     }
 
-    public void openDialog() {
+    public void openAddNoteDialog() {
         AddNoteDialog addNoteDialog = new AddNoteDialog();
-        addNoteDialog.show(getSupportFragmentManager(), "example dialog");
+        addNoteDialog.show(getSupportFragmentManager(), "add");
     }
+
+    public void openDeleteNoteDialog(int i) {
+        DeleteNoteDialog deleteNoteDialog = new DeleteNoteDialog(i, notes.get(i).getTitle());
+        deleteNoteDialog.show(getSupportFragmentManager(), "delete");
+    }
+
 
     @Override
     public void applyTexts(String title, String definition, String quote) {
@@ -119,4 +132,11 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         saveNotesToFile();
     }
 
+    @Override
+    public void deleteNote(int i) {
+        notes.remove(i);
+        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
+        adapter.updateList();
+        saveNotesToFile();
+    }
 }
