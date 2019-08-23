@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Note implements  Comparable<Note> {
 
-    private boolean shouldDisplayAllFields = false;
+    private transient boolean shouldDisplayAllFields = false;
 
     private String title;
 
