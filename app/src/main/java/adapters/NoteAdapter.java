@@ -57,9 +57,12 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         TextView quote = view.findViewById(R.id.quote);
         quote.setText(currentNote.getQuote());
 
+        definition.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
+
         if (currentNote.isShouldDisplayAllFields()) {
-            definition.setVisibility(View.VISIBLE);
-            quote.setVisibility(View.VISIBLE);
+            if (currentNote.getDefinition() != null && !currentNote.getDefinition().isEmpty()) definition.setVisibility(View.VISIBLE);
+            if (currentNote.getQuote() != null && !currentNote.getQuote().isEmpty()) quote.setVisibility(View.VISIBLE);
         } else {
             definition.setVisibility(View.GONE);
             quote.setVisibility(View.GONE);
