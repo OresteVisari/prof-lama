@@ -2,7 +2,9 @@ package models;
 
 import java.util.Date;
 
-public class Note implements  Comparable<Note>{
+public class Note implements  Comparable<Note> {
+
+    private boolean shouldDisplayAllFields = false;
 
     private String title;
 
@@ -14,10 +16,6 @@ public class Note implements  Comparable<Note>{
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDefinition() {
@@ -36,6 +34,14 @@ public class Note implements  Comparable<Note>{
         this.quote = quote;
     }
 
+    public boolean isShouldDisplayAllFields() {
+        return shouldDisplayAllFields;
+    }
+
+    public void setShouldDisplayAllFields(boolean shouldDisplayAllFields) {
+        this.shouldDisplayAllFields = shouldDisplayAllFields;
+    }
+
     public Date getCreationDate() {
         return this.creationDate;
     }
@@ -45,15 +51,11 @@ public class Note implements  Comparable<Note>{
         this.creationDate = new Date(System.currentTimeMillis());
     }
 
-    public Note(String title, String definition, String quote) {
-        this(title);
-        this.definition = definition;
-        this.quote = quote;
-    }
-
     @Override
     public int compareTo(Note note) {
         return note.getCreationDate().compareTo(this.creationDate);
     }
+
+
 }
 

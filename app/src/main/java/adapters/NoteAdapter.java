@@ -51,8 +51,18 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         TextView title = view.findViewById(R.id.title);
         title.setText(currentNote.getTitle());
 
+        String definitionAsString = "";
+        String quotesAsString = "";
+        if (currentNote.isShouldDisplayAllFields()) {
+            definitionAsString = currentNote.getDefinition();
+            quotesAsString = currentNote.getQuote();
+        }
         TextView definition = view.findViewById(R.id.definition);
-        definition.setText(currentNote.getDefinition());
+        definition.setText(definitionAsString);
+
+        TextView quote = view.findViewById(R.id.quote);
+        quote.setText(quotesAsString);
+
         return view;
     }
 

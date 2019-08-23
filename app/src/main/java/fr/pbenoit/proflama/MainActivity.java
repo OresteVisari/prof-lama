@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         this.notesView = findViewById(R.id.notesListView);
         notesView.setAdapter(new NoteAdapter(this, notes));
 
+        notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                toogleCurrentNote(i);
+            }
+        });
+
         notesView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -107,6 +114,17 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         }
 
         return notes;
+    }
+
+    private void toogleCurrentNote(int i) {
+        Note currentNote = notes.get(i);
+        if (currentNote.isShouldDisplayAllFields()) {
+            currentNote.setShouldDisplayAllFields(false);
+        } else {
+            currentNote.setShouldDisplayAllFields(true);
+        }
+        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
+        adapter.updateList();
     }
 
     public void openAddNoteDialog() {
