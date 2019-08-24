@@ -8,7 +8,7 @@
 
     <stroke
         android:width="0.5dp"
-        android:color="#C4CDE0" >
+        android:color="@color/colorGray" >
     </stroke>
 
     <padding
