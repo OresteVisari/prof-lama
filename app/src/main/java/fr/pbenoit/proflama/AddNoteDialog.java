@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -36,10 +38,10 @@ public class AddNoteDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String username = editTextTitle.getText().toString();
-                        String password = editTextDefinition.getText().toString();
+                        String title = editTextTitle.getText().toString();
+                        String definition = editTextDefinition.getText().toString();
                         String quote = editTextQuote.getText().toString();
-                        listener.applyTexts(username, password, quote);
+                        listener.applyTexts(title, definition, quote);
                     }
                 });
 
@@ -47,7 +49,28 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         editTextDefinition = view.findViewById(R.id.edit_definition);
         editTextQuote = view.findViewById(R.id.edit_quote);
 
-        return builder.create();
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                } else {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+        });
+
+        return alertDialog;
     }
 
     @Override
