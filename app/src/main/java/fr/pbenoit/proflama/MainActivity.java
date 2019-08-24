@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                toogleCurrentNote(i);
+                toggleCurrentNote(i);
             }
         });
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         return notes;
     }
 
-    private void toogleCurrentNote(int i) {
+    private void toggleCurrentNote(int i) {
         Note currentNote = notes.get(i);
         if (currentNote.isShouldDisplayAllFields()) {
             currentNote.setShouldDisplayAllFields(false);
