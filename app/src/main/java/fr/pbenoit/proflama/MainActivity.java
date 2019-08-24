@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 
 import adapters.NoteAdapter;
-import adapters.NoteTitleAdapter;
 import models.Note;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener, DeleteNoteDialog.DeleteNoteDialogListener {
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
     private void addNewTitle(String text) {
         notes.add(new Note(text));
         Collections.sort(notes);
-        NoteTitleAdapter adapter = (NoteTitleAdapter) this.notesView.getAdapter();
+        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         saveNotesToFile();
     }
