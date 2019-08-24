@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         saveNotesToFile();
+        this.finish();
     }
 
     private void saveNotesToFile() {
