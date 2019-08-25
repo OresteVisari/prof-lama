@@ -1,12 +1,18 @@
 package fr.pbenoit.proflama;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -34,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
     private ListView notesView;
 
     private final String FILE_NAME = "notes.json";
+
+    private final String CHANNEL_ID = "channel_prof_lama";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +79,48 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         if (text != null && text.length() > 0) {
             addNewTitle(text.toString());
         }
+
+        createNotificationChannel();
     }
 
-    private void addNewTitle(String text) {
-        notes.add(new Note(text));
+    private void addNewTitle(String title) {
+        notes.add(new Note(title));
         Collections.sort(notes);
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         saveNotesToFile();
+        sentNotification(title);
         this.finish();
     }
+
+    private void sentNotification(String title) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Prof Lama")
+                .setContentText("Dodano nowe słowo: " + title)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        android.app.NotificationManager notificationManager =
+                (android.app.NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0 /* ID of notification */, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //CharSequence name = getString(R.string.channel_name);
+            //String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Tltle A", importance);
+            channel.setDescription("Description D");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
     private void saveNotesToFile() {
         Gson gson = new Gson();
