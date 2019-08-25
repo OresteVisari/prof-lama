@@ -1,8 +1,6 @@
 package fr.pbenoit.proflama.activities;
 
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,29 +59,9 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
             }
         });
 
-        CharSequence text = getIntent().getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
-        if (text != null && text.length() > 0) {
-            addNewTitle(text.toString());
-        }
-
-        //NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
-        //notificationManager.cancelAll();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
         LocalNotifications.createNotificationChannel();
-    }
-
-    private void addNewTitle(String title) {
-        notes.add(new Note(title));
-        Collections.sort(notes);
-        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
-        adapter.updateList();
-        JsonFileRepository.saveNotes(notes);
-
-        Intent intent = new Intent(this, this.getClass());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        LocalNotifications.sentNotification(pendingIntent, title);
-
-        this.finish();
     }
 
     private void toggleCurrentNote(int i) {
