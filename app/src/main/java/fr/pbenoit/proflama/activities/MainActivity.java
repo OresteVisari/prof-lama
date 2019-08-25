@@ -1,17 +1,14 @@
 package fr.pbenoit.proflama.activities;
 
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,10 +16,11 @@ import java.util.Collections;
 import java.util.List;
 
 import adapters.NoteAdapter;
+import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.DeleteNoteDialog;
-import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.notifications.LocalNotifications;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener, DeleteNoteDialog.DeleteNoteDialogListener {
@@ -30,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
     private List<Note> notes;
 
     private ListView notesView;
-
-    private final String CHANNEL_ID = "channel_prof_lama";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +66,9 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
             addNewTitle(text.toString());
         }
 
-        createNotificationChannel();
+        //NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+        //notificationManager.cancelAll();
+        LocalNotifications.createNotificationChannel();
     }
 
     private void addNewTitle(String title) {
@@ -79,36 +77,13 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         JsonFileRepository.saveNotes(notes);
-        sentNotification(title);
+
+        Intent intent = new Intent(this, this.getClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        LocalNotifications.sentNotification(pendingIntent, title);
+
         this.finish();
-    }
-
-    private void sentNotification(String title) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Prof Lama")
-                .setContentText("Dodano nowe słowo: " + title)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        android.app.NotificationManager notificationManager =
-                (android.app.NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 /* ID of notification */, builder.build());
-    }
-
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //CharSequence name = getString(R.string.channel_name);
-            //String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Tltle A", importance);
-            channel.setDescription("Description D");
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     private void toggleCurrentNote(int i) {

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import fr.pbenoit.proflama.R;
-import fr.pbenoit.proflama.activities.MainActivity;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
