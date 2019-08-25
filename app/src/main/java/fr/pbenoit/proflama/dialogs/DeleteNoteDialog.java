@@ -1,4 +1,4 @@
-package fr.pbenoit.proflama;
+package fr.pbenoit.proflama.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

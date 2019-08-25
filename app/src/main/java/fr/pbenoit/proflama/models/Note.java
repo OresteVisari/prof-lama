@@ -1,4 +1,4 @@
-package models;
+package fr.pbenoit.proflama.models;
 
 import java.util.Date;
 

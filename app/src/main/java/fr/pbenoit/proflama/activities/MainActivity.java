@@ -1,4 +1,4 @@
-package fr.pbenoit.proflama;
+package fr.pbenoit.proflama.activities;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -19,8 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 import adapters.NoteAdapter;
-import models.Note;
-import repositories.JsonFileRepository;
+import fr.pbenoit.proflama.dialogs.AddNoteDialog;
+import fr.pbenoit.proflama.dialogs.DeleteNoteDialog;
+import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener, DeleteNoteDialog.DeleteNoteDialogListener {
 

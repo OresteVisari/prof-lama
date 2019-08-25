@@ -1,4 +1,4 @@
-package repositories;
+package fr.pbenoit.proflama.repositories;
 
 import android.app.Application;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.pbenoit.proflama.ProfLama;
-import models.Note;
+import fr.pbenoit.proflama.models.Note;
 
 public class JsonFileRepository extends Application {
 

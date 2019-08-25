@@ -12,7 +12,7 @@ import fr.pbenoit.proflama.R;
 
 import java.util.List;
 
-import models.Note;
+import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
