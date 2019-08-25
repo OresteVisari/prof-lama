@@ -18,6 +18,10 @@ public class Note implements  Comparable<Note> {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDefinition() {
         return definition;
     }

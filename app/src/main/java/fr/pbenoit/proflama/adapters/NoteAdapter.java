@@ -1,4 +1,4 @@
-package adapters;
+package fr.pbenoit.proflama.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,14 +16,11 @@ import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
-    private Context context;
-
     private List<Note> notes;
 
     private LayoutInflater layoutInflater;
 
     public NoteAdapter(Context context, List<Note> notes) {
-        this.context = context;
         this.notes = notes;
         this.layoutInflater = LayoutInflater.from(context);
     }
@@ -56,6 +53,9 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
         TextView quote = view.findViewById(R.id.quote);
         quote.setText(currentNote.getQuote());
+
+        definition.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
 
         if (currentNote.isShouldDisplayAllFields()) {
             if (currentNote.getDefinition() != null && !currentNote.getDefinition().isEmpty()) definition.setVisibility(View.VISIBLE);

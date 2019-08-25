@@ -13,15 +13,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Collections;
 import java.util.List;
 
-import adapters.NoteAdapter;
+import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
-import fr.pbenoit.proflama.dialogs.DeleteNoteDialog;
+import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.notifications.LocalNotifications;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
-public class MainActivity extends AppCompatActivity implements AddNoteDialog.ExampleDialogListener, DeleteNoteDialog.DeleteNoteDialogListener {
+public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
     private List<Note> notes;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         notesView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                openDeleteNoteDialog(i);
+                openUpdateNoteDialog(i);
                 return true;
             }
         });
@@ -80,27 +80,37 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Exa
         addNoteDialog.show(getSupportFragmentManager(), "add");
     }
 
-    public void openDeleteNoteDialog(int i) {
-        DeleteNoteDialog deleteNoteDialog = new DeleteNoteDialog(i, notes.get(i).getTitle());
-        deleteNoteDialog.show(getSupportFragmentManager(), "delete");
+    public void openUpdateNoteDialog(int i) {
+        UpdateNoteDialog updateNoteDialog = new UpdateNoteDialog(i, notes.get(i));
+        updateNoteDialog.show(getSupportFragmentManager(), "update");
     }
 
-
     @Override
-    public void applyTexts(String title, String definition, String quote) {
+    public void addNewNote(String title, String definition, String quote) {
         Note note = new Note(title);
         note.setDefinition(definition);
         note.setQuote(quote);
         notes.add(note);
         Collections.sort(notes);
-        NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
-        adapter.updateList();
-        JsonFileRepository.saveNotes(notes);
+        this.postUpdateAnyNoteModification();
     }
 
     @Override
-    public void deleteNote(int i) {
-        notes.remove(i);
+    public void updateNote(int index, String title, String definition, String quote) {
+        Note note = notes.get(index);
+        note.setTitle(title);
+        note.setDefinition(definition);
+        note.setQuote(quote);
+        this.postUpdateAnyNoteModification();
+    }
+
+    @Override
+    public void deleteNote(int index) {
+        notes.remove(index);
+        this.postUpdateAnyNoteModification();
+    }
+
+    private void postUpdateAnyNoteModification() {
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         JsonFileRepository.saveNotes(notes);

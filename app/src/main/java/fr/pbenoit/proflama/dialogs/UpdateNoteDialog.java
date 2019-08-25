@@ -14,13 +14,22 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.models.Note;
 
 
-public class AddNoteDialog extends AppCompatDialogFragment {
+public class UpdateNoteDialog extends AppCompatDialogFragment {
+    private int indexNoteToUpdate;
+    private Note note;
+
     private EditText editTextTitle;
     private EditText editTextDefinition;
     private EditText editTextQuote;
-    private AddNoteDialogListener listener;
+    private UpdateNoteDialogListener listener;
+
+    public UpdateNoteDialog(int indexNoteToUpdate, Note note) {
+        this.indexNoteToUpdate = indexNoteToUpdate;
+        this.note = note;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -30,11 +39,17 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
         builder.setView(view)
-                .setTitle("Nowe Słowo   ( ^ ᗜ ^ )")
+                .setTitle("Edytuj swoje słowo   ( ^ ᗜ ^ )")
                 .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                    }
+                })
+                .setNeutralButton("Usuń", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        listener.deleteNote(indexNoteToUpdate);
                     }
                 })
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
@@ -43,18 +58,22 @@ public class AddNoteDialog extends AppCompatDialogFragment {
                         String title = editTextTitle.getText().toString();
                         String definition = editTextDefinition.getText().toString();
                         String quote = editTextQuote.getText().toString();
-                        listener.addNewNote(title, definition, quote);
+                        listener.updateNote(indexNoteToUpdate, title, definition, quote);
                     }
                 });
 
         editTextTitle = view.findViewById(R.id.edit_title);
-        editTextDefinition = view.findViewById(R.id.edit_definition);
-        editTextQuote = view.findViewById(R.id.edit_quote);
+        editTextTitle.setText(note.getTitle());
 
+        editTextDefinition = view.findViewById(R.id.edit_definition);
+        editTextDefinition.setText(note.getDefinition());
+
+        editTextQuote = view.findViewById(R.id.edit_quote);
+        editTextQuote.setText(note.getQuote());
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
         editTextTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -80,14 +99,15 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (AddNoteDialogListener) context;
+            listener = (UpdateNoteDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
-                    "must implement AddNoteDialogListener");
+                    "must implement UpdateNoteDialogListener");
         }
     }
 
-    public interface AddNoteDialogListener {
-        void addNewNote(String title, String definition, String quote);
+    public interface UpdateNoteDialogListener {
+        void updateNote(int index, String title, String definition, String quote);
+        void deleteNote(int index);
     }
 }
