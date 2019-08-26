@@ -8,7 +8,7 @@
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Słowo" />
+        android:hint="@string/word" />
 
     <EditText
         android:id="@+id/edit_definition"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_title"
         android:layout_alignParentStart="true"
-        android:hint="Definicja"
+        android:hint="@string/definition"
        />
 
     <EditText
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_definition"
         android:layout_alignParentStart="true"
-        android:hint="Cytat"
+        android:hint="@string/quote"
         />
 
 

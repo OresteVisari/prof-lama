@@ -1,7 +1,19 @@
 <resources>
     <string name="app_name">Prof Lama</string>
-    <string name="hello">Cześć Kochanie !</string>
+    <string name="mainScreenTitle">Cześć Kochanie !</string>
     <string name="process_text_action_name">Prof Lama</string>
+
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
+    <string name="addDialogTitle">Nowe Słowo   ( ^ ᗜ ^ )</string>
+    <string name="updateDialogTitle">Edytuj swoje słowo   ( ^ ᗜ ^ )</string>
+    <string name="updateDialogDelete">Usuń</string>
+
+    <string name="word">Słowo</string>
+    <string name="definition">Definicja</string>
+    <string name="quote">Cytat</string>
+
 
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>

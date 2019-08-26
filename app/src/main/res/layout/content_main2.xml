@@ -29,7 +29,7 @@
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
 
-            android:text="@string/hello"
+            android:text="@string/mainScreenTitle"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             />
 

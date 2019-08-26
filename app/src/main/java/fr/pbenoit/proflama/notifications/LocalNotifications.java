@@ -18,7 +18,7 @@ public class LocalNotifications {
     public static void sentNotification(PendingIntent pendingIntent, String title) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Prof Lama")
+                .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
                 .setContentText("Dodano nowe słowo: " + title)
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)

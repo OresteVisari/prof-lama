@@ -39,20 +39,20 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
         builder.setView(view)
-                .setTitle("Edytuj swoje słowo   ( ^ ᗜ ^ )")
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.updateDialogTitle)
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setNeutralButton("Usuń", new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.updateDialogDelete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         listener.deleteNote(indexNoteToUpdate);
                     }
                 })
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String title = editTextTitle.getText().toString();
