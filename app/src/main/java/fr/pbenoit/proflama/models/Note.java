@@ -50,9 +50,15 @@ public class Note implements  Comparable<Note> {
         return this.creationDate;
     }
 
-    public  Note(String title) {
+    public Note(String title) {
         this.title = title;
         this.creationDate = new Date(System.currentTimeMillis());
+    }
+
+    public Note(String title, String definition, String quote) {
+        this(title);
+        this.setDefinition(definition);
+        this.setQuote(quote);
     }
 
     @Override

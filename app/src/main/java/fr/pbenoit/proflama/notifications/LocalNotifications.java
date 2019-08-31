@@ -15,11 +15,11 @@ public class LocalNotifications {
 
     private static final String CHANNEL_ID = "channel_prof_lama";
 
-    public static void sentNotification(PendingIntent pendingIntent, String title) {
+    public static void sentNotification(PendingIntent pendingIntent, String title, String definition) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
-                .setContentText("Dodano nowe słowo: " + title)
+                .setContentTitle(title)
+                .setContentText(definition)
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
