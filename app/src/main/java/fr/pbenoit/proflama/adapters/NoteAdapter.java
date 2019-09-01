@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import fr.pbenoit.proflama.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import fr.pbenoit.proflama.models.Note;
@@ -20,9 +21,12 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
     private LayoutInflater layoutInflater;
 
+    private SimpleDateFormat dateFormat;
+
     public NoteAdapter(Context context, List<Note> notes) {
         this.notes = notes;
         this.layoutInflater = LayoutInflater.from(context);
+        this.dateFormat =  new SimpleDateFormat("dd/MM/yyyy");
     }
 
     @Override
@@ -41,10 +45,10 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.note, null);
 
-        Note currentNote = getItem(i);
+        Note currentNote = getItem(position);
         TextView title = view.findViewById(R.id.title);
         title.setText(currentNote.getTitle());
 
@@ -53,6 +57,10 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
         TextView quote = view.findViewById(R.id.quote);
         quote.setText(currentNote.getQuote());
+
+        TextView date = view.findViewById(R.id.date);
+        String dateAsString = dateFormat.format(getItem(position).getCreationDate());
+        date.setText(dateAsString);
 
         definition.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);
