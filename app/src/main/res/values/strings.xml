@@ -14,6 +14,8 @@
     <string name="definition">Definicja</string>
     <string name="quote">Cytat</string>
 
+    <string name="pushNotificationNewTitleContent">Dodano nowe słowo: </string>
+
 
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>
