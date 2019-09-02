@@ -26,7 +26,7 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
     public NoteAdapter(Context context, List<Note> notes) {
         this.notes = notes;
         this.layoutInflater = LayoutInflater.from(context);
-        this.dateFormat =  new SimpleDateFormat("dd/MM/yyyy");
+        this.dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
     }
 
     @Override
@@ -71,6 +71,17 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         } else {
             definition.setVisibility(View.GONE);
             quote.setVisibility(View.GONE);
+        }
+
+        if (position == 0) {
+            date.setVisibility(View.VISIBLE);
+        } else {
+            String previousDateAsString = dateFormat.format(getItem(position - 1).getCreationDate());
+            if (!dateAsString.equals(previousDateAsString)) {
+                date.setVisibility(View.VISIBLE);
+            } else {
+                date.setVisibility(View.GONE);
+            }
         }
 
         return view;
