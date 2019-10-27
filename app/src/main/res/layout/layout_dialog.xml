@@ -10,23 +10,41 @@
         android:layout_height="wrap_content"
         android:hint="@string/word" />
 
+    <Button
+        android:id="@+id/button_switch_title_and_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_title"
+        android:layout_alignParentStart="true"
+        android:text="@string/switch_title_and_content" />
+
     <EditText
         android:id="@+id/edit_definition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_title"
+        android:layout_below="@id/button_switch_title_and_content"
         android:layout_alignParentStart="true"
         android:hint="@string/definition"
        />
+
+    <Button
+        android:id="@+id/button_switch_content_and_quote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_definition"
+        android:layout_alignParentStart="true"
+        android:text="@string/switch_content_and_quote" />
 
     <EditText
         android:id="@+id/edit_quote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_definition"
+        android:layout_below="@id/button_switch_content_and_quote"
         android:layout_alignParentStart="true"
         android:hint="@string/quote"
         />
+
+
 
 
 </RelativeLayout>

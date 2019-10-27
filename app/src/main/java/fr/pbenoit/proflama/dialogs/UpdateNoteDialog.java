@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -24,6 +25,11 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
     private EditText editTextTitle;
     private EditText editTextDefinition;
     private EditText editTextQuote;
+
+    private Button switchTitleButton;
+    private Button switchContentButton;
+
+
     private UpdateNoteDialogListener listener;
 
     public UpdateNoteDialog(int indexNoteToUpdate, Note note) {
@@ -71,6 +77,30 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
         editTextQuote = view.findViewById(R.id.edit_quote);
         editTextQuote.setText(note.getQuote());
 
+        switchTitleButton = view .findViewById(R.id.button_switch_title_and_content);
+        switchTitleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newTitle = note.getDefinition();
+                note.setDefinition(note.getTitle());
+                note.setTitle(newTitle);
+                editTextTitle.setText(note.getTitle());
+                editTextDefinition.setText(note.getDefinition());
+            }
+        });
+
+        switchContentButton = view .findViewById(R.id.button_switch_content_and_quote);
+        switchContentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newDefinition = note.getQuote();
+                note.setQuote(note.getDefinition());
+                note.setDefinition(newDefinition);
+                editTextDefinition.setText(note.getDefinition());
+                editTextQuote.setText(note.getQuote());
+            }
+        });
+
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -83,11 +113,38 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                note.setTitle(s.toString());
                 if (s.length() > 0) {
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                 } else {
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }
+            }
+        });
+
+        editTextDefinition.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                note.setDefinition(s.toString());
+            }
+        });
+
+        editTextQuote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                note.setQuote(s.toString());
             }
         });
 
