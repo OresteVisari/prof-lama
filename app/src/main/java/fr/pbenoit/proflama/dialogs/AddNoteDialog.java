@@ -27,7 +27,7 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_dialog, null);
+        View view = inflater.inflate(R.layout.update_note_dialog, null);
 
         builder.setView(view)
                 .setTitle("Nowe Słowo   ( ^ ᗜ ^ )")

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main2);
+        this.setContentView(R.layout.main_screen_wrapper);
         this.notes = JsonFileRepository.getAllNotes();
 
         this.notesView = findViewById(R.id.notesListView);
