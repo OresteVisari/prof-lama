@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,7 +35,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
 
     public UpdateNoteDialog(int indexNoteToUpdate, Note note) {
         this.indexNoteToUpdate = indexNoteToUpdate;
-        this.note = note;
+        this.note = new Note(note.getTitle(), note.getDefinition(), note.getQuote());
     }
 
     @Override
@@ -103,6 +104,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.RED);
 
         editTextTitle.addTextChangedListener(new TextWatcher() {
             @Override
