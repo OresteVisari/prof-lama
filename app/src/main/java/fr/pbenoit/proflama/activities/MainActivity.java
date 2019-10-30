@@ -1,5 +1,8 @@
 package fr.pbenoit.proflama.activities;
 
+import java.util.Date;
+import java.util.Calendar;
+
 import android.app.NotificationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -115,4 +118,27 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         adapter.updateList();
         JsonFileRepository.saveNotes(notes);
     }
+
+    public static int countNumberOfWorkThisWeek() {
+        List<Note> notes = JsonFileRepository.getAllNotes();
+        int numberOfWorkAddedThisWeek = 0;
+
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        Calendar sevenDaysAgo = Calendar.getInstance();
+        sevenDaysAgo.setTime(new Date(System.currentTimeMillis() - (7 * DAY_IN_MS)));
+
+        Calendar currentNoteDateCalendar = Calendar.getInstance();
+        for (Note note : notes) {
+            currentNoteDateCalendar.setTime(note.getCreationDate());
+            if (currentNoteDateCalendar.after(sevenDaysAgo) || currentNoteDateCalendar.equals(sevenDaysAgo)) {
+                numberOfWorkAddedThisWeek ++;
+            }
+            if (currentNoteDateCalendar.before(sevenDaysAgo)) {
+                return numberOfWorkAddedThisWeek;
+            }
+        }
+
+        return notes.size();
+    }
+
 }

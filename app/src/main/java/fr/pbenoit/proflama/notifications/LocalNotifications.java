@@ -15,7 +15,7 @@ public class LocalNotifications {
 
     private static final String CHANNEL_ID = "channel_prof_lama";
 
-    public static void sentNotification(PendingIntent pendingIntent, String title) {
+    public static void sendWorkCreationNotification(PendingIntent pendingIntent, String title) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
@@ -27,6 +27,34 @@ public class LocalNotifications {
         android.app.NotificationManager notificationManager =
                 (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0 /* ID of notification */, builder.build());
+    }
+
+    public static void sendDailyReminderNotification(PendingIntent pendingIntent) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
+                .setContentText("Poświęć 5 minut na przejrzenie kilku słów ;)")
+                .setContentIntent(pendingIntent)
+                .setOnlyAlertOnce(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        android.app.NotificationManager notificationManager =
+                (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1 /* ID of notification */, builder.build());
+    }
+
+    public static void sendWeekSummaryNotification(PendingIntent pendingIntent, int numberOfWord) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
+                .setContentText("Brawo, nauczyłeś się " + numberOfWord + " nowych słów w tym tygodniu")
+                .setContentIntent(pendingIntent)
+                .setOnlyAlertOnce(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        android.app.NotificationManager notificationManager =
+                (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(2 /* ID of notification */, builder.build());
     }
 
     public static void createNotificationChannel() {

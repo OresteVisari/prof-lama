@@ -53,7 +53,7 @@ public class FetchWordFromWiktionary extends AsyncTask<String, Void, Void> {
             Intent intent = new Intent(ProfLama.getAppContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(this.activity, 0, intent, 0);
-            LocalNotifications.sentNotification(pendingIntent, newNote.getTitle());
+            LocalNotifications.sendWorkCreationNotification(pendingIntent, newNote.getTitle());
         }
         return null;
     }

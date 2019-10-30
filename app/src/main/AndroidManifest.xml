@@ -13,6 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".intents.StartServiceReceiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".notifications.DailyNotificationJobService"
+            android:label="Daily notification service"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+        <service
+            android:name=".notifications.WeeklyNotificationJobService"
+            android:label="Weekly notification service"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
         <activity android:name=".activities.ProcessTextActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

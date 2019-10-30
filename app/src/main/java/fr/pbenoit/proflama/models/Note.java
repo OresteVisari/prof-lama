@@ -1,5 +1,6 @@
 package fr.pbenoit.proflama.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Note implements  Comparable<Note> {
@@ -48,6 +49,11 @@ public class Note implements  Comparable<Note> {
 
     public Date getCreationDate() {
         return this.creationDate;
+    }
+
+    public String getFormatedCreationDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(this.getCreationDate());
     }
 
     public Note(String title) {

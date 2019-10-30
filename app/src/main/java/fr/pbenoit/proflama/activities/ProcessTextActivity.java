@@ -39,7 +39,7 @@ public class ProcessTextActivity extends AppCompatActivity {
         Intent intent = new Intent(ProfLama.getAppContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
-        LocalNotifications.sentNotification(pendingIntent, title);
+        LocalNotifications.sendWorkCreationNotification(pendingIntent, title);
 
         this.finish();
     }
