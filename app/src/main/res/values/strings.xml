@@ -6,6 +6,7 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
 
+    <!-- Update dialog -->
     <string name="addDialogTitle">Nowe Słowo   ( ^ ᗜ ^ )</string>
     <string name="updateDialogTitle">Edytuj swoje słowo   ( ^ ᗜ ^ )</string>
     <string name="updateDialogDelete">Usuń</string>
@@ -17,7 +18,12 @@
     <string name="switch_title_and_content">Słowo &#8596; Definicja</string>
     <string name="switch_content_and_quote">Definicja &#8596; Cytat</string>
 
+
+    <!-- Notifications -->
     <string name="pushNotificationNewTitleContent">Dodano nowe słowo: </string>
+    <string name="dailyNotificationContent">Poświęć 5 minut na przejrzenie kilku słów ;)</string>
+    <string name="weeklyNotificationContent">Brawo ! Nauczyłeś się %d nowych słów w tym tygodniu</string>
+
 
 
     <!-- IMAGES -->
