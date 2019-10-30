@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -51,6 +52,8 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         editTextDefinition = view.findViewById(R.id.edit_definition);
         editTextQuote = view.findViewById(R.id.edit_quote);
 
+        view .findViewById(R.id.button_switch_title_and_content).setVisibility(View.GONE);
+        view .findViewById(R.id.button_switch_content_and_quote).setVisibility(View.GONE);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
