@@ -1,33 +1,36 @@
 <resources>
+    <!-- Global -->
     <string name="app_name">Prof Lama</string>
-    <string name="mainScreenTitle">Cześć Kochanie !</string>
-    <string name="process_text_action_name">Prof Lama</string>
 
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
-
 
     <string name="word">Słowo</string>
     <string name="definition">Definicja</string>
     <string name="quote">Cytat</string>
 
+    <!-- Main screen -->
+    <string name="mainScreenTitle">Cześć Kochanie !</string>
+
+
     <!-- Add word -->
     <string name="addDialogTitle">Nowe Słowo   ( ^ ᗜ ^ )</string>
 
-    <!-- Update dialog -->
-    <string name="updateDialogTitle">Edytuj swoje słowo   ( ^ ᗜ ^ )</string>
-    <string name="updateDialogDelete">Usuń</string>
 
+    <!-- Update dialog -->
+    <string name="updateDialogTitle">Edytuj swoje słowo   ( ° ᗜ ° )</string>
+    <string name="updateDialogDelete">Usuń</string>
 
     <string name="switch_title_and_content">Słowo &#8596; Definicja</string>
     <string name="switch_content_and_quote">Definicja &#8596; Cytat</string>
+
 
     <!-- Notifications -->
     <string name="pushNotificationNewTitleContent">Dodano nowe słowo: </string>
     <string name="dailyNotificationContent">Poświęć 5 minut na przejrzenie kilku słów ;)</string>
     <string name="weeklyNotificationContent">Brawo ! Nauczyłeś się %d nowych słów w tym tygodniu</string>
 
+
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>
-    <string name="title_activity_main2">Main2Activity</string>
 </resources>
