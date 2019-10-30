@@ -68,7 +68,4 @@
         android:hint="@string/quote"
         />
 
-
-
-
 </RelativeLayout>

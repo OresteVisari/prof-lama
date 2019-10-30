@@ -9,11 +9,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 
 
@@ -31,14 +31,14 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.update_note_dialog, null);
 
         builder.setView(view)
-                .setTitle("Nowe Słowo   ( ^ ᗜ ^ )")
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setTitle(ProfLama.getAppContext().getText(R.string.addDialogTitle))
+                .setNegativeButton(ProfLama.getAppContext().getText(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setPositiveButton(ProfLama.getAppContext().getText(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String title = editTextTitle.getText().toString();
@@ -52,8 +52,8 @@ public class AddNoteDialog extends AppCompatDialogFragment {
         editTextDefinition = view.findViewById(R.id.edit_definition);
         editTextQuote = view.findViewById(R.id.edit_quote);
 
-        view .findViewById(R.id.button_switch_title_and_content).setVisibility(View.GONE);
-        view .findViewById(R.id.button_switch_content_and_quote).setVisibility(View.GONE);
+        view.findViewById(R.id.button_switch_title_and_content).setVisibility(View.GONE);
+        view.findViewById(R.id.button_switch_content_and_quote).setVisibility(View.GONE);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
