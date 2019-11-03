@@ -51,6 +51,8 @@ public class Note implements  Comparable<Note> {
         return this.creationDate;
     }
 
+    public void setCreationDate(Date date) { this.creationDate = date;}
+
     public String getFormattedCreationDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(this.getCreationDate());
@@ -58,6 +60,8 @@ public class Note implements  Comparable<Note> {
 
     public Note(String title) {
         this.title = title;
+        this.definition = "";
+        this.quote = "";
         this.creationDate = new Date(System.currentTimeMillis());
     }
 

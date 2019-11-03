@@ -65,12 +65,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>> today" + NotesUtils.countNumberOfWordAddToday());
-        System.out.println(">>>>>>>>>>>>>>>>>>>> week" + NotesUtils.countNumberOfWordThisWeek());
-
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationScheduler.scheduleDailyReportJob(this.getApplicationContext());
+            NotificationScheduler.scheduleDailyReportJob();
             NotificationScheduler.scheduleWeeklyReportJob();
         }
     }

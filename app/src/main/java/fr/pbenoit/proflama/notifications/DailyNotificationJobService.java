@@ -5,9 +5,7 @@ import android.app.TaskStackBuilder;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 
@@ -29,11 +27,9 @@ public class DailyNotificationJobService extends JobService {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         LocalNotifications.sendDailyReminderNotification(pendingIntent);
-        NotesUtils.addTimeInNoteQuote(0, new Date());
+        NotesUtils.logJobScheduleTime(0, new Date());
 
         jobFinished(params, true);
-        NotificationScheduler.scheduleDailyReportJob(this);
-
         return true;
     }
 

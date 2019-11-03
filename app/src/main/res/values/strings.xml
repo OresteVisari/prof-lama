@@ -28,6 +28,7 @@
     <!-- Notifications -->
     <string name="pushNotificationNewTitleContent">Dodano nowe słowo: </string>
     <string name="dailyNotificationContent">Poświęć 5 minut na przejrzenie kilku słów ;)</string>
+    <string name="dailyNotificationWhenWordWasAddedContent">Nauczyłeś się dzisiaj %d słów. Czas na recenzję :)</string>
     <string name="weeklyNotificationContent">Brawo ! Nauczyłeś się %d nowych słów w tym tygodniu</string>
 
 

@@ -50,6 +50,9 @@ public class JsonFileRepository extends Application {
             e.printStackTrace();
         }
 
+        if (notes == null) {
+            return new ArrayList<>();
+        }
         return notes;
     }
 }

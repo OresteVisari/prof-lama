@@ -1,7 +1,11 @@
 package fr.pbenoit.proflama.services;
 
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -11,15 +15,42 @@ import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class NotesUtils {
 
+    private  static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+
     /***
      * This method is here to help the NotificationSchedule debugging
      */
-    public static void addTimeInNoteQuote(int index, Date date) {
+    public static void logJobScheduleTime(int index, Date date) {
+        String log = (index == 0) ? "daily " : "weekly ";
+        addLog(log + " job schedule " + new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(date));
+    }
+
+    private static void createWorkToLog(List<Note> notes) {
+        Note noteWithLogs = new Note("logs");
+
+        Calendar dateOfFirstKiss = Calendar.getInstance();
+        int decemberMonth = 11;
+        dateOfFirstKiss.set(2018, decemberMonth, 7);
+        noteWithLogs.setCreationDate(dateOfFirstKiss.getTime());
+
+        notes.add(noteWithLogs);
+        Collections.sort(notes);
+    }
+
+    public static void addLog(String log) {
         List<Note> notes = JsonFileRepository.getAllNotes();
-        Note note = notes.get(index);
-        String type = (index == 0) ? "daily" : "weekly";
-        String time = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(date);
-        note.setQuote(note.getQuote() + "\n" + type + " " + time);
+
+        if (notes.isEmpty()) {
+            createWorkToLog(notes);
+        }
+
+        Note noteWithLogs = notes.get(notes.size() - 1);
+        if (! noteWithLogs.getTitle().equals("logs")) {
+            createWorkToLog(notes);
+        }
+
+        noteWithLogs.setDefinition(noteWithLogs.getDefinition() + "\n" + log);
         JsonFileRepository.saveNotes(notes);
     }
 
@@ -50,7 +81,6 @@ public class NotesUtils {
     }
 
     public static int countNumberOfWordThisWeek() {
-        long DAY_IN_MS = 1000 * 60 * 60 * 24;
         Calendar sevenDaysAgo = Calendar.getInstance();
         sevenDaysAgo.setTime(new Date(System.currentTimeMillis() - (7 * DAY_IN_MS)));
         sevenDaysAgo.set(Calendar.HOUR_OF_DAY, 0);

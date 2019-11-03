@@ -12,7 +12,7 @@ public class StartServiceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationScheduler.scheduleDailyReportJob(context);
+            NotificationScheduler.scheduleDailyReportJob();
             NotificationScheduler.scheduleWeeklyReportJob();
         }
     }

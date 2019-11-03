@@ -25,7 +25,7 @@ public class WeeklyNotificationJobService extends JobService {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         LocalNotifications.sendWeekSummaryNotification(pendingIntent, NotesUtils.countNumberOfWordThisWeek());
-        NotesUtils.addTimeInNoteQuote(1, new Date());
+        NotesUtils.logJobScheduleTime(1, new Date());
 
         jobFinished(params, true);
         return true;

@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat;
 
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.services.NotesUtils;
 
 public class LocalNotifications {
 
@@ -44,11 +45,19 @@ public class LocalNotifications {
 
     public static void sendDailyReminderNotification(PendingIntent pendingIntent) {
         LocalNotifications.createNotificationChannel();
+        String content;
+
+        int numberOfWordAddedToday = NotesUtils.countNumberOfWordAddToday();
+        if (numberOfWordAddedToday > 0 ) {
+            content = ProfLama.getAppContext().getString(R.string.dailyNotificationWhenWordWasAddedContent, numberOfWordAddedToday);
+        } else {
+            content = ProfLama.getAppContext().getString(R.string.dailyNotificationContent);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
-                .setContentText(ProfLama.getAppContext().getString(R.string.dailyNotificationContent))
+                .setContentText(content)
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);

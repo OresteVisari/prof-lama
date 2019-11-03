@@ -16,9 +16,9 @@ public class NotificationScheduler  {
 
     private static final long ONE_WEEK_INTERVAL = 7 * 24 * 60 * 60 * 1000L;
 
-    private static final long SHORT_INTERVAL =  20 * 1000L;
+    private static final long SHORT_INTERVAL =  20 * 60 * 1000L;
 
-    private static final long MEDIUM_INTERVAL = 2 * 60 * 1000L;
+    private static final long MEDIUM_INTERVAL = 30 * 60 * 1000L;
 
     private static final int DAILY_JOB_ID = 0;
 
@@ -26,21 +26,28 @@ public class NotificationScheduler  {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void scheduleDailyReportJob(Context context) {
-        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
+    public static void scheduleDailyReportJob() {
+        JobScheduler jobScheduler = ProfLama.getAppContext().getSystemService(JobScheduler.class);
+
         if (jobScheduler.getPendingJob(DAILY_JOB_ID) != null) {
             return;
         }
 
-        ComponentName serviceComponent = new ComponentName(context, DailyNotificationJobService.class);
+        ComponentName serviceComponent = new ComponentName(ProfLama.getAppContext(), DailyNotificationJobService.class);
         JobInfo.Builder builder = new JobInfo.Builder(DAILY_JOB_ID, serviceComponent);
         //builder.setPeriodic(SHORT_INTERVAL);
-        builder.setMinimumLatency(SHORT_INTERVAL);
+        builder.setPeriodic(SHORT_INTERVAL);
         jobScheduler.schedule(builder.build());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void scheduleWeeklyReportJob() {
         JobScheduler jobScheduler = ProfLama.getAppContext().getSystemService(JobScheduler.class);
+
+        if (jobScheduler.getPendingJob(WEEKLY_JOB_ID) != null) {
+            return;
+        }
+
         ComponentName serviceComponent = new ComponentName(ProfLama.getAppContext(), WeeklyNotificationJobService.class);
         JobInfo.Builder builder = new JobInfo.Builder(WEEKLY_JOB_ID, serviceComponent);
         //builder.setPeriodic(ONE_WEEK_INTERVAL);
