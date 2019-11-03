@@ -16,16 +16,19 @@ public class LocalNotifications {
     private static final String CHANNEL_ID = "channel_prof_lama";
 
     public static void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, ProfLama.getAppContext().getString(R.string.app_name), importance);
-            channel.setDescription("Prof Lama notifications");
-            NotificationManager notificationManager = ProfLama.getAppContext().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return;
         }
+
+        NotificationManager notificationManager = ProfLama.getAppContext().getSystemService(NotificationManager.class);
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, ProfLama.getAppContext().getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription("Prof Lama notifications");
+        notificationManager.createNotificationChannel(channel);
     }
 
     public static void sendWorkCreationNotification(PendingIntent pendingIntent, String title) {
+        LocalNotifications.createNotificationChannel();
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
@@ -40,13 +43,15 @@ public class LocalNotifications {
     }
 
     public static void sendDailyReminderNotification(PendingIntent pendingIntent) {
+        LocalNotifications.createNotificationChannel();
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
                 .setContentText(ProfLama.getAppContext().getString(R.string.dailyNotificationContent))
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         android.app.NotificationManager notificationManager =
                 (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -54,6 +59,8 @@ public class LocalNotifications {
     }
 
     public static void sendWeekSummaryNotification(PendingIntent pendingIntent, int numberOfWord) {
+        LocalNotifications.createNotificationChannel();
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))

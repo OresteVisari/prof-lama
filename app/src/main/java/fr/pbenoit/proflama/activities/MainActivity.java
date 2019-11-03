@@ -1,9 +1,7 @@
 package fr.pbenoit.proflama.activities;
 
-import java.util.Date;
-import java.util.Calendar;
-
 import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,15 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
-import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.notifications.LocalNotifications;
+import fr.pbenoit.proflama.notifications.NotificationScheduler;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
+import fr.pbenoit.proflama.services.NotesUtils;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
@@ -62,9 +62,17 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             }
         });
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
-        LocalNotifications.createNotificationChannel();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>> today" + NotesUtils.countNumberOfWordAddToday());
+        System.out.println(">>>>>>>>>>>>>>>>>>>> week" + NotesUtils.countNumberOfWordThisWeek());
+
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationScheduler.scheduleDailyReportJob(this.getApplicationContext());
+            NotificationScheduler.scheduleWeeklyReportJob();
+        }
     }
 
     private void toggleCurrentNote(int i) {
@@ -117,28 +125,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         JsonFileRepository.saveNotes(notes);
-    }
-
-    public static int countNumberOfWorkThisWeek() {
-        List<Note> notes = JsonFileRepository.getAllNotes();
-        int numberOfWorkAddedThisWeek = 0;
-
-        long DAY_IN_MS = 1000 * 60 * 60 * 24;
-        Calendar sevenDaysAgo = Calendar.getInstance();
-        sevenDaysAgo.setTime(new Date(System.currentTimeMillis() - (7 * DAY_IN_MS)));
-
-        Calendar currentNoteDateCalendar = Calendar.getInstance();
-        for (Note note : notes) {
-            currentNoteDateCalendar.setTime(note.getCreationDate());
-            if (currentNoteDateCalendar.after(sevenDaysAgo) || currentNoteDateCalendar.equals(sevenDaysAgo)) {
-                numberOfWorkAddedThisWeek ++;
-            }
-            if (currentNoteDateCalendar.before(sevenDaysAgo)) {
-                return numberOfWorkAddedThisWeek;
-            }
-        }
-
-        return notes.size();
     }
 
 }

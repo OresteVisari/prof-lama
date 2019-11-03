@@ -55,7 +55,7 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         quote.setText(currentNote.getQuote());
 
         TextView date = view.findViewById(R.id.date);
-        String dateAsString = getItem(position).getFormatedCreationDate();
+        String dateAsString = getItem(position).getFormattedCreationDate();
         date.setText(dateAsString);
 
         definition.setVisibility(View.GONE);
@@ -72,7 +72,7 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         if (position == 0) {
             date.setVisibility(View.VISIBLE);
         } else {
-            String previousDateAsString = getItem(position - 1).getFormatedCreationDate();
+            String previousDateAsString = getItem(position - 1).getFormattedCreationDate();
             if (!dateAsString.equals(previousDateAsString)) {
                 date.setVisibility(View.VISIBLE);
             } else {

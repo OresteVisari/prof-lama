@@ -51,7 +51,7 @@ public class Note implements  Comparable<Note> {
         return this.creationDate;
     }
 
-    public String getFormatedCreationDate() {
+    public String getFormattedCreationDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(this.getCreationDate());
     }
