@@ -15,7 +15,7 @@ import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.notifications.NotificationManager;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
-public class ProcessTextActivity extends AppCompatActivity {
+public class ProcessTextActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class ProcessTextActivity extends AppCompatActivity {
         Collections.sort(notes);
         JsonFileRepository.saveNotes(notes);
 
-        Intent intent = new Intent(ProfLama.getAppContext(), MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
         NotificationManager.sendWorkCreationNotification(pendingIntent, title);
