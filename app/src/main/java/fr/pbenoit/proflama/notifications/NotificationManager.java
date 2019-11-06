@@ -12,7 +12,8 @@ import java.util.Calendar;
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
-import fr.pbenoit.proflama.services.NotesUtils;
+import fr.pbenoit.proflama.utilities.Logger;
+import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class NotificationManager {
 
@@ -46,16 +47,13 @@ public class NotificationManager {
     }
 
     private static void sendDailyReminderNotification(PendingIntent pendingIntent) {
-        NotesUtils.addLog("send daily notification");
         NotificationManager.createNotificationChannel();
 
         String content;
         int numberOfWordAddedToday = NotesUtils.countNumberOfWordAddToday();
         if (numberOfWordAddedToday > 0 ) {
-            NotesUtils.addLog("send daily notification - few words today");
             content = ProfLama.getAppContext().getString(R.string.dailyNotificationWhenWordWasAddedContent, numberOfWordAddedToday);
         } else {
-            NotesUtils.addLog("send daily notification - no word today");
             content = ProfLama.getAppContext().getString(R.string.dailyNotificationContent);
         }
 
@@ -73,7 +71,6 @@ public class NotificationManager {
     }
 
     private static void sendWeekSummaryNotification(PendingIntent pendingIntent) {
-        NotesUtils.addLog("send weekly notification");
         NotificationManager.createNotificationChannel();
 
         int numberOfWordAddedThisWeek = NotesUtils.countNumberOfWordThisWeek();
@@ -97,7 +94,7 @@ public class NotificationManager {
 
         if ( calendar.get(Calendar.DAY_OF_MONTH)  == notificationPreferences.getLastDailyNotificationDay()
                 && calendar.get(Calendar.MONTH) == notificationPreferences.getLastDailyNotificationMonth()) {
-            NotesUtils.addLog("Do not sent, the alarm was already send today");
+            Logger.add("Do not sent, the alarm was already send today");
             return;
         }
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {

@@ -26,7 +26,6 @@ import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
-import fr.pbenoit.proflama.services.NotesUtils;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     private  void scheduleNotificationAlarm() {
-        NotesUtils.addLog("MainActivity: configure alarm");
         AlarmManager alarmManager = ProfLama.getAppContext().getSystemService(AlarmManager.class);
         int request_code = 0;
 
@@ -92,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         Intent intent = new Intent(this, NotificationAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ProfLama.getAppContext(), request_code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC, dateToSchedule.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        NotesUtils.addLog("MainActivity: alarm configure with success");
     }
 
     private void toggleCurrentNote(int i) {
