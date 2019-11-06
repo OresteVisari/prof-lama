@@ -1,6 +1,7 @@
 package fr.pbenoit.proflama.repositories;
 
 import android.app.Application;
+import android.app.Notification;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,15 +19,16 @@ import java.util.List;
 
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.notifications.NotificationPreferences;
 
 public class JsonFileRepository extends Application {
 
-    private static final String FILE_NAME = "notes.json";
+    private static final String NOTES_FILE_NAME = "notes.json";
 
-    public static void saveNotes(List<Note> notes) {
-        Gson gson = new Gson();
-        String json = gson.toJson(notes);
-        File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), FILE_NAME);
+    private static final String ALARM_PREFERENCE_FILE_NAME = "alarm.json";
+
+    private static void writeFile(String json, String fileName) {
+        File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), fileName);
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -37,10 +39,22 @@ public class JsonFileRepository extends Application {
         }
     }
 
+    public static void saveNotes(List<Note> notes) {
+        Gson gson = new Gson();
+        String json = gson.toJson(notes);
+        writeFile(json, NOTES_FILE_NAME);
+    }
+
+    public static void saveNotificationPreferences(NotificationPreferences notificationPreferences) {
+        Gson gson = new Gson();
+        String json = gson.toJson(notificationPreferences);
+        writeFile(json, ALARM_PREFERENCE_FILE_NAME);
+    }
+
     public static List<Note> getAllNotes() {
         Gson gson = new Gson();
-        ArrayList<Note> notes = new ArrayList();
-        File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), FILE_NAME);
+        ArrayList<Note> notes = null;
+        File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), NOTES_FILE_NAME);
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -54,5 +68,24 @@ public class JsonFileRepository extends Application {
             return new ArrayList<>();
         }
         return notes;
+    }
+
+    public static NotificationPreferences getNoticationPreferences() {
+        Gson gson = new Gson();
+        NotificationPreferences notificationPreferences = null;
+        File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), ALARM_PREFERENCE_FILE_NAME);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            Type listType = new TypeToken<NotificationPreferences>(){}.getType();
+            notificationPreferences = gson.fromJson(br, listType);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (notificationPreferences == null) {
+            return new NotificationPreferences();
+        }
+        return notificationPreferences;
     }
 }

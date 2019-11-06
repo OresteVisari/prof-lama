@@ -16,7 +16,7 @@ import java.util.List;
 
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.notifications.LocalNotifications;
+import fr.pbenoit.proflama.notifications.NotificationManager;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class FetchWordFromWiktionary extends AsyncTask<String, Void, Void> {
@@ -53,7 +53,7 @@ public class FetchWordFromWiktionary extends AsyncTask<String, Void, Void> {
             Intent intent = new Intent(ProfLama.getAppContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(this.activity, 0, intent, 0);
-            LocalNotifications.sendWorkCreationNotification(pendingIntent, newNote.getTitle());
+            NotificationManager.sendWorkCreationNotification(pendingIntent, newNote.getTitle());
         }
         return null;
     }

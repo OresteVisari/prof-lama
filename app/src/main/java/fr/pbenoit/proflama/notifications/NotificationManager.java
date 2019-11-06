@@ -1,18 +1,20 @@
 package fr.pbenoit.proflama.notifications;
 
 import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import java.util.Calendar;
+
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.services.NotesUtils;
 
-public class LocalNotifications {
+public class NotificationManager {
 
     private static final String CHANNEL_ID = "channel_prof_lama";
 
@@ -21,14 +23,14 @@ public class LocalNotifications {
             return;
         }
 
-        NotificationManager notificationManager = ProfLama.getAppContext().getSystemService(NotificationManager.class);
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, ProfLama.getAppContext().getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT);
+        android.app.NotificationManager notificationManager = ProfLama.getAppContext().getSystemService(android.app.NotificationManager.class);
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, ProfLama.getAppContext().getString(R.string.app_name), android.app.NotificationManager.IMPORTANCE_DEFAULT);
         channel.setDescription("Prof Lama notifications");
         notificationManager.createNotificationChannel(channel);
     }
 
     public static void sendWorkCreationNotification(PendingIntent pendingIntent, String title) {
-        LocalNotifications.createNotificationChannel();
+        NotificationManager.createNotificationChannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -43,14 +45,17 @@ public class LocalNotifications {
         notificationManager.notify(0, builder.build());
     }
 
-    public static void sendDailyReminderNotification(PendingIntent pendingIntent) {
-        LocalNotifications.createNotificationChannel();
-        String content;
+    private static void sendDailyReminderNotification(PendingIntent pendingIntent) {
+        NotesUtils.addLog("send daily notification");
+        NotificationManager.createNotificationChannel();
 
+        String content;
         int numberOfWordAddedToday = NotesUtils.countNumberOfWordAddToday();
         if (numberOfWordAddedToday > 0 ) {
+            NotesUtils.addLog("send daily notification - few words today");
             content = ProfLama.getAppContext().getString(R.string.dailyNotificationWhenWordWasAddedContent, numberOfWordAddedToday);
         } else {
+            NotesUtils.addLog("send daily notification - no word today");
             content = ProfLama.getAppContext().getString(R.string.dailyNotificationContent);
         }
 
@@ -67,13 +72,16 @@ public class LocalNotifications {
         notificationManager.notify(1, builder.build());
     }
 
-    public static void sendWeekSummaryNotification(PendingIntent pendingIntent, int numberOfWord) {
-        LocalNotifications.createNotificationChannel();
+    private static void sendWeekSummaryNotification(PendingIntent pendingIntent) {
+        NotesUtils.addLog("send weekly notification");
+        NotificationManager.createNotificationChannel();
+
+        int numberOfWordAddedThisWeek = NotesUtils.countNumberOfWordThisWeek();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
-                .setContentText(ProfLama.getAppContext().getString(R.string.weeklyNotificationContent, numberOfWord))
+                .setContentText(ProfLama.getAppContext().getString(R.string.weeklyNotificationContent, numberOfWordAddedThisWeek))
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -81,6 +89,26 @@ public class LocalNotifications {
         android.app.NotificationManager notificationManager =
                 (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(2, builder.build());
+    }
+
+    public static void sendNotificationTriggerByAlarm(PendingIntent pendingIntent) {
+        Calendar calendar = Calendar.getInstance();
+        NotificationPreferences notificationPreferences = JsonFileRepository.getNoticationPreferences();
+
+        if ( calendar.get(Calendar.DAY_OF_MONTH)  == notificationPreferences.getLastDailyNotificationDay()
+                && calendar.get(Calendar.MONTH) == notificationPreferences.getLastDailyNotificationMonth()) {
+            NotesUtils.addLog("Do not sent, the alarm was already send today");
+            return;
+        }
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            sendWeekSummaryNotification(pendingIntent);
+        } else {
+            sendDailyReminderNotification(pendingIntent);
+        }
+
+        notificationPreferences.setLastDailyNotificationDay(calendar.get(Calendar.DAY_OF_MONTH));
+        notificationPreferences.setLastDailyNotificationMonth(calendar.get(Calendar.MONTH));
+        JsonFileRepository.saveNotificationPreferences(notificationPreferences);
     }
 
 }

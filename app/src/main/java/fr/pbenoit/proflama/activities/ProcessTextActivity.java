@@ -12,7 +12,7 @@ import java.util.List;
 
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.notifications.LocalNotifications;
+import fr.pbenoit.proflama.notifications.NotificationManager;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class ProcessTextActivity extends AppCompatActivity {
@@ -39,7 +39,7 @@ public class ProcessTextActivity extends AppCompatActivity {
         Intent intent = new Intent(ProfLama.getAppContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
-        LocalNotifications.sendWorkCreationNotification(pendingIntent, title);
+        NotificationManager.sendWorkCreationNotification(pendingIntent, title);
 
         this.finish();
     }

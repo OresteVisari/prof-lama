@@ -9,25 +9,30 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import fr.pbenoit.proflama.activities.MainActivity;
 import fr.pbenoit.proflama.services.NotesUtils;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
-public class DailyNotificationJobService extends JobService {
+public class NotificationJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
+        NotesUtils.addLog("start notification job");
+
         Intent intent = new Intent(this, MainActivity.class);
-        //intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-        //intent.setData(Uri.parse("package:" + getPackageName()));
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        LocalNotifications.sendDailyReminderNotification(pendingIntent);
-        NotesUtils.logJobScheduleTime(0, new Date());
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.HOUR_OF_DAY) == 23) {
+            NotesUtils.addLog("notification job  - need to send a notification");
+            NotificationManager.sendNotificationTriggerByAlarm(pendingIntent);
+        } else {
+            NotesUtils.addLog("notification job  - not the expected time: " + calendar.get(Calendar.HOUR_OF_DAY));
+        }
 
         jobFinished(params, true);
         return true;

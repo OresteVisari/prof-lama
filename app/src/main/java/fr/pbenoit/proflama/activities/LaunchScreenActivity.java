@@ -1,12 +1,10 @@
 package fr.pbenoit.proflama.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import java.util.Date;
+import androidx.appcompat.app.AppCompatActivity;
 
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.services.NotesUtils;
@@ -20,7 +18,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
 
-        NotesUtils.addLog("App start at " + new Date());
+        NotesUtils.addLog("Prof Lama start");
 
         Runnable runnable = new Runnable() {
             @Override

@@ -1,6 +1,9 @@
 package fr.pbenoit.proflama.activities;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -11,16 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
+import fr.pbenoit.proflama.NotificationAlarmReceiver;
+import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.notifications.NotificationScheduler;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.services.NotesUtils;
 
@@ -66,9 +70,29 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         notificationManager.cancelAll();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationScheduler.scheduleDailyReportJob();
-            NotificationScheduler.scheduleWeeklyReportJob();
+            scheduleNotificationAlarm();
         }
+    }
+
+    private  void scheduleNotificationAlarm() {
+        NotesUtils.addLog("MainActivity: configure alarm");
+        AlarmManager alarmManager = ProfLama.getAppContext().getSystemService(AlarmManager.class);
+        int request_code = 0;
+
+        Calendar dateToSchedule = Calendar.getInstance();
+        dateToSchedule.set(Calendar.HOUR_OF_DAY, 20);
+        dateToSchedule.set(Calendar.MINUTE, 0);
+        dateToSchedule.set(Calendar.SECOND, 0);
+
+        Calendar now = Calendar.getInstance();
+        if (now.after(dateToSchedule)) {
+            dateToSchedule.add(Calendar.DATE, 1);
+        }
+
+        Intent intent = new Intent(this, NotificationAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ProfLama.getAppContext(), request_code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC, dateToSchedule.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        NotesUtils.addLog("MainActivity: alarm configure with success");
     }
 
     private void toggleCurrentNote(int i) {

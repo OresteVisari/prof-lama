@@ -1,14 +1,10 @@
 package fr.pbenoit.proflama.services;
 
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
@@ -16,15 +12,6 @@ import fr.pbenoit.proflama.repositories.JsonFileRepository;
 public class NotesUtils {
 
     private  static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
-
-
-    /***
-     * This method is here to help the NotificationSchedule debugging
-     */
-    public static void logJobScheduleTime(int index, Date date) {
-        String log = (index == 0) ? "daily " : "weekly ";
-        addLog(log + " job schedule " + new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(date));
-    }
 
     private static void createWorkToLog(List<Note> notes) {
         Note noteWithLogs = new Note("logs");
@@ -50,7 +37,13 @@ public class NotesUtils {
             createWorkToLog(notes);
         }
 
-        noteWithLogs.setDefinition(noteWithLogs.getDefinition() + "\n" + log);
+        SimpleDateFormat logTimeFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
+        String time = logTimeFormat.format(new Date()) + " - ";
+
+        String prefix = "\n";
+        if (log.equals("Prof Lama start")) prefix = "\n\n";
+
+        noteWithLogs.setDefinition(noteWithLogs.getDefinition() + prefix + time + log);
         JsonFileRepository.saveNotes(notes);
     }
 
