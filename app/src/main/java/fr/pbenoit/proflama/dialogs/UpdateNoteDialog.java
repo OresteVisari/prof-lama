@@ -10,8 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -27,8 +27,8 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
     private EditText editTextDefinition;
     private EditText editTextQuote;
 
-    private Button switchTitleButton;
-    private Button switchContentButton;
+    private ImageButton switchTitleButton;
+    private ImageButton switchContentButton;
 
 
     private UpdateNoteDialogListener listener;

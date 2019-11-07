@@ -19,14 +19,12 @@
 
         android:gravity="center"
         android:orientation="horizontal" >
-        <Button
+        <ImageButton
             android:id="@+id/button_switch_title_and_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            android:stateListAnimator="@null"
-            android:textSize="12sp"
-            android:text="@string/switch_title_and_content" />
+            android:src="@drawable/switch_word_icon_24dp"/>
     </LinearLayout>
 
     <EditText
@@ -48,14 +46,12 @@
 
         android:gravity="center"
         android:orientation="horizontal" >
-        <Button
+        <ImageButton
             android:id="@+id/button_switch_content_and_quote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            android:stateListAnimator="@null"
-            android:textSize="12sp"
-            android:text="@string/switch_content_and_quote" />
+            android:src="@drawable/switch_word_icon_24dp"/>
     </LinearLayout>
 
 
