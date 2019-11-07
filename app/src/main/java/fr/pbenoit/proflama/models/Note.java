@@ -1,7 +1,11 @@
 package fr.pbenoit.proflama.models;
 
+import android.text.format.DateUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import fr.pbenoit.proflama.ProfLama;
 
 public class Note implements  Comparable<Note> {
 
@@ -54,8 +58,8 @@ public class Note implements  Comparable<Note> {
     public void setCreationDate(Date date) { this.creationDate = date;}
 
     public String getFormattedCreationDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(this.getCreationDate());
+        int flags = DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
+        return DateUtils.formatDateTime(ProfLama.getAppContext(), this.getCreationDate().getTime(), flags);
     }
 
     public Note(String title) {
