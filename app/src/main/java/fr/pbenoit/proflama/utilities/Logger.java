@@ -24,6 +24,8 @@ public class Logger {
     }
 
     public static void add(String log) {
+        return;
+        /*/
         List<Note> notes = JsonFileRepository.getAllNotes();
 
         if (notes.isEmpty()) {
@@ -43,5 +45,6 @@ public class Logger {
 
         noteWithLogs.setDefinition(noteWithLogs.getDefinition() + prefix + time + log);
         JsonFileRepository.saveNotes(notes);
+        /*/
     }
 }
