@@ -90,7 +90,7 @@ public class NotificationManager {
 
     public static void sendNotificationTriggerByAlarm(PendingIntent pendingIntent) {
         Calendar calendar = Calendar.getInstance();
-        NotificationPreferences notificationPreferences = JsonFileRepository.getNoticationPreferences();
+        NotificationPreferences notificationPreferences = JsonFileRepository.getNotificationPreferences();
 
         if ( calendar.get(Calendar.DAY_OF_MONTH)  == notificationPreferences.getLastDailyNotificationDay()
                 && calendar.get(Calendar.MONTH) == notificationPreferences.getLastDailyNotificationMonth()) {

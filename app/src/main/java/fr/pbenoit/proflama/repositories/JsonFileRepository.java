@@ -1,7 +1,6 @@
 package fr.pbenoit.proflama.repositories;
 
 import android.app.Application;
-import android.app.Notification;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,7 +52,7 @@ public class JsonFileRepository extends Application {
 
     public static List<Note> getAllNotes() {
         Gson gson = new Gson();
-        ArrayList<Note> notes = null;
+        ArrayList<Note> notes = new ArrayList<>();
         File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), NOTES_FILE_NAME);
 
         try {
@@ -64,15 +63,12 @@ public class JsonFileRepository extends Application {
             e.printStackTrace();
         }
 
-        if (notes == null) {
-            return new ArrayList<>();
-        }
         return notes;
     }
 
-    public static NotificationPreferences getNoticationPreferences() {
+    public static NotificationPreferences getNotificationPreferences() {
         Gson gson = new Gson();
-        NotificationPreferences notificationPreferences = null;
+        NotificationPreferences notificationPreferences = new NotificationPreferences();
         File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), ALARM_PREFERENCE_FILE_NAME);
 
         try {
@@ -83,9 +79,6 @@ public class JsonFileRepository extends Application {
             e.printStackTrace();
         }
 
-        if (notificationPreferences == null) {
-            return new NotificationPreferences();
-        }
         return notificationPreferences;
     }
 }

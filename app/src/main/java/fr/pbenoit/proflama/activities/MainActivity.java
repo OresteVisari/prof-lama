@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,9 +67,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            scheduleNotificationAlarm();
-        }
+        scheduleNotificationAlarm();
     }
 
     private  void scheduleNotificationAlarm() {

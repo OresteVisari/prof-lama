@@ -5,12 +5,9 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Collections;
 import java.util.List;
 
-import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.notifications.NotificationManager;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
