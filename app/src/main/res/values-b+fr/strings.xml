@@ -24,9 +24,9 @@
 
     <!-- Notifications -->
     <string name="pushNotificationNewTitleContent">Nouveau mot ajouté: </string>
-    <string name="dailyNotificationContent">Prenez 5 minutes pour revoir quelques mots ;)</string>
-    <string name="dailyNotificationWhenWordWasAddedContent">Vous avezappris %d aujourd\'hui. Il est temps de réviser :)</string>
-    <string name="weeklyNotificationContent">Bravo! Vous avez appris %d nouveaux mots cette semaine =D</string>
+    <string name="dailyNotificationContent">Prenez 5 minutes pour réviser quelques mots ;)</string>
+    <string name="dailyNotificationWhenWordWasAddedContent">Vous avez appris %d nouveaux mots aujourd\'hui.\nIl est temps de réviser :)</string>
+    <string name="weeklyNotificationContent">Bravo!!!\nVous avez appris %d nouveaux mots cette semaine =D</string>
 
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>
