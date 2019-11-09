@@ -1,0 +1,33 @@
+<resources>
+    <!-- Global -->
+    <string name="app_name">Prof Lama</string>
+
+    <!-- Main screen -->
+    <string name="mainScreenTitle">Prof Lama</string>
+
+    <!-- Add and update -->
+    <string name="save">Sauvegarder</string>
+    <string name="cancel">Annuler</string>
+
+    <string name="word">Mot</string>
+    <string name="definition">Définition</string>
+    <string name="quote">Citation</string>
+
+    <!-- Add word -->
+    <string name="addDialogTitle">Nouveau mot   ( ^ ᗜ ^ )</string>
+
+
+    <!-- Update dialog -->
+    <string name="updateDialogTitle">Édition d\'un mot   ( ° ᗜ ° )</string>
+    <string name="updateDialogDelete">Supprimer</string>
+
+
+    <!-- Notifications -->
+    <string name="pushNotificationNewTitleContent">Nouveau mot ajouté: </string>
+    <string name="dailyNotificationContent">Prenez 5 minutes pour revoir quelques mots ;)</string>
+    <string name="dailyNotificationWhenWordWasAddedContent">Vous avezappris %d aujourd\'hui. Il est temps de réviser :)</string>
+    <string name="weeklyNotificationContent">Bravo! Vous avez appris %d nouveaux mots cette semaine =D</string>
+
+    <!-- IMAGES -->
+    <string name="lamaIcon">lamaIcon</string>
+</resources>

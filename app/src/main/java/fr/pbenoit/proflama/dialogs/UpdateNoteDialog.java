@@ -47,7 +47,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle(R.string.updateDialogTitle)
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -59,7 +59,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
                         listener.deleteNote(indexNoteToUpdate);
                     }
                 })
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String title = editTextTitle.getText().toString();

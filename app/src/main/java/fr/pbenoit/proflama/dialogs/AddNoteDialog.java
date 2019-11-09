@@ -32,13 +32,13 @@ public class AddNoteDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle(ProfLama.getAppContext().getText(R.string.addDialogTitle))
-                .setNegativeButton(ProfLama.getAppContext().getText(R.string.no), new DialogInterface.OnClickListener() {
+                .setNegativeButton(ProfLama.getAppContext().getText(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton(ProfLama.getAppContext().getText(R.string.yes), new DialogInterface.OnClickListener() {
+                .setPositiveButton(ProfLama.getAppContext().getText(R.string.save), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String title = editTextTitle.getText().toString();
