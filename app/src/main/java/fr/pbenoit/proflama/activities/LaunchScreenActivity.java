@@ -7,7 +7,6 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import fr.pbenoit.proflama.R;
-import fr.pbenoit.proflama.utilities.Logger;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
@@ -17,8 +16,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
-
-        Logger.add("Prof Lama start");
 
         Runnable runnable = new Runnable() {
             @Override

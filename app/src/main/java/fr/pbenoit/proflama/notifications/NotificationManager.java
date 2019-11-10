@@ -12,7 +12,6 @@ import java.util.Calendar;
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
-import fr.pbenoit.proflama.utilities.Logger;
 import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class NotificationManager {
@@ -100,7 +99,6 @@ public class NotificationManager {
 
         if ( calendar.get(Calendar.DAY_OF_MONTH)  == notificationPreferences.getLastDailyNotificationDay()
                 && calendar.get(Calendar.MONTH) == notificationPreferences.getLastDailyNotificationMonth()) {
-            Logger.add("Do not sent, the alarm was already send today");
             return;
         }
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
