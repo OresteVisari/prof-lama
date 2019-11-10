@@ -30,7 +30,7 @@ public class NotificationManager {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public static void sendWorkCreationNotification(PendingIntent pendingIntent, String title) {
+    public static void sendWordCreationNotification(PendingIntent pendingIntent, String title) {
         NotificationManager.createNotificationChannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)

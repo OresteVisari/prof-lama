@@ -26,8 +26,6 @@ public class ProcessTextActivity extends Activity {
 
 
     private void addNewTitle(final String title) {
-        final Activity activity = this;
-
         List<Note> notes = JsonFileRepository.getAllNotes();
         notes.add(new Note(title));
         Collections.sort(notes);
@@ -35,8 +33,8 @@ public class ProcessTextActivity extends Activity {
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
-        NotificationManager.sendWorkCreationNotification(pendingIntent, title);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        NotificationManager.sendWordCreationNotification(pendingIntent, title);
 
         this.finish();
     }
