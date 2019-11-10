@@ -73,12 +73,18 @@ public class NotificationManager {
     private static void sendWeekSummaryNotification(PendingIntent pendingIntent) {
         NotificationManager.createNotificationChannel();
 
+        String content;
         int numberOfWordAddedThisWeek = NotesUtils.countNumberOfWordThisWeek();
+        if (numberOfWordAddedThisWeek > 0 ) {
+            content = ProfLama.getAppContext().getString(R.string.weeklyNotificationContent, numberOfWordAddedThisWeek);
+        } else {
+            content = ProfLama.getAppContext().getString(R.string.weeklyNotificationContentWhenNoWordAdded);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
-                .setContentText(ProfLama.getAppContext().getString(R.string.weeklyNotificationContent, numberOfWordAddedThisWeek))
+                .setContentText(content)
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

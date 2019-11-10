@@ -25,6 +25,8 @@
     <string name="dailyNotificationContent">Poświęć 5 minut na przejrzenie kilku słów ;)</string>
     <string name="dailyNotificationWhenWordWasAddedContent">Nauczyłeś się dzisiaj %d słów. Czas na powtórkę :)</string>
     <string name="weeklyNotificationContent">Brawo ! Nauczyłeś się %d nowych słów w tym tygodniu =D</string>
+    <string name="weeklyNotificationContentWhenNoWordAdded">W tym tygodniu nie nauczyłeś się nowych słów :(</string>
+
 
     <!-- IMAGES -->
     <string name="lamaIcon">lamaIcon</string>
