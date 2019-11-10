@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         scheduleNotificationAlarm();
     }
 
-    private  void scheduleNotificationAlarm() {
+    private void scheduleNotificationAlarm() {
         AlarmManager alarmManager = ProfLama.getAppContext().getSystemService(AlarmManager.class);
         int request_code = 0;
 

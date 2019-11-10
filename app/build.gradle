@@ -7,7 +7,8 @@ android {
         applicationId "fr.pbenoit.proflama"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
+        apply plugin: 'idea'
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

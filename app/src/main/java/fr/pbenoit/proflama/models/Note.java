@@ -2,7 +2,6 @@ package fr.pbenoit.proflama.models;
 
 import android.text.format.DateUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.pbenoit.proflama.ProfLama;
