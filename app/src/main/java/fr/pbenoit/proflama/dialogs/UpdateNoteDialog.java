@@ -20,16 +20,12 @@ import fr.pbenoit.proflama.models.Note;
 
 
 public class UpdateNoteDialog extends AppCompatDialogFragment {
-    private int indexNoteToUpdate;
-    private Note note;
+    private final  int indexNoteToUpdate;
+    private final Note note;
 
     private EditText editTextTitle;
     private EditText editTextDefinition;
     private EditText editTextQuote;
-
-    private ImageButton switchTitleButton;
-    private ImageButton switchContentButton;
-
 
     private UpdateNoteDialogListener listener;
 
@@ -78,7 +74,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
         editTextQuote = view.findViewById(R.id.edit_quote);
         editTextQuote.setText(note.getQuote());
 
-        switchTitleButton = view .findViewById(R.id.button_switch_title_and_content);
+        ImageButton switchTitleButton = view .findViewById(R.id.button_switch_title_and_content);
         switchTitleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +86,7 @@ public class UpdateNoteDialog extends AppCompatDialogFragment {
             }
         });
 
-        switchContentButton = view .findViewById(R.id.button_switch_content_and_quote);
+        ImageButton switchContentButton = view .findViewById(R.id.button_switch_content_and_quote);
         switchContentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

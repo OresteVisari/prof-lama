@@ -26,7 +26,4 @@
     <string name="dailyNotificationWhenWordWasAddedContent">You learned %d words today. It\' time to review :)</string>
     <string name="weeklyNotificationContent">Well done! You learned %d new words this week =D</string>
     <string name="weeklyNotificationContentWhenNoWordAdded">You haven\'t learned new words this week :(</string>
-
-    <!-- IMAGES -->
-    <string name="lamaIcon">lamaIcon</string>
 </resources>

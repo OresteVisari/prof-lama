@@ -16,7 +16,7 @@ public class Note implements  Comparable<Note> {
 
     private String quote;
 
-    public Date creationDate;
+    private Date creationDate;
 
     public String getTitle() {
         return title;

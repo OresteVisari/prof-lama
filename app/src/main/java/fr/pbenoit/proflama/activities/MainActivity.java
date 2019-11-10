@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             }
         });
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
 
         scheduleNotificationAlarm();
@@ -100,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         adapter.updateList();
     }
 
-    public void openAddNoteDialog() {
+    private void openAddNoteDialog() {
         AddNoteDialog addNoteDialog = new AddNoteDialog();
         addNoteDialog.show(getSupportFragmentManager(), "add");
     }
 
-    public void openUpdateNoteDialog(int i) {
+    private void openUpdateNoteDialog(int i) {
         UpdateNoteDialog updateNoteDialog = new UpdateNoteDialog(i, notes.get(i));
         updateNoteDialog.show(getSupportFragmentManager(), "update");
     }

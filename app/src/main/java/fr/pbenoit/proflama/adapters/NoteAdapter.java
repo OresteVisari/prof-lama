@@ -16,9 +16,9 @@ import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
 
-    private List<Note> notes;
+    private final List<Note> notes;
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     public NoteAdapter(Context context, List<Note> notes) {
         this.notes = notes;

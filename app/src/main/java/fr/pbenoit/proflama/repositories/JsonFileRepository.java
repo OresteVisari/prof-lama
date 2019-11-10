@@ -1,7 +1,5 @@
 package fr.pbenoit.proflama.repositories;
 
-import android.app.Application;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,7 +18,7 @@ import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.notifications.NotificationPreferences;
 
-public class JsonFileRepository extends Application {
+public class JsonFileRepository   {
 
     private static final String NOTES_FILE_NAME = "notes.json";
 
