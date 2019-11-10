@@ -19,7 +19,7 @@ public class NotificationManager {
 
     private static final String CHANNEL_ID = "channel_prof_lama";
 
-    public static void createNotificationChannel() {
+    private static void createNotificationChannel() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return;
         }
