@@ -36,10 +36,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_screen_wrapper);
-        this.notes = JsonFileRepository.getAllNotes();
-
         this.notesView = findViewById(R.id.notesListView);
-        notesView.setAdapter(new NoteAdapter(this, notes));
 
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         notificationManager.cancelAll();
 
         scheduleNotificationAlarm();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.notes = JsonFileRepository.getAllNotes();
+        notesView.setAdapter(new NoteAdapter(this, notes));
     }
 
     private void scheduleNotificationAlarm() {
