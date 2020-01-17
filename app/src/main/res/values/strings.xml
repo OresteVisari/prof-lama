@@ -14,10 +14,10 @@
     <string name="quote">Quote</string>
 
     <!-- Add word -->
-    <string name="addDialogTitle">New word   ( ^ ᗜ ^ )</string>
+    <string name="addDialogTitle">New word</string>
 
     <!-- Update dialog -->
-    <string name="updateDialogTitle">Edit your word   ( ° ᗜ ° )</string>
+    <string name="updateDialogTitle">Edit your word</string>
     <string name="updateDialogDelete">Delete</string>
 
     <!-- Notifications -->
