@@ -1,5 +1,6 @@
 package fr.pbenoit.proflama.utilities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,4 +47,31 @@ public class NotesUtils {
 
         return countNumberOfWordSinceSpecificDate(sevenDaysAgo);
     }
+
+    public static List<Note> getUncompleteNote() {
+        List<Note> allNotes = JsonFileRepository.getAllNotes();
+        List<Note> uncompletedNotes = new ArrayList<>();
+
+        for (Note note : allNotes) {
+            if (note.getDefinition().isEmpty()) {
+                uncompletedNotes.add(note);
+            }
+        }
+
+        return uncompletedNotes;
+    }
+
+    public static List<Note> getCompletedNote() {
+        List<Note> allNotes = JsonFileRepository.getAllNotes();
+        List<Note> completedNotes = new ArrayList<>();
+
+        for (Note note : allNotes) {
+            if (!note.getDefinition().isEmpty()) {
+                completedNotes.add(note);
+            }
+        }
+
+        return completedNotes;
+    }
+
 }
