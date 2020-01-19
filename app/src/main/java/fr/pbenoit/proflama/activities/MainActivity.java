@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,11 +34,18 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
     private ListView notesView;
 
+    private TextView menuItemTraining;
+
+    private TextView menuItemEdition;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_screen_wrapper);
         this.notesView = findViewById(R.id.notesListView);
+        this.menuItemTraining = findViewById(R.id.textMenuTraining);
+        this.menuItemEdition = findViewById(R.id.textMenuEdition);
 
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
                 return true;
             }
         });
+
+        View.OnClickListener toaster = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
+            }
+        };
+        menuItemTraining.setOnClickListener(toaster);
+        menuItemEdition.setOnClickListener(toaster);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

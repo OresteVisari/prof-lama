@@ -4,6 +4,10 @@
 
     <!-- Main screen -->
     <string name="mainScreenTitle">Prof Lama</string>
+    <string name="menuItemAll">Tout</string>
+    <string name="menuItemTraining">Révision</string>
+    <string name="menuItemEdition">Édition</string>
+
 
     <!-- Add and update -->
     <string name="save">Sauvegarder</string>

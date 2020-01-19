@@ -4,6 +4,9 @@
 
     <!-- Main screen -->
     <string name="mainScreenTitle">Prof Lama</string>
+    <string name="menuItemAll">Wszystko</string>
+    <string name="menuItemTraining">Trening</string>
+    <string name="menuItemEdition">Wydanie</string>
 
     <!-- Add and update -->
     <string name="save">Tak</string>
