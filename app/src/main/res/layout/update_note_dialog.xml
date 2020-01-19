@@ -15,10 +15,8 @@
     <LinearLayout
         android:id="@+id/layout_button_switch_title_and_content"
         android:layout_below="@id/edit_title"
-
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
         android:gravity="center"
         android:orientation="horizontal" >
         <ImageButton
@@ -45,10 +43,8 @@
     <LinearLayout
         android:id="@+id/layout_button_switch_content_and_quote"
         android:layout_below="@id/edit_definition"
-
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-
         android:gravity="center"
         android:orientation="horizontal" >
         <ImageButton
@@ -71,5 +67,47 @@
         android:hint="@string/quote"
         style="@style/EditTextCustom"
         />
+
+    <LinearLayout
+        android:id="@+id/actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_quote"
+        android:gravity="left"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingTop="16dp"
+            android:text="@string/updateDialogDelete"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/action_save"
+        android:layout_below="@id/edit_quote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingEnd="4dp"
+            android:text="@string/save"
+            android:textAlignment="viewEnd"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"
+             />
+    </LinearLayout>
 
 </RelativeLayout>
