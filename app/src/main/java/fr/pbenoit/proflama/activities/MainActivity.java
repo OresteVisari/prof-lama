@@ -50,7 +50,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                toggleCurrentNote(i);
+                Note currentNote = notes.get(i);
+                if (currentNote.getDefinition().isEmpty() && currentNote.getQuote().isEmpty()) {
+                    openUpdateNoteDialog(i);
+                } else {
+                    toggleCurrentNote(i);
+                }
             }
         });
 
