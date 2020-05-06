@@ -29,4 +29,12 @@
     <string name="dailyNotificationWhenWordWasAddedContent">You learned %d words today. It\' time to review :)</string>
     <string name="weeklyNotificationContent">Well done! You learned %d new words this week =D</string>
     <string name="weeklyNotificationContentWhenNoWordAdded">You haven\'t learned new words this week :(</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial1title">Tutorial 1 - Click here</string>
+    <string name="tutorial1definition">This is a word. If you want to edit it, do a long press on this word.</string>
+    <string name="tutorial1quote">Here you can edit all information about this word. You can edit the word, the definition or the quotation. Now close this one and open the second tutorial.</string>
+    <string name="tutorial2title">Tutorial 2 - How to add a word?</string>
+    <string name="tutorial2definition">Add a new word manually – click on the «+ » button to add a word you want to save. You can add the definition or quotations.</string>
+    <string name="tutorial2quote">Add a new word from the Internet – do a long press on the word you want to save and simply add it to Prof Lama.Not sure on how to to this? You can also watch the video tutorial on the Google Play page of Prof Lama.</string>
 </resources>

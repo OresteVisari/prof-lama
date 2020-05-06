@@ -96,14 +96,14 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.notes = JsonFileRepository.getAllNotes();
         if (notes.isEmpty()) {
             Note defaultNote1 = new Note();
-            defaultNote1.setTitle("Tutorial 1 - Click here");
-            defaultNote1.setDefinition("This is a word. If you want to edit it, do a long press on this word.");
-            defaultNote1.setQuote("Here you can edit all information for this word. You can edit the word, the definition or the quotation. Now close this one and open the second tutorial.");
+            defaultNote1.setTitle(getString(R.string.tutorial1title));
+            defaultNote1.setDefinition(getString(R.string.tutorial1definition));
+            defaultNote1.setQuote(getString(R.string.tutorial1quote));
 
             Note defaultNote2 = new Note();
-            defaultNote2.setTitle("Tutorial 2 - How to add a word?");
-            defaultNote2.setDefinition("Add a new word manually – click on the «+ » button to add a word you want to save. You can add the definition or some examples.");
-            defaultNote2.setQuote("Add a new word from Internet – do a long press on the word you want to save in an article, post or anywhere on the Web and simply add it to Prof Lama.\nNot sure on how to to this? You can also watch the tutotial on the Google Play page of Prof Lama.");
+            defaultNote2.setTitle(getString(R.string.tutorial2title));
+            defaultNote2.setDefinition(getString(R.string.tutorial2definition));
+            defaultNote2.setQuote(getString(R.string.tutorial2quote));
 
             notes.add(defaultNote1);
             notes.add(defaultNote2);

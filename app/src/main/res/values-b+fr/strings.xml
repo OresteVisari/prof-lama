@@ -32,4 +32,12 @@
     <string name="dailyNotificationWhenWordWasAddedContent">Vous avez appris %d nouveaux mots aujourd\'hui.\nIl est temps de réviser :)</string>
     <string name="weeklyNotificationContent">Bravo!!!\nVous avez appris %d nouveaux mots cette semaine =D</string>
     <string name="weeklyNotificationContentWhenNoWordAdded">Vous n\'avez pas appris de nouveaux mots cette semaine :(</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial1title">Tutoriel 1 - Cliquez ici</string>
+    <string name="tutorial1definition">Voici un mot. Si vous souhaitez le modifier, appuyez longuement sur ce mot.</string>
+    <string name="tutorial1quote">Ici, vous pouvez modifier toutes les informations sur ce mot. Vous pouvez modifier le mot, la définition ou la citation. Ouvrez le deuxième tutoriel pour savoir comment ajouter un nouveau mot.</string>
+    <string name="tutorial2title">Tutoriel 2 - Comment ajouter un mot ?</string>
+    <string name="tutorial2definition">Ajouter un nouveau mot manuellement - cliquez sur le bouton «+» pour ajouter un mot que vous souhaitez sauvegarder. Vous pouvez y ajouter la définition ou un exemple.</string>
+    <string name="tutorial2quote">Ajoutez un nouveau mot depuis l’Internet - appuyez longuement sur le mot que vous souhaitez sauvegarder et ajoutez-le simplement au professeur Lama.\nVous n’êtes pas sûr comment le faire ? Vous pouvez également regarder le tutoriel vidéo sur la page Google Play du Prof Lama.</string>
 </resources>

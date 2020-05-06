@@ -29,4 +29,12 @@
     <string name="dailyNotificationWhenWordWasAddedContent">Nauczyłeś się dzisiaj %d słów. Czas na powtórkę :)</string>
     <string name="weeklyNotificationContent">Brawo ! Nauczyłeś się %d nowych słów w tym tygodniu =D</string>
     <string name="weeklyNotificationContentWhenNoWordAdded">W tym tygodniu nie nauczyłeś się nowych słów :(</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial1title">Tutorial 1 – Kliknij tutaj</string>
+    <string name="tutorial1definition">To jest słowo. Jeśli chcesz je edytować, przyciśnij dłużej aby otworzyć okno edycji. </string>
+    <string name="tutorial1quote">Możesz teraz edytować wszystkie informacje dotyczące danego słowa – edytować wyraz, dodać definicje lub przykłady. Przejdź do następnego tutorialu żeby dowiedzieć się jak dodawać słowa.</string>
+    <string name="tutorial2title">Tutorial 2 – Jak dodać nowe słowo ?</string>
+    <string name="tutorial2definition">Dodaj nowe słowo ręcznie – kliknij przycisk « + » żeby dodać słowo, które chcesz zachować. Możesz dodać definicje lub cytaty (przykłady użycia).</string>
+    <string name="tutorial2quote">Dodaj nowe słowo z Internetu – przyciśnij dłużej słówko, które chcesz zachować i za pomocą opcji « Prof Lama » dodaj je do aplikacji. Nie wiesz jak to zrobić ? Video tutorial jest dostępny na stronie Google Play – Prof Lama.</string>
 </resources>
