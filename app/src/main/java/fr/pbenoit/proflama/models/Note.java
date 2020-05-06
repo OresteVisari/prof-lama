@@ -61,6 +61,10 @@ public class Note implements  Comparable<Note> {
         return DateUtils.formatDateTime(ProfLama.getAppContext(), this.getCreationDate().getTime(), flags);
     }
 
+    public Note() {
+        this("");
+    }
+
     public Note(String title) {
         this.title = title;
         this.definition = "";
