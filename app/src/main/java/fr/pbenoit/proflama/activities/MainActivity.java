@@ -95,13 +95,11 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         super.onResume();
         this.notes = JsonFileRepository.getAllNotes();
         if (notes.isEmpty()) {
-            Note defaultNote1 = new Note();
-            defaultNote1.setTitle(getString(R.string.tutorial1title));
+            Note defaultNote1 = new Note(getString(R.string.tutorial1title));
             defaultNote1.setDefinition(getString(R.string.tutorial1definition));
             defaultNote1.setQuote(getString(R.string.tutorial1quote));
 
-            Note defaultNote2 = new Note();
-            defaultNote2.setTitle(getString(R.string.tutorial2title));
+            Note defaultNote2 = new Note(getString(R.string.tutorial2title));
             defaultNote2.setDefinition(getString(R.string.tutorial2definition));
             defaultNote2.setQuote(getString(R.string.tutorial2quote));
 

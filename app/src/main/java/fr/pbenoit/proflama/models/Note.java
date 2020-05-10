@@ -60,11 +60,7 @@ public class Note implements  Comparable<Note> {
         int flags = DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
         return DateUtils.formatDateTime(ProfLama.getAppContext(), this.getCreationDate().getTime(), flags);
     }
-
-    public Note() {
-        this("");
-    }
-
+    
     public Note(String title) {
         this.title = title;
         this.definition = "";
