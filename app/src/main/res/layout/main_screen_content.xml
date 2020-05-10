@@ -257,6 +257,27 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textTrainingResultSuccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="48dp"
+                android:text="You know well the words: "
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                 />
+
+            <TextView
+                android:id="@+id/textTrainingResultFailure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="48dp"
+                android:text="You need to practice more the words: "
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                 />
+
+
         </LinearLayout>
 
     </FrameLayout>

@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private TextView answer1;
     private TextView answer2;
     private TextView answer3;
+    private TextView textTrainingResultSuccess;
+    private TextView textTrainingResultFailure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,11 +257,11 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Select an answer first.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"You need to found the good response to continue.", Toast.LENGTH_SHORT).show();
             }
         });
         Question question = trainingMode.getNextQuestion();
-        if (!question.isSolved) {
+        if (!question.isSolved()) {
             word.setText(question.getNote().getTitle());
             answer1.setText(question.getAnswers().get(0));
             answer2.setText(question.getAnswers().get(1));
@@ -271,27 +273,40 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
         if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
             linearLayoutAnswer.setBackgroundResource(R.drawable.shape_valid);
+            this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
+                    linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
+                    linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
+                    runQuiz();
+                }
+            });
         } else {
             linearLayoutAnswer.setBackgroundResource(R.drawable.shape_invalid);
-            //todo: color in blue the good response
         }
-
-        //todo: disable click on other answers
-
-        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
-                linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
-                linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
-                runQuiz();
-            }
-        });
     }
 
     private void displayQuizResult() {
         this.trainingLayout.setVisibility(View.GONE);
         this.trainingResultLayout.setVisibility(View.VISIBLE);
+
+        this.textTrainingResultSuccess = findViewById(R.id.textTrainingResultSuccess);
+        this.textTrainingResultFailure = findViewById(R.id.textTrainingResultFailure);
+
+        String success = "Bravo, tu connais bien les mots: ";
+        String failure = "Il faudra cependant réviser les mots: ";
+
+        for (Question question : trainingMode.getQuestions()) {
+            if (question.getNote().getTestStatus() == TestStatus.SUCCESS) {
+                success += question.getNote().getTitle() + " ";
+            } else {
+                failure += question.getNote().getTitle() + " ";
+            }
+        }
+
+        this.textTrainingResultSuccess.setText(success);
+        this.textTrainingResultFailure.setText(failure);
     }
 
     private void toggleCurrentNote(int i) {

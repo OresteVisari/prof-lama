@@ -6,9 +6,11 @@ import java.util.List;
 
 public class Question {
 
-    public boolean isSolved;
+    private boolean isSolved;
 
-    public boolean isFirstTry;
+    private boolean isFirstTryEver;
+
+    public boolean isFirstTryForThisTurn;
 
     Note note;
 
@@ -18,15 +20,12 @@ public class Question {
         this.note = note;
         this.answers = new ArrayList<>();
         this.isSolved = false;
-        this.isFirstTry = true;
+        this.isFirstTryEver = true;
+        this.isFirstTryForThisTurn = true;
     }
 
     public Note getNote() {
         return note;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
     }
 
     public void addAnswer(String answer) {
@@ -36,5 +35,24 @@ public class Question {
 
     public List<String> getAnswers() {
         return answers;
+    }
+
+    public boolean isSolved() {
+        return isSolved;
+    }
+
+    public void firstTurnDone() {
+        this.isFirstTryForThisTurn = false;
+        this.isFirstTryEver = false;
+    }
+    public void changeToSolved() {
+        if (isFirstTryEver) {
+            this.note.setTestStatus(TestStatus.SUCCESS);
+        } else {
+            this.note.setTestStatus(TestStatus.FAILED);
+        }
+        if (isFirstTryForThisTurn) {
+            this.isSolved = true;
+        }
     }
 }

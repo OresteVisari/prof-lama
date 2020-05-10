@@ -28,7 +28,8 @@ public class TrainingMode {
         if (questionIndex == 5) {
             questionIndex = 0;
         }
-        if (!this.questions.get(questionIndex).isSolved) {
+        if (!this.questions.get(questionIndex).isSolved()) {
+            this.questions.get(questionIndex).isFirstTryForThisTurn = true;
             return this.questions.get(questionIndex);
         }
         return getNextQuestion();
@@ -65,18 +66,24 @@ public class TrainingMode {
 
     public boolean isValidAnswer(String answer) {
         if (this.questions.get(questionIndex).getNote().getDefinition().equals(answer)) {
-            this.questions.get(questionIndex).isSolved = true;
+            this.questions.get(questionIndex).changeToSolved();
             return true;
+        } else {
+            this.questions.get(questionIndex).firstTurnDone();
         }
         return false;
     }
 
     public boolean isQuizFinish() {
         for (Question question : questions) {
-            if (!question.isSolved) {
+            if (!question.isSolved()) {
                 return false;
             }
         }
         return true;
+    }
+
+    public List<Question> getQuestions() {
+        return this.questions;
     }
 }
