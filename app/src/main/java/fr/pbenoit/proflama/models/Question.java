@@ -8,6 +8,8 @@ public class Question {
 
     public boolean isSolved;
 
+    public boolean isFirstTry;
+
     Note note;
 
     private List<String> answers;
@@ -16,6 +18,7 @@ public class Question {
         this.note = note;
         this.answers = new ArrayList<>();
         this.isSolved = false;
+        this.isFirstTry = true;
     }
 
     public Note getNote() {

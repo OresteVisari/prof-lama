@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,6 +33,7 @@ import fr.pbenoit.proflama.models.Question;
 import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
+import fr.pbenoit.proflama.utilities.TrainingMode;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private TextView menuItemTraining;
     private TextView menuItemEdition;
 
+    // LAYOUT
     private RelativeLayout mainLayout;
     private LinearLayout trainingLayout;
+    private LinearLayout trainingResultLayout;
 
     // MAIN SCREEN
     private List<Note> notes;
     private ListView notesView;
-
 
     // QUIZ
     private TrainingMode trainingMode;
@@ -70,12 +71,16 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.setContentView(R.layout.main_screen_wrapper);
         this.floatingActionButton = findViewById(R.id.fab);
         this.notesView = findViewById(R.id.notesListView);
+
         this.menuItemAll = findViewById(R.id.textMenuAll);
         this.menuItemTraining = findViewById(R.id.textMenuTraining);
         this.menuItemEdition = findViewById(R.id.textMenuEdition);
+
         this.mainLayout = findViewById(R.id.mainLayout);
         this.trainingLayout = findViewById(R.id.trainingLayout);
-        this.trainingLayout.setVisibility(View.INVISIBLE);
+        this.trainingLayout.setVisibility(View.GONE);
+        this.trainingResultLayout = findViewById(R.id.trainingResultLayout);
+        this.trainingResultLayout.setVisibility(View.GONE);
 
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -179,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.menuItemAll.setTypeface(null, Typeface.BOLD);
 
         this.trainingLayout.setVisibility(View.INVISIBLE);
+        this.trainingResultLayout.setVisibility(View.GONE);
         this.menuItemTraining.setBackgroundResource(0);
         this.menuItemTraining.setTypeface(null, Typeface.NORMAL);
 
@@ -201,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.mainLayout.setVisibility(View.INVISIBLE);
         this.menuItemAll.setBackgroundResource(0);
         this.menuItemAll.setTypeface(null, Typeface.NORMAL);
+        this.trainingResultLayout.setVisibility(View.GONE);
 
         this.trainingLayout.setVisibility(View.VISIBLE);
         this.menuItemTraining.setBackgroundResource(R.drawable.border);
@@ -242,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
     private void runQuiz() {
         if (trainingMode.isQuizFinish()) {
-            //todo: display results
+            displayQuizResult();
             return;
         }
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -263,9 +270,9 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
     private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
         if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
-            linearLayoutAnswer.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            linearLayoutAnswer.setBackgroundResource(R.drawable.shape_valid);
         } else {
-            linearLayoutAnswer.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            linearLayoutAnswer.setBackgroundResource(R.drawable.shape_invalid);
             //todo: color in blue the good response
         }
 
@@ -274,12 +281,17 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                linearLayoutAnswer1.setBackgroundColor(0);
-                linearLayoutAnswer2.setBackgroundColor(0);
-                linearLayoutAnswer3.setBackgroundColor(0);
+                linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
+                linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
+                linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
                 runQuiz();
             }
         });
+    }
+
+    private void displayQuizResult() {
+        this.trainingLayout.setVisibility(View.GONE);
+        this.trainingResultLayout.setVisibility(View.VISIBLE);
     }
 
     private void toggleCurrentNote(int i) {

@@ -1,4 +1,4 @@
-package fr.pbenoit.proflama.activities;
+package fr.pbenoit.proflama.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
