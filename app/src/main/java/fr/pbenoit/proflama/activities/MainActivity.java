@@ -4,10 +4,13 @@ import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,25 +31,37 @@ import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
+import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
     private List<Note> notes;
 
+    private List<Note> notesForTraining;
+
     private ListView notesView;
+
+    private TextView menuItemAll;
 
     private TextView menuItemTraining;
 
     private TextView menuItemEdition;
 
+    private RelativeLayout mainLayout;
+
+    private RelativeLayout trainingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_screen_wrapper);
         this.notesView = findViewById(R.id.notesListView);
+        this.menuItemAll = findViewById(R.id.textMenuAll);
         this.menuItemTraining = findViewById(R.id.textMenuTraining);
         this.menuItemEdition = findViewById(R.id.textMenuEdition);
+        this.mainLayout = findViewById(R.id.mainLayout);
+        this.trainingLayout = findViewById(R.id.trainingLayout);
+        this.trainingLayout.setVisibility(View.INVISIBLE);
 
         notesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,14 +83,28 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             }
         });
 
-        View.OnClickListener toaster = new View.OnClickListener() {
+        View.OnClickListener onClickMainPageMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMainPage();
+            }
+        };
+        View.OnClickListener onClickTrainingMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTrainingMode();
+            }
+        };
+        View.OnClickListener toasterEdition = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
             }
         };
-        menuItemTraining.setOnClickListener(toaster);
-        menuItemEdition.setOnClickListener(toaster);
+
+        menuItemAll.setOnClickListener(onClickMainPageMenu);
+        menuItemTraining.setOnClickListener(onClickTrainingMenu);
+        menuItemEdition.setOnClickListener(toasterEdition);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +118,29 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         notificationManager.cancelAll();
 
         scheduleNotificationAlarm();
+    }
+
+    private void openMainPage() {
+        this.mainLayout.setVisibility(View.VISIBLE);
+        this.menuItemAll.setBackgroundResource(R.drawable.border);
+        this.menuItemAll.setTypeface(null, Typeface.BOLD);
+
+        this.trainingLayout.setVisibility(View.INVISIBLE);
+        this.menuItemTraining.setBackgroundResource(0);
+        this.menuItemTraining.setTypeface(null, Typeface.NORMAL);
+
+    }
+
+    private void openTrainingMode() {
+        this.mainLayout.setVisibility(View.INVISIBLE);
+        this.menuItemAll.setBackgroundResource(0);
+        this.menuItemAll.setTypeface(null, Typeface.NORMAL);
+
+        this.trainingLayout.setVisibility(View.VISIBLE);
+        this.menuItemTraining.setBackgroundResource(R.drawable.border);
+        this.menuItemTraining.setTypeface(null, Typeface.BOLD);
+
+        this.notesForTraining = NotesUtils.getNotesForTraining();
     }
 
     @Override

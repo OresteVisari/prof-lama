@@ -106,6 +106,7 @@
         >
 
         <RelativeLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -130,5 +131,27 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/trainingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+
+            >
+
+            <TextView
+                android:id="@+id/textTrainingTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="48dp"
+                android:text="Select the correct definition"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
