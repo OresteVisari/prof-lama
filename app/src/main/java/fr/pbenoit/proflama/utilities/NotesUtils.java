@@ -69,7 +69,7 @@ public class NotesUtils {
         List<Note> completedNotes = new ArrayList<>();
 
         for (Note note : allNotes) {
-            if (!note.getDefinition().isEmpty()) {
+            if (!note.getDefinition().isEmpty() && note.getTestStatus() != TestStatus.NOT_APPLICABLE) {
                 completedNotes.add(note);
             }
         }

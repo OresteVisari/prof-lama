@@ -26,10 +26,12 @@ import fr.pbenoit.proflama.NotificationAlarmReceiver;
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
+import fr.pbenoit.proflama.adapters.TrainingNoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.TestStatus;
+import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
 
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private List<Note> notesForTraining;
 
     private ListView notesView;
+
+    private ListView trainingNotesView;
 
     private TextView menuItemAll;
 
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_screen_wrapper);
         this.notesView = findViewById(R.id.notesListView);
+        this.trainingNotesView = findViewById(R.id.trainingNotesListView);
         this.menuItemAll = findViewById(R.id.textMenuAll);
         this.menuItemTraining = findViewById(R.id.textMenuTraining);
         this.menuItemEdition = findViewById(R.id.textMenuEdition);
@@ -120,29 +125,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         scheduleNotificationAlarm();
     }
 
-    private void openMainPage() {
-        this.mainLayout.setVisibility(View.VISIBLE);
-        this.menuItemAll.setBackgroundResource(R.drawable.border);
-        this.menuItemAll.setTypeface(null, Typeface.BOLD);
-
-        this.trainingLayout.setVisibility(View.INVISIBLE);
-        this.menuItemTraining.setBackgroundResource(0);
-        this.menuItemTraining.setTypeface(null, Typeface.NORMAL);
-
-    }
-
-    private void openTrainingMode() {
-        this.mainLayout.setVisibility(View.INVISIBLE);
-        this.menuItemAll.setBackgroundResource(0);
-        this.menuItemAll.setTypeface(null, Typeface.NORMAL);
-
-        this.trainingLayout.setVisibility(View.VISIBLE);
-        this.menuItemTraining.setBackgroundResource(R.drawable.border);
-        this.menuItemTraining.setTypeface(null, Typeface.BOLD);
-
-        this.notesForTraining = NotesUtils.getNotesForTraining();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -181,6 +163,40 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         Intent intent = new Intent(this, NotificationAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ProfLama.getAppContext(), request_code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setRepeating(AlarmManager.RTC, dateToSchedule.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    private void openMainPage() {
+        this.mainLayout.setVisibility(View.VISIBLE);
+        this.menuItemAll.setBackgroundResource(R.drawable.border);
+        this.menuItemAll.setTypeface(null, Typeface.BOLD);
+
+        this.trainingLayout.setVisibility(View.INVISIBLE);
+        this.menuItemTraining.setBackgroundResource(0);
+        this.menuItemTraining.setTypeface(null, Typeface.NORMAL);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+    }
+
+    private void openTrainingMode() {
+        this.notesForTraining = NotesUtils.getNotesForTraining();
+        if (notesForTraining.isEmpty()) {
+            Toast.makeText(getApplicationContext(),"You need to have at least 10 complete words to unlock this mode.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        this.mainLayout.setVisibility(View.INVISIBLE);
+        this.menuItemAll.setBackgroundResource(0);
+        this.menuItemAll.setTypeface(null, Typeface.NORMAL);
+
+        this.trainingLayout.setVisibility(View.VISIBLE);
+        this.menuItemTraining.setBackgroundResource(R.drawable.border);
+        this.menuItemTraining.setTypeface(null, Typeface.BOLD);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
+        TrainingMode trainingMode = new TrainingMode(notesForTraining);
+        trainingNotesView.setAdapter(new TrainingNoteAdapter(this, notesForTraining));
     }
 
     private void toggleCurrentNote(int i) {

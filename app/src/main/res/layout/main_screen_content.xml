@@ -152,6 +152,30 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textTrainingWord"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="78dp"
+                android:text="Beg"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ListView
+                android:id="@+id/trainingNotesListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="120dp"
+                android:clickable="false"
+                android:listSelector="@android:color/transparent"
+
+                android:divider="@null"
+                android:dividerHeight="0dp">
+
+            </ListView>
+
         </RelativeLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
