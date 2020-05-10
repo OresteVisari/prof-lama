@@ -1,7 +1,8 @@
 package fr.pbenoit.proflama.models;
 
-enum TestStatus {
+public enum TestStatus {
     UNKNOW,
     FAILED,
-    SUCCESS
+    SUCCESS,
+    NOT_APPLICABLE
 }

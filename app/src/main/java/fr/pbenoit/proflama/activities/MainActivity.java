@@ -26,6 +26,7 @@ import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
@@ -98,10 +99,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             Note defaultNote1 = new Note(getString(R.string.tutorial1title));
             defaultNote1.setDefinition(getString(R.string.tutorial1definition));
             defaultNote1.setQuote(getString(R.string.tutorial1quote));
+            defaultNote1.setTestStatus(TestStatus.NOT_APPLICABLE);
 
             Note defaultNote2 = new Note(getString(R.string.tutorial2title));
             defaultNote2.setDefinition(getString(R.string.tutorial2definition));
             defaultNote2.setQuote(getString(R.string.tutorial2quote));
+            defaultNote2.setTestStatus(TestStatus.NOT_APPLICABLE);
 
             notes.add(defaultNote1);
             notes.add(defaultNote2);

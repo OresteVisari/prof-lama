@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class NotesUtils {
 
     private  static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+    private static final int NUMBER_OF_WORD_IN_TRAINING = 5;
 
     private static int countNumberOfWordSinceSpecificDate(Calendar date) {
         List<Note> notes = JsonFileRepository.getAllNotes();
@@ -72,6 +75,44 @@ public class NotesUtils {
         }
 
         return completedNotes;
+    }
+
+    public static List<Note> getNotesForTraining() {
+        List<Note> completedNotes = getCompletedNote();
+
+        if (completedNotes.size() < 10) {
+            return new ArrayList<>();
+        }
+
+        List<Note> notesForTraining = new ArrayList<>();
+        for (Note note : completedNotes) {
+            if (note.getTestStatus() == TestStatus.FAILED) {
+                notesForTraining.add(note);
+                if (notesForTraining.size() == NUMBER_OF_WORD_IN_TRAINING) {
+                    return notesForTraining;
+                }
+            }
+        }
+
+        for (Note note : completedNotes) {
+            if (note.getTestStatus() == TestStatus.UNKNOW) {
+                notesForTraining.add(note);
+                if (notesForTraining.size() == NUMBER_OF_WORD_IN_TRAINING) {
+                    return notesForTraining;
+                }
+            }
+        }
+
+        for (Note note : completedNotes) {
+            if (note.getTestStatus() == TestStatus.SUCCESS) {
+                notesForTraining.add(note);
+                if (notesForTraining.size() == NUMBER_OF_WORD_IN_TRAINING) {
+                    return notesForTraining;
+                }
+            }
+        }
+
+        return new ArrayList<>();
     }
 
 }
