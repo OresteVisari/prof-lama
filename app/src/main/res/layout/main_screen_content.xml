@@ -130,46 +130,52 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/trainingLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-
+            android:orientation="vertical"
+            android:layout_gravity="top"
             >
 
-            <TextView
-                android:id="@+id/textTrainingTitle"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="48dp"
-                android:text="Select the correct definition"
-                android:textAlignment="viewStart"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="200dp">
 
-            <TextView
-                android:id="@+id/textTrainingWord"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="84dp"
-                android:text="Beg"
-                android:textAlignment="viewStart"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textTrainingTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="48dp"
+                    android:text="Select the correct definition"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textTrainingWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="84dp"
+                    android:text="Beg"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/layoutAnswer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
 
                 android:background="@drawable/shape"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="top">
 
                 <TextView
                     android:id="@+id/answer1"
@@ -179,11 +185,19 @@
                     android:text="AA" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/layoutAnswer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="220dp"
 
                 android:background="@drawable/shape"
                 android:orientation="vertical">
@@ -196,11 +210,19 @@
                     android:text="BB" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/layoutAnswer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="290dp"
 
                 android:background="@drawable/shape"
                 android:orientation="vertical">
@@ -213,6 +235,7 @@
                     android:text="CC" />
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

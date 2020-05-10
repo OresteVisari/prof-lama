@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private TextView menuItemEdition;
 
     private RelativeLayout mainLayout;
-    private RelativeLayout trainingLayout;
+    private LinearLayout trainingLayout;
 
     // MAIN SCREEN
     private List<Note> notes;
