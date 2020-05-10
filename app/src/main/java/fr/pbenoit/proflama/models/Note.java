@@ -18,6 +18,27 @@ public class Note implements  Comparable<Note> {
 
     private Date creationDate;
 
+    private TestStatus testStatus;
+
+    public Note(String title) {
+        this.title = title;
+        this.definition = "";
+        this.quote = "";
+        this.creationDate = new Date(System.currentTimeMillis());
+        this.testStatus = TestStatus.UNKNOW;
+    }
+
+    public Note(String title, String definition, String quote) {
+        this(title);
+        this.setDefinition(definition);
+        this.setQuote(quote);
+    }
+
+    @Override
+    public int compareTo(Note note) {
+        return note.getCreationDate().compareTo(this.creationDate);
+    }
+
     public String getTitle() {
         return title;
     }
@@ -60,25 +81,16 @@ public class Note implements  Comparable<Note> {
         int flags = DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
         return DateUtils.formatDateTime(ProfLama.getAppContext(), this.getCreationDate().getTime(), flags);
     }
-    
-    public Note(String title) {
-        this.title = title;
-        this.definition = "";
-        this.quote = "";
-        this.creationDate = new Date(System.currentTimeMillis());
+
+    public TestStatus getTestStatus() {
+        if (this.testStatus == null) {
+            this.testStatus = TestStatus.UNKNOW;
+        }
+        return testStatus;
     }
 
-    public Note(String title, String definition, String quote) {
-        this(title);
-        this.setDefinition(definition);
-        this.setQuote(quote);
+    public void setTestStatus(TestStatus testStatus) {
+        this.testStatus = testStatus;
     }
-
-    @Override
-    public int compareTo(Note note) {
-        return note.getCreationDate().compareTo(this.creationDate);
-    }
-
-
 }
 
