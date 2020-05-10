@@ -1,15 +1,21 @@
 package fr.pbenoit.proflama.models;
 
-class Question {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Question {
+
+    public boolean isSolved;
 
     Note note;
 
-    String fakeAnswer1;
-
-    String fakeAnswer2;
+    private List<String> answers;
 
     public Question(Note note) {
         this.note = note;
+        this.answers = new ArrayList<>();
+        this.isSolved = false;
     }
 
     public Note getNote() {
@@ -20,21 +26,12 @@ class Question {
         this.note = note;
     }
 
-    public String getFakeAnswer1() {
-        return fakeAnswer1;
+    public void addAnswer(String answer) {
+        this.answers.add(answer);
+        Collections.shuffle(this.answers);
     }
 
-    public void setFakeAnswer1(String fakeAnswer1) {
-        this.fakeAnswer1 = fakeAnswer1;
+    public List<String> getAnswers() {
+        return answers;
     }
-
-    public String getFakeAnswer2() {
-        return fakeAnswer2;
-    }
-
-    public void setFakeAnswer2(String fakeAnswer2) {
-        this.fakeAnswer2 = fakeAnswer2;
-    }
-
-
 }

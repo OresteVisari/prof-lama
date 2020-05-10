@@ -6,15 +6,16 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -26,41 +27,49 @@ import fr.pbenoit.proflama.NotificationAlarmReceiver;
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
-import fr.pbenoit.proflama.adapters.TrainingNoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.models.Question;
 import fr.pbenoit.proflama.models.TestStatus;
-import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
-    private List<Note> notes;
-
-    private List<Note> notesForTraining;
-
-    private ListView notesView;
-
-    private ListView trainingNotesView;
+    // GLOBAL
+    private FloatingActionButton floatingActionButton;
 
     private TextView menuItemAll;
-
     private TextView menuItemTraining;
-
     private TextView menuItemEdition;
 
     private RelativeLayout mainLayout;
-
     private RelativeLayout trainingLayout;
+
+    // MAIN SCREEN
+    private List<Note> notes;
+    private ListView notesView;
+
+
+    // QUIZ
+    private TrainingMode trainingMode;
+    private TextView word;
+
+    LinearLayout linearLayoutAnswer1;
+    LinearLayout linearLayoutAnswer2;
+    LinearLayout linearLayoutAnswer3;
+
+    private TextView answer1;
+    private TextView answer2;
+    private TextView answer3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.main_screen_wrapper);
+        this.floatingActionButton = findViewById(R.id.fab);
         this.notesView = findViewById(R.id.notesListView);
-        this.trainingNotesView = findViewById(R.id.trainingNotesListView);
         this.menuItemAll = findViewById(R.id.textMenuAll);
         this.menuItemTraining = findViewById(R.id.textMenuTraining);
         this.menuItemEdition = findViewById(R.id.textMenuEdition);
@@ -111,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
         menuItemEdition.setOnClickListener(toasterEdition);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddNoteDialog();
@@ -174,12 +182,17 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.menuItemTraining.setBackgroundResource(0);
         this.menuItemTraining.setTypeface(null, Typeface.NORMAL);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+        this.floatingActionButton.setImageResource(android.R.drawable.ic_input_add);
+        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddNoteDialog();
+            }
+        });
     }
 
     private void openTrainingMode() {
-        this.notesForTraining = NotesUtils.getNotesForTraining();
+        List<Note> notesForTraining = NotesUtils.getNotesForTraining();
         if (notesForTraining.isEmpty()) {
             Toast.makeText(getApplicationContext(),"You need to have at least 10 complete words to unlock this mode.", Toast.LENGTH_SHORT).show();
             return;
@@ -193,10 +206,80 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.menuItemTraining.setBackgroundResource(R.drawable.border);
         this.menuItemTraining.setTypeface(null, Typeface.BOLD);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
-        floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
-        TrainingMode trainingMode = new TrainingMode(notesForTraining);
-        trainingNotesView.setAdapter(new TrainingNoteAdapter(this, notesForTraining));
+        this.floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
+
+        this.word = findViewById(R.id.textTrainingWord);
+        this.answer1 = findViewById(R.id.answer1);
+        this.answer2 = findViewById(R.id.answer2);
+        this.answer3 = findViewById(R.id.answer3);
+
+        this.linearLayoutAnswer1 = findViewById(R.id.layoutAnswer1);
+        this.linearLayoutAnswer2 = findViewById(R.id.layoutAnswer2);
+        this.linearLayoutAnswer3 = findViewById(R.id.layoutAnswer3);
+
+        linearLayoutAnswer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyQuiz(linearLayoutAnswer1, answer1);
+            }
+        });
+        linearLayoutAnswer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyQuiz(linearLayoutAnswer2, answer2);
+            }
+        });
+        linearLayoutAnswer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyQuiz(linearLayoutAnswer3, answer3);
+            }
+        });
+
+        this.trainingMode = new TrainingMode(notesForTraining);
+        runQuiz();
+    }
+
+    private void runQuiz() {
+        if (trainingMode.isQuizFinish()) {
+            //todo: display results
+            return;
+        }
+        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Select an answer first.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Question question = trainingMode.getNextQuestion();
+        if (!question.isSolved) {
+            word.setText(question.getNote().getTitle());
+            answer1.setText(question.getAnswers().get(0));
+            answer2.setText(question.getAnswers().get(1));
+            answer3.setText(question.getAnswers().get(2));
+        }
+
+    }
+
+    private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
+        if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
+            linearLayoutAnswer.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        } else {
+            linearLayoutAnswer.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            //todo: color in blue the good response
+        }
+
+        //todo: disable click on other answers
+
+        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearLayoutAnswer1.setBackgroundColor(0);
+                linearLayoutAnswer2.setBackgroundColor(0);
+                linearLayoutAnswer3.setBackgroundColor(0);
+                runQuiz();
+            }
+        });
     }
 
     private void toggleCurrentNote(int i) {
