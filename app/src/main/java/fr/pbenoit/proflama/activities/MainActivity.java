@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             displayQuizResult();
             return;
         }
+        setDefaultBackgroundOnAnswers();
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,15 +272,18 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
     }
 
+    private void setDefaultBackgroundOnAnswers() {
+        linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
+        linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
+        linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
+    }
+
     private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
         if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
             linearLayoutAnswer.setBackgroundResource(R.drawable.shape_valid);
             this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
-                    linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
-                    linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
                     runQuiz();
                 }
             });
