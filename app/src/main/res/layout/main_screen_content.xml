@@ -7,17 +7,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.MainActivity"
     tools:showIn="@layout/main_screen_wrapper"
-    android:background="@color/colorWhite"
-    >
+    android:background="@color/colorWhite">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimary"
-        >
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/imageView"
@@ -29,9 +26,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="100dp"
-            >
-
+            android:paddingLeft="100dp">
             <TextView
                 android:id="@+id/textMenuAll"
                 android:layout_width="59dp"
@@ -43,15 +38,12 @@
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="174dp">
-
             <TextView
                 android:id="@+id/textMenuTraining"
                 android:layout_width="80dp"
@@ -61,14 +53,12 @@
                 android:textAlignment="center"
                 android:textColor="#D5FFFFFF"
                 android:textSize="18sp" />
-
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="240dp">
-
             <TextView
                 android:id="@+id/textMenuEdition"
                 android:layout_width="138dp"
@@ -78,10 +68,7 @@
                 android:textAlignment="center"
                 android:textColor="#D5FFFFFF"
                 android:textSize="18sp" />
-
         </FrameLayout>
-
-
     </FrameLayout>
 
     <View
@@ -93,8 +80,7 @@
         android:paddingBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -102,19 +88,14 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-
-            >
+            android:layout_marginRight="24dp">
 
             <ListView
                 android:id="@+id/notesListView"
@@ -123,11 +104,9 @@
                 android:layout_marginTop="50dp"
                 android:clickable="false"
                 android:listSelector="@android:color/transparent"
-
                 android:divider="@null"
                 android:dividerHeight="0dp">
             </ListView>
-
 
         </RelativeLayout>
 
