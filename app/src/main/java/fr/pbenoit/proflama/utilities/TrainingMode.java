@@ -6,7 +6,6 @@ import java.util.Random;
 
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.Question;
-import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class TrainingMode {
 
@@ -16,10 +15,11 @@ public class TrainingMode {
 
     List<Question> questions;
 
-    public TrainingMode(List<Note> notesForTraining) {
+    public TrainingMode(List<Note> allNotes) {
         this.questions = new ArrayList<>();
         this.questionIndex = 0;
-        List<Note> notesCompleted = NotesUtils.getCompletedNote();
+        List<Note> notesCompleted = NotesUtils.getCompletedNote(allNotes);
+        List<Note> notesForTraining = NotesUtils.getNotesForTraining(allNotes);
         for (Note note : notesForTraining) {
             questions.add(buildQuestion(notesCompleted, note));
         }

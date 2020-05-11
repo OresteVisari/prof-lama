@@ -63,11 +63,10 @@ public class NotesUtils {
         return uncompletedNotes;
     }
 
-    public static List<Note> getCompletedNote() {
-        List<Note> allNotes = JsonFileRepository.getAllNotes();
+    public static List<Note> getCompletedNote(List<Note> notes) {
         List<Note> completedNotes = new ArrayList<>();
 
-        for (Note note : allNotes) {
+        for (Note note : notes) {
             if (!note.getDefinition().isEmpty() && note.getTestStatus() != TestStatus.NOT_APPLICABLE) {
                 completedNotes.add(note);
             }
@@ -76,8 +75,8 @@ public class NotesUtils {
         return completedNotes;
     }
 
-    public static List<Note> getNotesForTraining() {
-        List<Note> completedNotes = getCompletedNote();
+    public static List<Note> getNotesForTraining(List<Note> notes) {
+        List<Note> completedNotes = getCompletedNote(notes);
 
         if (completedNotes.size() < 10) {
             return new ArrayList<>();

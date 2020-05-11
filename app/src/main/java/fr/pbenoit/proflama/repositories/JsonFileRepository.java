@@ -30,10 +30,8 @@ public class JsonFileRepository   {
     private static void writeFile(String json, String fileName) {
         File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), fileName);
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(json);
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,11 +66,10 @@ public class JsonFileRepository   {
         ArrayList<Note> notes = new ArrayList<>();
         File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), NOTES_FILE_NAME);
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             Type listType = new TypeToken<ArrayList<Note>>(){}.getType();
             notes = gson.fromJson(br, listType);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     private void openTrainingMode() {
-        List<Note> notesForTraining = NotesUtils.getNotesForTraining();
+        List<Note> notesForTraining = NotesUtils.getNotesForTraining(this.notes);
         if (notesForTraining.isEmpty()) {
             Toast.makeText(getApplicationContext(),"You need to have at least 10 complete words to unlock this mode.", Toast.LENGTH_SHORT).show();
             return;
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             }
         });
 
-        this.trainingMode = new TrainingMode(notesForTraining);
+        this.trainingMode = new TrainingMode(this.notes);
         runQuiz();
     }
 
