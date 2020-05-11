@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -307,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
         this.textTrainingResultSuccess.setText(success);
         this.textTrainingResultFailure.setText(failure);
+
+        //todo: need to save the status
     }
 
     private void toggleCurrentNote(int i) {

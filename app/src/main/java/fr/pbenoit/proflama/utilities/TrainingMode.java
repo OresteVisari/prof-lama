@@ -10,6 +10,8 @@ import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class TrainingMode {
 
+    public static int NUMBER_OF_WORD_IN_TRAINING = 5;
+
     private int questionIndex;
 
     List<Question> questions;
@@ -25,7 +27,7 @@ public class TrainingMode {
 
     public Question getNextQuestion() {
         this.questionIndex++;
-        if (questionIndex == 5) {
+        if (questionIndex == NUMBER_OF_WORD_IN_TRAINING) {
             questionIndex = 0;
         }
         if (!this.questions.get(questionIndex).isSolved()) {
