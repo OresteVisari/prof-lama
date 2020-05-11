@@ -33,6 +33,10 @@ public class Question {
         Collections.shuffle(this.answers);
     }
 
+    public void shuffleAnswers() {
+        Collections.shuffle(answers);
+    }
+
     public List<String> getAnswers() {
         return answers;
     }

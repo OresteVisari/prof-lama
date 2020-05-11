@@ -31,6 +31,7 @@ public class TrainingMode {
             questionIndex = 0;
         }
         if (!this.questions.get(questionIndex).isSolved()) {
+            this.questions.get(questionIndex).shuffleAnswers();
             this.questions.get(questionIndex).isFirstTryForThisTurn = true;
             return this.questions.get(questionIndex);
         }
