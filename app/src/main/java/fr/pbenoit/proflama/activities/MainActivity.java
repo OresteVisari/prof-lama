@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.textTrainingResultSuccess.setText(success);
         this.textTrainingResultFailure.setText(failure);
 
-        //todo: need to save the status
+        JsonFileRepository.saveQuizResult(this.notes, this.trainingMode.getQuestions());
     }
 
     private void toggleCurrentNote(int i) {

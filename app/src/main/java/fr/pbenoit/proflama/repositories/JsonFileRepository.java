@@ -1,5 +1,7 @@
 package fr.pbenoit.proflama.repositories;
 
+import android.widget.ListView;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,6 +18,7 @@ import java.util.List;
 
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
+import fr.pbenoit.proflama.models.Question;
 import fr.pbenoit.proflama.notifications.NotificationPreferences;
 
 public class JsonFileRepository   {
@@ -42,6 +45,18 @@ public class JsonFileRepository   {
         writeFile(json, NOTES_FILE_NAME);
     }
 
+    public static void saveQuizResult(List<Note> notes, List<Question> questions) {
+        for (Question question : questions) {
+            for (Note note : notes) {
+                if (question.getNote().getTitle().equals(note.getTitle())) {
+                    note.setTestStatus(question.getNote().getTestStatus());
+                    break;
+                }
+            }
+        }
+        saveNotes(notes);
+    }
+
     public static void saveNotificationPreferences(NotificationPreferences notificationPreferences) {
         Gson gson = new Gson();
         String json = gson.toJson(notificationPreferences);
@@ -61,7 +76,30 @@ public class JsonFileRepository   {
             e.printStackTrace();
         }
 
-        return notes;
+        return formatAllNotes(notes);
+    }
+
+    private static List<Note> formatAllNotes(ArrayList<Note> notes) {
+        boolean foundInvalidNote = false;
+        ArrayList<Note> notesFormated = new ArrayList<>();
+
+        for (Note note : notes) {
+            if (note.getTitle() == null) {
+                foundInvalidNote = true;
+                continue;
+            }
+            if (note.getDefinition() == null || note.getQuote() == null || note.getCreationDate() == null || note.getTestStatus() == null) {
+                foundInvalidNote = true;
+                notesFormated.add(new Note(note.getTitle(), note.getDefinition(), note.getQuote(), note.getCreationDate(), note.getTestStatus()));
+            } else {
+                notesFormated.add(note);
+            }
+        }
+
+        if (foundInvalidNote) {
+            saveNotes(notesFormated);
+        }
+        return notesFormated;
     }
 
     public static NotificationPreferences getNotificationPreferences() {

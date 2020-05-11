@@ -34,6 +34,12 @@ public class Note implements  Comparable<Note> {
         this.setQuote(quote);
     }
 
+    public Note(String title, String definition, String quote, Date creationDate, TestStatus testStatus) {
+        this(title, definition, quote);
+        this.setCreationDate(creationDate);
+        this.setTestStatus(testStatus);
+    }
+
     @Override
     public int compareTo(Note note) {
         return note.getCreationDate().compareTo(this.creationDate);
@@ -52,6 +58,9 @@ public class Note implements  Comparable<Note> {
     }
 
     public void setDefinition(String definition) {
+        if (definition == null) {
+            definition = "";
+        }
         this.definition = definition;
     }
 
@@ -60,6 +69,9 @@ public class Note implements  Comparable<Note> {
     }
 
     public void setQuote(String quote) {
+        if (quote == null) {
+            quote = "";
+        }
         this.quote = quote;
     }
 
@@ -75,7 +87,12 @@ public class Note implements  Comparable<Note> {
         return this.creationDate;
     }
 
-    public void setCreationDate(Date date) { this.creationDate = date;}
+    public void setCreationDate(Date date) {
+        if (date == null) {
+            date = new Date(System.currentTimeMillis());
+        }
+        this.creationDate = date;
+    }
 
     public String getFormattedCreationDate() {
         int flags = DateUtils.FORMAT_ABBREV_MONTH | DateUtils.FORMAT_NO_YEAR;
@@ -83,13 +100,13 @@ public class Note implements  Comparable<Note> {
     }
 
     public TestStatus getTestStatus() {
-        if (this.testStatus == null) {
-            this.testStatus = TestStatus.UNKNOW;
-        }
         return testStatus;
     }
 
     public void setTestStatus(TestStatus testStatus) {
+        if (testStatus == null) {
+            testStatus = TestStatus.UNKNOW;
+        }
         this.testStatus = testStatus;
     }
 }
