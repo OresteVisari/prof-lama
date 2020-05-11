@@ -168,71 +168,91 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/layoutAnswer1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-                android:background="@drawable/shape"
-                android:orientation="vertical"
-                android:gravity="top">
-
-                <TextView
-                    android:id="@+id/answer1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="AA" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/layoutAnswer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layoutAnswer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                android:background="@drawable/shape"
-                android:orientation="vertical">
+                        android:background="@drawable/shape"
+                        android:orientation="vertical"
+                        android:gravity="top">
 
-                <TextView
-                    android:id="@+id/answer2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="BB" />
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/answer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="AA" />
+                    </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/layoutAnswer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layoutAnswer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                android:background="@drawable/shape"
-                android:orientation="vertical">
+                        android:background="@drawable/shape"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/answer3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="CC" />
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/answer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="BB" />
+                    </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutAnswer3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/shape"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/answer3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="CC" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
