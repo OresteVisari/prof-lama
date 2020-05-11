@@ -45,30 +45,6 @@ public class NotificationManager {
         notificationManager.notify(0, builder.build());
     }
 
-    private static void sendDailyReminderNotification(PendingIntent pendingIntent) {
-        NotificationManager.createNotificationChannel();
-
-        String content;
-        int numberOfWordAddedToday = NotesUtils.countNumberOfWordAddToday();
-        if (numberOfWordAddedToday > 0 ) {
-            content = ProfLama.getAppContext().getString(R.string.dailyNotificationWhenWordWasAddedContent, numberOfWordAddedToday);
-        } else {
-            content = ProfLama.getAppContext().getString(R.string.dailyNotificationContent);
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(ProfLama.getAppContext(), CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(ProfLama.getAppContext().getString(R.string.app_name))
-                .setContentText(content)
-                .setContentIntent(pendingIntent)
-                .setOnlyAlertOnce(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        android.app.NotificationManager notificationManager =
-                (android.app.NotificationManager) ProfLama.getAppContext().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, builder.build());
-    }
-
     private static void sendWeekSummaryNotification(PendingIntent pendingIntent) {
         NotificationManager.createNotificationChannel();
 
@@ -103,8 +79,6 @@ public class NotificationManager {
         }
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             sendWeekSummaryNotification(pendingIntent);
-        } else {
-            sendDailyReminderNotification(pendingIntent);
         }
 
         notificationPreferences.setLastDailyNotificationDay(calendar.get(Calendar.DAY_OF_MONTH));
