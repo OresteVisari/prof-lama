@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <include layout="@layout/menu" />
+
     <include layout="@layout/main_screen_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
