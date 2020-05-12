@@ -8,6 +8,7 @@ import java.util.List;
 
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.TestStatus;
+import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class NotesUtils {

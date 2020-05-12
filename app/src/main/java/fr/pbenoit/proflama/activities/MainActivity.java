@@ -32,7 +32,7 @@ import fr.pbenoit.proflama.models.Question;
 import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
-import fr.pbenoit.proflama.utilities.TrainingMode;
+import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.view.MenuView;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {

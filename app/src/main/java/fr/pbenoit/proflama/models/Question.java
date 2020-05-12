@@ -6,11 +6,13 @@ import java.util.List;
 
 public class Question {
 
+    public static final int NUMBER_OF_ANSWER = 3;
+
     private boolean isSolved;
 
     private boolean isFirstTryEver;
 
-    public boolean isFirstTryForThisTurn;
+    private boolean isFirstTryForThisTurn;
 
     Note note;
 
@@ -29,8 +31,10 @@ public class Question {
     }
 
     public void addAnswer(String answer) {
+        if (this.answers.size() >= NUMBER_OF_ANSWER) {
+            return;
+        }
         this.answers.add(answer);
-        Collections.shuffle(this.answers);
     }
 
     public void shuffleAnswers() {
@@ -45,10 +49,15 @@ public class Question {
         return isSolved;
     }
 
+    public void setIsFirstTryForThisTurn(boolean bool) {
+        this.isFirstTryForThisTurn = bool;
+    }
+
     public void firstTurnDone() {
         this.isFirstTryForThisTurn = false;
         this.isFirstTryEver = false;
     }
+
     public void changeToSolved() {
         if (isFirstTryEver) {
             this.note.setTestStatus(TestStatus.SUCCESS);

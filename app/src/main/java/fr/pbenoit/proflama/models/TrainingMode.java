@@ -1,11 +1,15 @@
-package fr.pbenoit.proflama.utilities;
+package fr.pbenoit.proflama.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
-import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.models.Question;
+import fr.pbenoit.proflama.utilities.NotesUtils;
+
+import static fr.pbenoit.proflama.models.Question.NUMBER_OF_ANSWER;
 
 public class TrainingMode {
 
@@ -23,6 +27,7 @@ public class TrainingMode {
         for (Note note : notesForTraining) {
             questions.add(buildQuestion(notesCompleted, note));
         }
+        Collections.shuffle(questions);
     }
 
     public Question getNextQuestion() {
@@ -30,50 +35,44 @@ public class TrainingMode {
         if (questionIndex == NUMBER_OF_WORD_IN_TRAINING) {
             questionIndex = 0;
         }
-        if (!this.questions.get(questionIndex).isSolved()) {
-            this.questions.get(questionIndex).shuffleAnswers();
-            this.questions.get(questionIndex).isFirstTryForThisTurn = true;
-            return this.questions.get(questionIndex);
+
+        Question currentQuestion = this.questions.get(questionIndex);
+        if (!currentQuestion.isSolved()) {
+            currentQuestion.shuffleAnswers();
+            currentQuestion.setIsFirstTryForThisTurn(true);
+            return currentQuestion;
         }
         return getNextQuestion();
     }
 
     private Question buildQuestion(List<Note> allNotesCompleted, Note note) {
         Question question = new Question(note);
-        ArrayList<Note> currentNotes = new ArrayList<>();
-        currentNotes.addAll(allNotesCompleted);
-
-        int indexCurrentNote = 0;
-        for (int i=0; i < currentNotes.size(); i++) {
-            if (currentNotes.get(i).getTitle().equals(note.getTitle())) {
-                indexCurrentNote = i;
-                break;
-            }
-         }
-        currentNotes.remove(indexCurrentNote);
         question.addAnswer(note.getDefinition());
 
-        Random rand = new Random();
+        final Random rand = new Random();
+        final Set<Integer> intSet = new HashSet<>();
 
-        int randomIndex = rand.nextInt(currentNotes.size());
-        Note randomNote = currentNotes.get(randomIndex);
-        question.addAnswer(randomNote.getDefinition());
-        currentNotes.remove(randomIndex);
+        while (intSet.size() < NUMBER_OF_ANSWER) {
+            intSet.add(rand.nextInt(allNotesCompleted.size()));
+        }
 
-        randomIndex = rand.nextInt(currentNotes.size());
-        randomNote = currentNotes.get(randomIndex);
-        question.addAnswer(randomNote.getDefinition());
+        for (Integer i : intSet) {
+            if (!allNotesCompleted.get(i.intValue()).getDefinition().equals(note.getDefinition())) {
+                question.addAnswer(allNotesCompleted.get(i.intValue()).getDefinition());
+            }
+        }
 
+        question.shuffleAnswers();
         return question;
     }
 
     public boolean isValidAnswer(String answer) {
-        if (this.questions.get(questionIndex).getNote().getDefinition().equals(answer)) {
-            this.questions.get(questionIndex).changeToSolved();
+        Question question = this.questions.get(questionIndex);
+        if (question.getNote().getDefinition().equals(answer)) {
+            question.changeToSolved();
             return true;
-        } else {
-            this.questions.get(questionIndex).firstTurnDone();
         }
+        question.firstTurnDone();
         return false;
     }
 
