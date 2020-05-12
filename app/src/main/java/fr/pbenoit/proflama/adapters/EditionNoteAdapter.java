@@ -43,7 +43,7 @@ public class EditionNoteAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.update_note_dialog, null);
-        //view.setBackground(R.drawable.shape);
+        view.setBackgroundResource(R.drawable.shape);
 
         Note currentNote = getItem(position);
         EditText title = view.findViewById(R.id.edit_title);

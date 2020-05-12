@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.adapters.EditionNoteAdapter;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.controller.MenuController;
 import fr.pbenoit.proflama.controller.TrainingController;
@@ -102,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             notes.add(defaultNote1);
             notes.add(defaultNote2);
         }
-        notesView.setAdapter(new NoteAdapter(this, notes));
+        //notesView.setAdapter(new NoteAdapter(this, notes));
+        notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
     }
 
     public void openMainPage() {
