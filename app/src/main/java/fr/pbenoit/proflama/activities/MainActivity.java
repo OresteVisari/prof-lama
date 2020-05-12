@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,20 +27,18 @@ import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
-import fr.pbenoit.proflama.models.Question;
 import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
-import fr.pbenoit.proflama.models.TrainingMode;
-import fr.pbenoit.proflama.view.MenuView;
-import fr.pbenoit.proflama.view.TrainingView;
+import fr.pbenoit.proflama.controller.MenuController;
+import fr.pbenoit.proflama.controller.TrainingController;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
     // GLOBAL
     private FloatingActionButton floatingActionButton;
 
-    private MenuView menuView;
+    private MenuController menuController;
 
     // LAYOUT
     private RelativeLayout mainLayout;
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.setContentView(R.layout.main_screen_wrapper);
         this.floatingActionButton = findViewById(R.id.fab);
         this.notesView = findViewById(R.id.notesListView);
-        this.menuView = new MenuView(this, findViewById(R.id.textMenuAll), findViewById(R.id.textMenuTraining), findViewById(R.id.textMenuEdition));
+        this.menuController = new MenuController(this, findViewById(R.id.textMenuAll), findViewById(R.id.textMenuTraining), findViewById(R.id.textMenuEdition));
         this.mainLayout = findViewById(R.id.mainLayout);
         this.trainingLayout = findViewById(R.id.trainingLayout);
         this.trainingLayout.setVisibility(View.GONE);
@@ -140,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     public void openMainPage() {
-        this.menuView.enableMenu(MenuView.ALL);
+        this.menuController.enableMenu(MenuController.ALL);
         this.mainLayout.setVisibility(View.VISIBLE);
         this.trainingLayout.setVisibility(View.GONE);
         this.trainingResultLayout.setVisibility(View.GONE);
@@ -161,15 +158,15 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             return;
         }
 
-        this.menuView.enableMenu(MenuView.TRAINING);
+        this.menuController.enableMenu(MenuController.TRAINING);
 
         this.mainLayout.setVisibility(View.GONE);
         this.trainingResultLayout.setVisibility(View.GONE);
         this.trainingLayout.setVisibility(View.VISIBLE);
 
         this.floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
-        TrainingView trainingView = new TrainingView(this, this.floatingActionButton, this.notes);
-        trainingView.runQuiz();
+        TrainingController trainingController = new TrainingController(this, this.floatingActionButton, this.notes);
+        trainingController.runQuiz();
     }
 
     private void toggleCurrentNote(int i) {

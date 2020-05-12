@@ -1,4 +1,4 @@
-package fr.pbenoit.proflama.view;
+package fr.pbenoit.proflama.controller;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,7 +17,7 @@ import fr.pbenoit.proflama.models.TestStatus;
 import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
-public class TrainingView {
+public class TrainingController {
 
     private  MainActivity activity;
 
@@ -39,7 +39,7 @@ public class TrainingView {
     private TextView textTrainingResultFailure;
 
 
-    public TrainingView(final MainActivity activity, FloatingActionButton floatingActionButton, List<Note> notes) {
+    public TrainingController(final MainActivity activity, FloatingActionButton floatingActionButton, List<Note> notes) {
         this.activity = activity;
         this.floatingActionButton = floatingActionButton;
         this.notes = notes;

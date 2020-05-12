@@ -1,4 +1,4 @@
-package fr.pbenoit.proflama.view;
+package fr.pbenoit.proflama.controller;
 
 import android.graphics.Typeface;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.activities.MainActivity;
 
-public class MenuView {
+public class MenuController {
 
     private TextView menuItemAll;
 
@@ -21,7 +21,7 @@ public class MenuView {
     public static final String TRAINING = "TRAINING";
 
 
-    public MenuView(final MainActivity mainActivity, View menuItemAll, View menuItemTraining, View menuItemEdition) {
+    public MenuController(final MainActivity mainActivity, View menuItemAll, View menuItemTraining, View menuItemEdition) {
         this.menuItemAll = (TextView) menuItemAll;
         this.menuItemTraining = (TextView) menuItemTraining;
         this.menuItemEdition = (TextView) menuItemEdition;
