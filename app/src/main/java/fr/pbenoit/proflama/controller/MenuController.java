@@ -11,37 +11,33 @@ import fr.pbenoit.proflama.activities.MainActivity;
 public class MenuController {
 
     private TextView menuItemAll;
-
     private TextView menuItemTraining;
-
     private TextView menuItemEdition;
 
     public static final String ALL = "ALL";
-
     public static final String TRAINING = "TRAINING";
 
-
-    public MenuController(final MainActivity mainActivity, View menuItemAll, View menuItemTraining, View menuItemEdition) {
-        this.menuItemAll = (TextView) menuItemAll;
-        this.menuItemTraining = (TextView) menuItemTraining;
-        this.menuItemEdition = (TextView) menuItemEdition;
+    public MenuController(final MainActivity activity) {
+        this.menuItemAll = activity.findViewById(R.id.textMenuAll);
+        this.menuItemTraining = activity.findViewById(R.id.textMenuTraining);
+        this.menuItemEdition = activity.findViewById(R.id.textMenuEdition);
 
         View.OnClickListener onClickMainPageMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.openMainPage();
+                activity.openMainPage();
             }
         };
         View.OnClickListener onClickTrainingMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.openTrainingMode();
+                activity.openTrainingMode();
             }
         };
         View.OnClickListener toasterEdition = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mainActivity.getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity.getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
             }
         };
 
