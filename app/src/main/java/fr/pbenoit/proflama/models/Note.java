@@ -79,8 +79,8 @@ public class Note implements  Comparable<Note> {
         return shouldDisplayAllFields;
     }
 
-    public void setShouldDisplayAllFields(boolean shouldDisplayAllFields) {
-        this.shouldDisplayAllFields = shouldDisplayAllFields;
+    public void toggleShouldDisplayAllFields() {
+        this.shouldDisplayAllFields = !this.shouldDisplayAllFields;
     }
 
     public Date getCreationDate() {

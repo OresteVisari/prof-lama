@@ -1,7 +1,5 @@
 package fr.pbenoit.proflama.repositories;
 
-import android.widget.ListView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,7 +17,7 @@ import java.util.List;
 import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.Question;
-import fr.pbenoit.proflama.notifications.NotificationPreferences;
+import fr.pbenoit.proflama.notifications.NotificationScheduler;
 
 public class JsonFileRepository   {
 
@@ -55,9 +53,9 @@ public class JsonFileRepository   {
         saveNotes(notes);
     }
 
-    public static void saveNotificationPreferences(NotificationPreferences notificationPreferences) {
+    public static void saveNotificationPreferences(NotificationScheduler notificationScheduler) {
         Gson gson = new Gson();
-        String json = gson.toJson(notificationPreferences);
+        String json = gson.toJson(notificationScheduler);
         writeFile(json, ALARM_PREFERENCE_FILE_NAME);
     }
 
@@ -99,19 +97,19 @@ public class JsonFileRepository   {
         return notesFormated;
     }
 
-    public static NotificationPreferences getNotificationPreferences() {
+    public static NotificationScheduler getNotificationPreferences() {
         Gson gson = new Gson();
-        NotificationPreferences notificationPreferences = new NotificationPreferences();
+        NotificationScheduler notificationScheduler = new NotificationScheduler();
         File file = new File(ProfLama.getAppContext().getExternalFilesDir(null), ALARM_PREFERENCE_FILE_NAME);
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-            Type listType = new TypeToken<NotificationPreferences>(){}.getType();
-            notificationPreferences = gson.fromJson(br, listType);
+            Type listType = new TypeToken<NotificationScheduler>(){}.getType();
+            notificationScheduler = gson.fromJson(br, listType);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        return notificationPreferences;
+        return notificationScheduler;
     }
 }

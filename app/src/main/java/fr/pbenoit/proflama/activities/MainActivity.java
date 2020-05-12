@@ -1,9 +1,5 @@
 package fr.pbenoit.proflama.activities;
 
-import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,36 +12,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import fr.pbenoit.proflama.NotificationAlarmReceiver;
-import fr.pbenoit.proflama.ProfLama;
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
+import fr.pbenoit.proflama.controller.MenuController;
+import fr.pbenoit.proflama.controller.TrainingController;
 import fr.pbenoit.proflama.dialogs.AddNoteDialog;
 import fr.pbenoit.proflama.dialogs.UpdateNoteDialog;
 import fr.pbenoit.proflama.models.Note;
 import fr.pbenoit.proflama.models.TestStatus;
+import fr.pbenoit.proflama.notifications.NotificationManager;
 import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
-import fr.pbenoit.proflama.controller.MenuController;
-import fr.pbenoit.proflama.controller.TrainingController;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
-    // GLOBAL
     private FloatingActionButton floatingActionButton;
-
     private MenuController menuController;
 
-    // LAYOUT
     private RelativeLayout mainLayout;
     private LinearLayout trainingLayout;
     private LinearLayout trainingResultLayout;
 
-    // MAIN SCREEN
     private List<Note> notes;
     private ListView notesView;
 
@@ -90,10 +80,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             }
         });
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
-
-        scheduleNotificationAlarm();
+        NotificationManager.disableDisplayedNotification(this);
+        NotificationManager.scheduleNotificationAlarm(this);
     }
 
     @Override
@@ -115,25 +103,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             notes.add(defaultNote2);
         }
         notesView.setAdapter(new NoteAdapter(this, notes));
-    }
-
-    private void scheduleNotificationAlarm() {
-        AlarmManager alarmManager = ProfLama.getAppContext().getSystemService(AlarmManager.class);
-        int request_code = 0;
-
-        Calendar dateToSchedule = Calendar.getInstance();
-        dateToSchedule.set(Calendar.HOUR_OF_DAY, 20);
-        dateToSchedule.set(Calendar.MINUTE, 0);
-        dateToSchedule.set(Calendar.SECOND, 0);
-
-        Calendar now = Calendar.getInstance();
-        if (now.after(dateToSchedule)) {
-            dateToSchedule.add(Calendar.DATE, 1);
-        }
-
-        Intent intent = new Intent(this, NotificationAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(ProfLama.getAppContext(), request_code, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.setRepeating(AlarmManager.RTC, dateToSchedule.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public void openMainPage() {
@@ -170,12 +139,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     private void toggleCurrentNote(int i) {
-        Note currentNote = notes.get(i);
-        if (currentNote.isShouldDisplayAllFields()) {
-            currentNote.setShouldDisplayAllFields(false);
-        } else {
-            currentNote.setShouldDisplayAllFields(true);
-        }
+        notes.get(i).toggleShouldDisplayAllFields();
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
     }

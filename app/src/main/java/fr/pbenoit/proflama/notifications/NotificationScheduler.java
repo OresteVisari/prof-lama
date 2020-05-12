@@ -1,12 +1,12 @@
 package fr.pbenoit.proflama.notifications;
 
-public class NotificationPreferences {
+public class NotificationScheduler {
 
     private int lastDailyNotificationDay;
 
     private int lastDailyNotificationMonth;
 
-    public NotificationPreferences() {
+    public NotificationScheduler() {
         this.lastDailyNotificationDay = -1;
         this.lastDailyNotificationMonth = -1;
     }
