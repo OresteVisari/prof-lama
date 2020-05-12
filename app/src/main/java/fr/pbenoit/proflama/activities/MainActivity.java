@@ -34,6 +34,7 @@ import fr.pbenoit.proflama.repositories.JsonFileRepository;
 import fr.pbenoit.proflama.utilities.NotesUtils;
 import fr.pbenoit.proflama.models.TrainingMode;
 import fr.pbenoit.proflama.view.MenuView;
+import fr.pbenoit.proflama.view.TrainingView;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
@@ -50,20 +51,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     // MAIN SCREEN
     private List<Note> notes;
     private ListView notesView;
-
-    // QUIZ
-    private TrainingMode trainingMode;
-    private TextView word;
-
-    LinearLayout linearLayoutAnswer1;
-    LinearLayout linearLayoutAnswer2;
-    LinearLayout linearLayoutAnswer3;
-
-    private TextView answer1;
-    private TextView answer2;
-    private TextView answer3;
-    private TextView textTrainingResultSuccess;
-    private TextView textTrainingResultFailure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,103 +168,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.trainingLayout.setVisibility(View.VISIBLE);
 
         this.floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
-
-        this.word = findViewById(R.id.textTrainingWord);
-        this.answer1 = findViewById(R.id.answer1);
-        this.answer2 = findViewById(R.id.answer2);
-        this.answer3 = findViewById(R.id.answer3);
-
-        this.linearLayoutAnswer1 = findViewById(R.id.layoutAnswer1);
-        this.linearLayoutAnswer2 = findViewById(R.id.layoutAnswer2);
-        this.linearLayoutAnswer3 = findViewById(R.id.layoutAnswer3);
-
-        linearLayoutAnswer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyQuiz(linearLayoutAnswer1, answer1);
-            }
-        });
-        linearLayoutAnswer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyQuiz(linearLayoutAnswer2, answer2);
-            }
-        });
-        linearLayoutAnswer3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyQuiz(linearLayoutAnswer3, answer3);
-            }
-        });
-
-        this.trainingMode = new TrainingMode(this.notes);
-        runQuiz();
-    }
-
-    private void runQuiz() {
-        if (trainingMode.isQuizFinish()) {
-            displayQuizResult();
-            return;
-        }
-        setDefaultBackgroundOnAnswers();
-        this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"You need to found the good response to continue.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        Question question = trainingMode.getNextQuestion();
-        if (!question.isSolved()) {
-            word.setText(question.getNote().getTitle());
-            answer1.setText(question.getAnswers().get(0));
-            answer2.setText(question.getAnswers().get(1));
-            answer3.setText(question.getAnswers().get(2));
-        }
-
-    }
-
-    private void setDefaultBackgroundOnAnswers() {
-        linearLayoutAnswer1.setBackgroundResource(R.drawable.shape);
-        linearLayoutAnswer2.setBackgroundResource(R.drawable.shape);
-        linearLayoutAnswer3.setBackgroundResource(R.drawable.shape);
-    }
-
-    private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
-        if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
-            linearLayoutAnswer.setBackgroundResource(R.drawable.shape_valid);
-            this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    runQuiz();
-                }
-            });
-        } else {
-            linearLayoutAnswer.setBackgroundResource(R.drawable.shape_invalid);
-        }
-    }
-
-    private void displayQuizResult() {
-        this.trainingLayout.setVisibility(View.GONE);
-        this.trainingResultLayout.setVisibility(View.VISIBLE);
-
-        this.textTrainingResultSuccess = findViewById(R.id.textTrainingResultSuccess);
-        this.textTrainingResultFailure = findViewById(R.id.textTrainingResultFailure);
-
-        String success = "Bravo, tu connais bien les mots: ";
-        String failure = "Il faudra cependant réviser les mots: ";
-
-        for (Question question : trainingMode.getQuestions()) {
-            if (question.getNote().getTestStatus() == TestStatus.SUCCESS) {
-                success += question.getNote().getTitle() + " ";
-            } else {
-                failure += question.getNote().getTitle() + " ";
-            }
-        }
-
-        this.textTrainingResultSuccess.setText(success);
-        this.textTrainingResultFailure.setText(failure);
-
-        JsonFileRepository.saveQuizResult(this.notes, this.trainingMode.getQuestions());
+        TrainingView trainingView = new TrainingView(this, this.floatingActionButton, this.notes);
+        trainingView.runQuiz();
     }
 
     private void toggleCurrentNote(int i) {
