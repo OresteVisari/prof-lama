@@ -58,10 +58,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="240dp">
+            android:paddingLeft="270dp">
             <TextView
                 android:id="@+id/textMenuEdition"
-                android:layout_width="138dp"
+                android:layout_width="94dp"
                 android:layout_height="match_parent"
                 android:paddingTop="28dp"
                 android:text="@string/menuItemEdition"

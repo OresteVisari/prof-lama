@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.setContentView(R.layout.main_screen_wrapper);
         this.floatingActionButton = findViewById(R.id.fab);
         this.notesView = findViewById(R.id.notesListView);
-        this.menuController = new MenuController(this);
+        this.menuController = new MenuController(this, notesView);
         this.mainLayout = findViewById(R.id.mainLayout);
         this.trainingLayout = findViewById(R.id.trainingLayout);
         this.trainingLayout.setVisibility(View.GONE);
@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             notes.add(defaultNote1);
             notes.add(defaultNote2);
         }
-        //notesView.setAdapter(new NoteAdapter(this, notes));
-        notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
+        notesView.setAdapter(new NoteAdapter(this, notes));
+        //notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
     }
 
     public void openMainPage() {
@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
                 openAddNoteDialog();
             }
         });
+        this.floatingActionButton.show();
+        this.notesView.setAdapter(new NoteAdapter(this, notes));
     }
 
     public void openTrainingMode() {
@@ -136,8 +138,19 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.trainingLayout.setVisibility(View.VISIBLE);
 
         this.floatingActionButton.setImageResource(android.R.drawable.ic_media_play);
+        this.floatingActionButton.show();
         TrainingController trainingController = new TrainingController(this, this.floatingActionButton, this.notes);
         trainingController.runQuiz();
+    }
+
+    public void openEditionPage() {
+        this.menuController.enableMenu(MenuController.EDITION);
+        this.mainLayout.setVisibility(View.VISIBLE);
+        this.trainingLayout.setVisibility(View.GONE);
+        this.trainingResultLayout.setVisibility(View.GONE);
+
+        this.floatingActionButton.hide();
+        this.notesView.setAdapter(new NoteAdapter(this, NotesUtils.getUncompleteNote(this.notes)));
     }
 
     private void toggleCurrentNote(int i) {
@@ -187,4 +200,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         JsonFileRepository.saveNotes(notes);
     }
 
+    public List<Note> getNotes() {
+        return this.notes;
+    }
 }

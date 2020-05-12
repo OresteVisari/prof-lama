@@ -2,11 +2,14 @@ package fr.pbenoit.proflama.controller;
 
 import android.graphics.Typeface;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.activities.MainActivity;
+import fr.pbenoit.proflama.adapters.NoteAdapter;
+import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class MenuController {
 
@@ -16,8 +19,9 @@ public class MenuController {
 
     public static final String ALL = "ALL";
     public static final String TRAINING = "TRAINING";
+    public static final String EDITION = "EDITION";
 
-    public MenuController(final MainActivity activity) {
+    public MenuController(final MainActivity activity, final ListView list) {
         this.menuItemAll = activity.findViewById(R.id.textMenuAll);
         this.menuItemTraining = activity.findViewById(R.id.textMenuTraining);
         this.menuItemEdition = activity.findViewById(R.id.textMenuEdition);
@@ -34,37 +38,46 @@ public class MenuController {
                 activity.openTrainingMode();
             }
         };
-        View.OnClickListener toasterEdition = new View.OnClickListener() {
+        View.OnClickListener onClickEditionMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity.getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
+                activity.openEditionPage();
             }
         };
 
         menuItemAll.setOnClickListener(onClickMainPageMenu);
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
-        menuItemEdition.setOnClickListener(toasterEdition);
+        menuItemEdition.setOnClickListener(onClickEditionMenu);
     }
 
     public void enableMenu(String name) {
-        TextView viewToEnable;
-        TextView viewToDisable;
         switch (name) {
             case TRAINING:
-                viewToEnable = this.menuItemTraining;
-                viewToDisable = this.menuItemAll;
+                enableMenuItem(this.menuItemTraining);
+                disableMenuItem(this.menuItemAll);
+                disableMenuItem(this.menuItemEdition);
+                break;
+            case EDITION:
+                enableMenuItem(this.menuItemEdition);
+                disableMenuItem(this.menuItemAll);
+                disableMenuItem(this.menuItemTraining);
                 break;
             case ALL:
             default:
-                viewToEnable = this.menuItemAll;
-                viewToDisable = this.menuItemTraining;
+                enableMenuItem(this.menuItemAll);
+                disableMenuItem(this.menuItemTraining);
+                disableMenuItem(this.menuItemEdition);
                 break;
         }
+    }
 
-        viewToDisable.setBackgroundResource(0);
-        viewToDisable.setTypeface(null, Typeface.NORMAL);
+    private void enableMenuItem(TextView view) {
+        view.setBackgroundResource(R.drawable.border);
+        view.setTypeface(null, Typeface.BOLD);
+    }
 
-        viewToEnable.setBackgroundResource(R.drawable.border);
-        viewToEnable.setTypeface(null, Typeface.BOLD);
+    private void disableMenuItem(TextView view) {
+        view.setBackgroundResource(0);
+        view.setTypeface(null, Typeface.NORMAL);
     }
 }
