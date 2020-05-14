@@ -2,6 +2,7 @@ package fr.pbenoit.proflama.models;
 
 import android.text.format.DateUtils;
 
+import java.text.Normalizer;
 import java.util.Date;
 
 import fr.pbenoit.proflama.ProfLama;
@@ -61,7 +62,8 @@ public class Note implements  Comparable<Note> {
     }
 
     private void setFormattedTitle() {
-        this.formattedTitle =  this.title.replaceAll("\\(.*?\\)", "").trim().toLowerCase();
+        formattedTitle = Normalizer.normalize(this.title, Normalizer.Form.NFD);
+        this.formattedTitle =  this.formattedTitle.replaceAll("\\(.*?\\)", "").trim().toLowerCase();
     }
 
     private String getFormattedTitle() {

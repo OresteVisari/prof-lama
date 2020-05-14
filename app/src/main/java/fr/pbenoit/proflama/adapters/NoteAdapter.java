@@ -1,12 +1,17 @@
 package fr.pbenoit.proflama.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import fr.pbenoit.proflama.R;
 
@@ -15,6 +20,10 @@ import java.util.List;
 import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
+
+    private final Parser markdownParser = Parser.builder().build();
+
+    private final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 
     private final List<Note> notes;
 
@@ -49,7 +58,8 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         title.setText(currentNote.getTitle());
 
         TextView definition = view.findViewById(R.id.definition);
-        definition.setText(currentNote.getDefinition());
+        Node markdownText = markdownParser.parse(currentNote.getDefinition());
+        definition.setText(Html.fromHtml(htmlRenderer.render(markdownText)));
 
         TextView quote = view.findViewById(R.id.quote);
         quote.setText(currentNote.getQuote());
