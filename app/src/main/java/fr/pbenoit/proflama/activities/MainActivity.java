@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         note.setDefinition(definition);
         note.setQuote(quote);
         notes.add(note);
-        Collections.sort(notes);
         this.postUpdateAnyNoteModification();
     }
 
@@ -195,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     private void postUpdateAnyNoteModification() {
+        Collections.sort(notes);
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();
         adapter.updateList();
         JsonFileRepository.saveNotes(notes);
