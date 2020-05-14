@@ -1,9 +1,13 @@
 package fr.pbenoit.proflama.controller;
 
 import android.graphics.Typeface;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.PopupMenu;
 
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.activities.MainActivity;
@@ -13,6 +17,9 @@ public class MenuController {
     private TextView menuItemAll;
     private TextView menuItemTraining;
 
+    private PopupMenu popupMenu;
+    private ImageView optionMenuView;
+
     public static final String ALL = "ALL";
     public static final String TRAINING = "TRAINING";
     public static String CURRENT_MENU = ALL;
@@ -21,6 +28,10 @@ public class MenuController {
     public MenuController(final MainActivity activity, final ListView list) {
         this.menuItemAll = activity.findViewById(R.id.textMenuAll);
         this.menuItemTraining = activity.findViewById(R.id.textMenuTraining);
+        this.optionMenuView = activity.findViewById(R.id.option_menu_icon);
+        this.popupMenu = new PopupMenu(activity, this.optionMenuView);
+        MenuInflater inflater = this.popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.option_menu, this.popupMenu.getMenu());
 
         View.OnClickListener onClickMainPageMenu = new View.OnClickListener() {
             @Override
@@ -35,8 +46,17 @@ public class MenuController {
             }
         };
 
+        final PopupMenu pop = this.popupMenu;
+        View.OnClickListener onClickOptionMenu = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pop.show();
+            }
+        };
+
         menuItemAll.setOnClickListener(onClickMainPageMenu);
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
+        optionMenuView.setOnClickListener(onClickOptionMenu);
     }
 
     public void enableMenu(String name) {
@@ -53,6 +73,10 @@ public class MenuController {
                 disableMenuItem(this.menuItemTraining);
                 break;
         }
+    }
+
+    public TextView getMenuItemTraining() {
+        return this.menuItemAll;
     }
 
     private void enableMenuItem(TextView view) {

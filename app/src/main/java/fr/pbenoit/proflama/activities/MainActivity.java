@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.pbenoit.proflama.R;
-import fr.pbenoit.proflama.adapters.EditionNoteAdapter;
 import fr.pbenoit.proflama.adapters.NoteAdapter;
 import fr.pbenoit.proflama.controller.MenuController;
 import fr.pbenoit.proflama.controller.TrainingController;
@@ -30,8 +29,8 @@ import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class MainActivity extends AppCompatActivity implements AddNoteDialog.AddNoteDialogListener, UpdateNoteDialog.UpdateNoteDialogListener {
 
-    private FloatingActionButton floatingActionButton;
     private MenuController menuController;
+    private FloatingActionButton floatingActionButton;
 
     private RelativeLayout mainLayout;
     private LinearLayout trainingLayout;
@@ -108,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         //notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
     }
 
+
     public void openMainPage() {
         if (MenuController.CURRENT_MENU == MenuController.ALL) {
             Note.toggleMode();
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             notesView.setAdapter(new NoteAdapter(this, notes));
             return;
         }
+
         this.menuController.enableMenu(MenuController.ALL);
         this.mainLayout.setVisibility(View.VISIBLE);
         this.trainingLayout.setVisibility(View.GONE);

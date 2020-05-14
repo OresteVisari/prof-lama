@@ -29,7 +29,7 @@
             android:paddingLeft="120dp">
             <TextView
                 android:id="@+id/textMenuAll"
-                android:layout_width="100dp"
+                android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/border"
                 android:paddingTop="28dp"
@@ -43,10 +43,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="234dp">
+            android:paddingLeft="250dp">
             <TextView
                 android:id="@+id/textMenuTraining"
-                android:layout_width="80dp"
+                android:layout_width="55dp"
                 android:layout_height="match_parent"
                 android:paddingTop="28dp"
                 android:text="@string/menuItemTraining"
@@ -55,8 +55,21 @@
                 android:textSize="18sp" />
         </FrameLayout>
 
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="350dp"
+            android:paddingTop="20dp">
 
+            <ImageView
+                android:id="@+id/option_menu_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_more_vert_white_24dp" />
+
+        </FrameLayout>
+    </FrameLayout>
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
