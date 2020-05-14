@@ -20,6 +20,8 @@ public class MenuController {
     public static final String ALL = "ALL";
     public static final String TRAINING = "TRAINING";
     public static final String EDITION = "EDITION";
+    public static String CURRENT_MENU = ALL;
+
 
     public MenuController(final MainActivity activity, final ListView list) {
         this.menuItemAll = activity.findViewById(R.id.textMenuAll);
@@ -41,7 +43,8 @@ public class MenuController {
         View.OnClickListener onClickEditionMenu = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.openEditionPage();
+                //activity.openEditionPage();
+                Toast.makeText(activity.getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -53,17 +56,20 @@ public class MenuController {
     public void enableMenu(String name) {
         switch (name) {
             case TRAINING:
+                CURRENT_MENU = TRAINING;
                 enableMenuItem(this.menuItemTraining);
                 disableMenuItem(this.menuItemAll);
                 disableMenuItem(this.menuItemEdition);
                 break;
             case EDITION:
+                CURRENT_MENU = EDITION;
                 enableMenuItem(this.menuItemEdition);
                 disableMenuItem(this.menuItemAll);
                 disableMenuItem(this.menuItemTraining);
                 break;
             case ALL:
             default:
+                CURRENT_MENU = ALL;
                 enableMenuItem(this.menuItemAll);
                 disableMenuItem(this.menuItemTraining);
                 disableMenuItem(this.menuItemEdition);

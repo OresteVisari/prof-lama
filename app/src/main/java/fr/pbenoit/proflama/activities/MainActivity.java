@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     protected void onResume() {
         super.onResume();
         this.notes = JsonFileRepository.getAllNotes();
+        Collections.sort(this.notes);
         if (notes.isEmpty()) {
             Note defaultNote1 = new Note(getString(R.string.tutorial1title));
             defaultNote1.setDefinition(getString(R.string.tutorial1definition));
@@ -108,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     public void openMainPage() {
+        if (MenuController.CURRENT_MENU == MenuController.ALL) {
+            Note.toggleMode();
+            Collections.sort(notes);
+            notesView.setAdapter(new NoteAdapter(this, notes));
+            return;
+        }
         this.menuController.enableMenu(MenuController.ALL);
         this.mainLayout.setVisibility(View.VISIBLE);
         this.trainingLayout.setVisibility(View.GONE);
@@ -125,6 +132,9 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     }
 
     public void openTrainingMode() {
+        if (MenuController.CURRENT_MENU == MenuController.TRAINING) {
+            return;
+        }
         List<Note> notesForTraining = NotesUtils.getNotesForTraining(this.notes);
         if (notesForTraining.isEmpty()) {
             Toast.makeText(getApplicationContext(),"You need to have at least 10 complete words to unlock this mode.", Toast.LENGTH_SHORT).show();

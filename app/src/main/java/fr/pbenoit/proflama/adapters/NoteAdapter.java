@@ -55,8 +55,6 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         quote.setText(currentNote.getQuote());
 
         TextView date = view.findViewById(R.id.date);
-        String dateAsString = getItem(position).getFormattedCreationDate();
-        date.setText(dateAsString);
 
         definition.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);
@@ -69,18 +67,31 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
             quote.setVisibility(View.GONE);
         }
 
-        if (position == 0) {
+        if (shouldDisplayGroupTitle(position)) {
             date.setVisibility(View.VISIBLE);
+            date.setText(getGroupTitle(currentNote));
         } else {
-            String previousDateAsString = getItem(position - 1).getFormattedCreationDate();
-            if (!dateAsString.equals(previousDateAsString)) {
-                date.setVisibility(View.VISIBLE);
-            } else {
-                date.setVisibility(View.GONE);
-            }
+            date.setVisibility(View.GONE);
         }
 
         return view;
+    }
+
+    private boolean shouldDisplayGroupTitle(final int position) {
+        if (position == 0) {
+            return true;
+        }
+        if (Note.ORDER_MODE == Note.DATE) {
+            return !getItem(position - 1).getFormattedCreationDate().equals(getItem(position).getFormattedCreationDate());
+        }
+        return !getItem(position - 1).getFirstLetterOfFormattedTitle().equals(getItem(position).getFirstLetterOfFormattedTitle());
+    }
+
+    private String getGroupTitle(final Note note) {
+        if (Note.ORDER_MODE == Note.DATE) {
+            return note.getFormattedCreationDate();
+        }
+        return note.getFirstLetterOfFormattedTitle().toUpperCase();
     }
 
     public void updateList() {

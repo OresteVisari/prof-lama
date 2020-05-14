@@ -8,6 +8,14 @@ import fr.pbenoit.proflama.ProfLama;
 
 public class Note implements  Comparable<Note> {
 
+    public transient static final String DATE = "DATE";
+
+    public transient static final String ALPHABETIC = "ALPHABETIC";
+
+    public transient static String ORDER_MODE = DATE;
+
+    private transient String formattedTitle;
+
     private transient boolean shouldDisplayAllFields = false;
 
     private String title;
@@ -21,7 +29,7 @@ public class Note implements  Comparable<Note> {
     private TestStatus testStatus;
 
     public Note(String title) {
-        this.title = title;
+        this.setTitle(title);
         this.definition = "";
         this.quote = "";
         this.creationDate = new Date(System.currentTimeMillis());
@@ -42,15 +50,34 @@ public class Note implements  Comparable<Note> {
 
     @Override
     public int compareTo(Note note) {
-        return note.getCreationDate().compareTo(this.creationDate);
+        if (ORDER_MODE == DATE) {
+            return note.getCreationDate().compareTo(this.creationDate);
+        }
+        return this.getFormattedTitle().compareTo(note.getFormattedTitle());
     }
 
     public String getTitle() {
         return title;
     }
 
+    private void setFormattedTitle() {
+        this.formattedTitle =  this.title.replaceAll("\\(.*?\\)", "").trim().toLowerCase();
+    }
+
+    private String getFormattedTitle() {
+        if (this.formattedTitle == null) {
+            setFormattedTitle();
+        }
+        return this.formattedTitle;
+    }
+
+    public String getFirstLetterOfFormattedTitle() {
+        return getFormattedTitle().substring(0, 1);
+    }
+
     public void setTitle(String title) {
         this.title = title;
+        setFormattedTitle();
     }
 
     public String getDefinition() {
@@ -108,6 +135,14 @@ public class Note implements  Comparable<Note> {
             testStatus = TestStatus.UNKNOW;
         }
         this.testStatus = testStatus;
+    }
+
+    public static void toggleMode() {
+        if (ORDER_MODE == DATE) {
+            ORDER_MODE = ALPHABETIC;
+            return;
+        }
+        ORDER_MODE = DATE;
     }
 }
 
