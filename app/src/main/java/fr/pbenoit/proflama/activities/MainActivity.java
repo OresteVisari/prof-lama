@@ -153,16 +153,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         trainingController.runQuiz();
     }
 
-    public void openEditionPage() {
-        this.menuController.enableMenu(MenuController.EDITION);
-        this.mainLayout.setVisibility(View.VISIBLE);
-        this.trainingLayout.setVisibility(View.GONE);
-        this.trainingResultLayout.setVisibility(View.GONE);
-
-        this.floatingActionButton.hide();
-        this.notesView.setAdapter(new NoteAdapter(this, NotesUtils.getUncompleteNote(this.notes)));
-    }
-
     private void toggleCurrentNote(int i) {
         notes.get(i).toggleShouldDisplayAllFields();
         NoteAdapter adapter = (NoteAdapter) this.notesView.getAdapter();

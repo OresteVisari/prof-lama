@@ -4,29 +4,23 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import fr.pbenoit.proflama.R;
 import fr.pbenoit.proflama.activities.MainActivity;
-import fr.pbenoit.proflama.adapters.NoteAdapter;
-import fr.pbenoit.proflama.utilities.NotesUtils;
 
 public class MenuController {
 
     private TextView menuItemAll;
     private TextView menuItemTraining;
-    private TextView menuItemEdition;
 
     public static final String ALL = "ALL";
     public static final String TRAINING = "TRAINING";
-    public static final String EDITION = "EDITION";
     public static String CURRENT_MENU = ALL;
 
 
     public MenuController(final MainActivity activity, final ListView list) {
         this.menuItemAll = activity.findViewById(R.id.textMenuAll);
         this.menuItemTraining = activity.findViewById(R.id.textMenuTraining);
-        this.menuItemEdition = activity.findViewById(R.id.textMenuEdition);
 
         View.OnClickListener onClickMainPageMenu = new View.OnClickListener() {
             @Override
@@ -40,17 +34,9 @@ public class MenuController {
                 activity.openTrainingMode();
             }
         };
-        View.OnClickListener onClickEditionMenu = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //activity.openEditionPage();
-                Toast.makeText(activity.getApplicationContext(),"Coming soon!", Toast.LENGTH_SHORT).show();
-            }
-        };
 
         menuItemAll.setOnClickListener(onClickMainPageMenu);
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
-        menuItemEdition.setOnClickListener(onClickEditionMenu);
     }
 
     public void enableMenu(String name) {
@@ -59,20 +45,12 @@ public class MenuController {
                 CURRENT_MENU = TRAINING;
                 enableMenuItem(this.menuItemTraining);
                 disableMenuItem(this.menuItemAll);
-                disableMenuItem(this.menuItemEdition);
-                break;
-            case EDITION:
-                CURRENT_MENU = EDITION;
-                enableMenuItem(this.menuItemEdition);
-                disableMenuItem(this.menuItemAll);
-                disableMenuItem(this.menuItemTraining);
                 break;
             case ALL:
             default:
                 CURRENT_MENU = ALL;
                 enableMenuItem(this.menuItemAll);
                 disableMenuItem(this.menuItemTraining);
-                disableMenuItem(this.menuItemEdition);
                 break;
         }
     }

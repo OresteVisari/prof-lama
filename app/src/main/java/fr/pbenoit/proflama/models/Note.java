@@ -13,7 +13,7 @@ public class Note implements  Comparable<Note> {
 
     public transient static final String ALPHABETIC = "ALPHABETIC";
 
-    public transient static String ORDER_MODE = DATE;
+    public transient static String ORDER_MODE = ALPHABETIC;
 
     private transient String formattedTitle;
 

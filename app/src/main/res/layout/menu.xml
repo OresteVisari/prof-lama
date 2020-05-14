@@ -26,10 +26,10 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="100dp">
+            android:paddingLeft="120dp">
             <TextView
                 android:id="@+id/textMenuAll"
-                android:layout_width="59dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/border"
                 android:paddingTop="28dp"
@@ -43,7 +43,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="174dp">
+            android:paddingLeft="234dp">
             <TextView
                 android:id="@+id/textMenuTraining"
                 android:layout_width="80dp"
@@ -55,20 +55,6 @@
                 android:textSize="18sp" />
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="270dp">
-            <TextView
-                android:id="@+id/textMenuEdition"
-                android:layout_width="94dp"
-                android:layout_height="match_parent"
-                android:paddingTop="28dp"
-                android:text="@string/menuItemEdition"
-                android:textAlignment="center"
-                android:textColor="#D5FFFFFF"
-                android:textSize="18sp" />
-        </FrameLayout>
     </FrameLayout>
 
     <View
