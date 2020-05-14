@@ -47,7 +47,7 @@ public class TrainingMode {
 
     private Question buildQuestion(List<Note> allNotesCompleted, Note note) {
         Question question = new Question(note);
-        question.addAnswer(note.getDefinition());
+        question.addAnswer(note);
 
         final Random rand = new Random();
         final Set<Integer> intSet = new HashSet<>();
@@ -58,7 +58,7 @@ public class TrainingMode {
 
         for (Integer i : intSet) {
             if (!allNotesCompleted.get(i.intValue()).getDefinition().equals(note.getDefinition())) {
-                question.addAnswer(allNotesCompleted.get(i.intValue()).getDefinition());
+                question.addAnswer(allNotesCompleted.get(i.intValue()));
             }
         }
 
@@ -68,7 +68,7 @@ public class TrainingMode {
 
     public boolean isValidAnswer(String answer) {
         Question question = this.questions.get(questionIndex);
-        if (question.getNote().getDefinition().equals(answer)) {
+        if (question.getNote().getDefinitionToDisplay().toString().equals(answer)) {
             question.changeToSolved();
             return true;
         }

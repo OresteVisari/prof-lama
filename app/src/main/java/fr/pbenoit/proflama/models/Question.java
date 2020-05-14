@@ -16,7 +16,7 @@ public class Question {
 
     Note note;
 
-    private List<String> answers;
+    private List<Note> answers;
 
     public Question(Note note) {
         this.note = note;
@@ -30,7 +30,7 @@ public class Question {
         return note;
     }
 
-    public void addAnswer(String answer) {
+    public void addAnswer(Note answer) {
         if (this.answers.size() >= NUMBER_OF_ANSWER) {
             return;
         }
@@ -41,7 +41,7 @@ public class Question {
         Collections.shuffle(answers);
     }
 
-    public List<String> getAnswers() {
+    public List<Note> getAnswers() {
         return answers;
     }
 

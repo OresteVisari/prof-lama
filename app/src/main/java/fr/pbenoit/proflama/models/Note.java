@@ -1,6 +1,12 @@
 package fr.pbenoit.proflama.models;
 
+import android.text.Html;
+import android.text.Spanned;
 import android.text.format.DateUtils;
+
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.text.Normalizer;
 import java.util.Date;
@@ -12,6 +18,10 @@ public class Note implements  Comparable<Note> {
     public transient static final String DATE = "DATE";
 
     public transient static final String ALPHABETIC = "ALPHABETIC";
+
+    private transient static final Parser markdownParser = Parser.builder().build();
+
+    private transient static final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 
     public transient static String ORDER_MODE = ALPHABETIC;
 
@@ -57,6 +67,11 @@ public class Note implements  Comparable<Note> {
         return this.getFormattedTitle().compareTo(note.getFormattedTitle());
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+        setFormattedTitle();
+    }
+
     public String getTitle() {
         return title;
     }
@@ -77,20 +92,23 @@ public class Note implements  Comparable<Note> {
         return getFormattedTitle().substring(0, 1);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-        setFormattedTitle();
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
-
     public void setDefinition(String definition) {
         if (definition == null) {
             definition = "";
         }
         this.definition = definition;
+    }
+
+    public String getDefinition() {
+        if (this.definition == null) {
+            return "";
+        }
+        return definition;
+    }
+
+    public Spanned getDefinitionToDisplay() {
+        Node markdownText = markdownParser.parse(getDefinition());
+        return Html.fromHtml(htmlRenderer.render(markdownText));
     }
 
     public String getQuote() {

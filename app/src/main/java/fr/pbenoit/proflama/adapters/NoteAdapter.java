@@ -10,8 +10,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
 import fr.pbenoit.proflama.R;
 
@@ -20,10 +18,6 @@ import java.util.List;
 import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
-
-    private final Parser markdownParser = Parser.builder().build();
-
-    private final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 
     private final List<Note> notes;
 
@@ -58,8 +52,7 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         title.setText(currentNote.getTitle());
 
         TextView definition = view.findViewById(R.id.definition);
-        Node markdownText = markdownParser.parse(currentNote.getDefinition());
-        definition.setText(Html.fromHtml(htmlRenderer.render(markdownText)));
+        definition.setText(currentNote.getDefinitionToDisplay());
 
         TextView quote = view.findViewById(R.id.quote);
         quote.setText(currentNote.getQuote());

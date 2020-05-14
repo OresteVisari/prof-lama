@@ -91,9 +91,9 @@ public class TrainingController {
         Question question = trainingMode.getNextQuestion();
         if (!question.isSolved()) {
             textTrainingWord.setText(question.getNote().getTitle());
-            answer1.setText(question.getAnswers().get(0));
-            answer2.setText(question.getAnswers().get(1));
-            answer3.setText(question.getAnswers().get(2));
+            answer1.setText(question.getAnswers().get(0).getDefinitionToDisplay().toString());
+            answer2.setText(question.getAnswers().get(1).getDefinitionToDisplay().toString());
+            answer3.setText(question.getAnswers().get(2).getDefinitionToDisplay().toString());
         }
 
     }
