@@ -3,7 +3,6 @@ package fr.pbenoit.proflama.controller;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -78,16 +77,19 @@ public class TrainingController {
 
     public void runQuiz() {
         if (this.trainingMode.isQuizFinish()) {
+            this.floatingActionButton.hide();
             displayQuizResult();
             return;
         }
         setDefaultBackgroundOnAnswers();
+        this.floatingActionButton.hide();
         this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity.getApplicationContext(),"You need to found the good response to continue.", Toast.LENGTH_SHORT).show();
+                runQuiz();
             }
         });
+
         Question question = trainingMode.getNextQuestion();
         if (!question.isSolved()) {
             textTrainingWord.setText(question.getNote().getTitle());
@@ -107,12 +109,7 @@ public class TrainingController {
     private void verifyQuiz(final LinearLayout linearLayoutAnswer, TextView textView) {
         if (this.trainingMode.isValidAnswer(textView.getText().toString())) {
             linearLayoutAnswer.setBackgroundResource(R.drawable.shape_valid);
-            this.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    runQuiz();
-                }
-            });
+            this.floatingActionButton.show();
         } else {
             linearLayoutAnswer.setBackgroundResource(R.drawable.shape_invalid);
         }
