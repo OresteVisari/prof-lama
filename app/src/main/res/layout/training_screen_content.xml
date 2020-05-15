@@ -58,8 +58,7 @@
                             android:id="@+id/answer1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:text="AA" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                     </LinearLayout>
 
                     <View
@@ -75,8 +74,7 @@
                             android:id="@+id/answer2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:text="BB" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                     </LinearLayout>
 
                     <View
@@ -92,8 +90,7 @@
                             android:id="@+id/answer3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:text="CC" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
                     </LinearLayout>
 
                     <View
@@ -124,26 +121,46 @@
                 android:text="Lamazing!"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textTrainingResultSuccess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="48dp"
-                android:text="You know well the words: "
+                android:textColor="@color/colorPrimary"
+                android:paddingTop="28dp"
+                android:text="@string/result_success"
                 android:textAlignment="viewStart"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textTrainingResultSuccessList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/textTrainingResultFailure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="48dp"
-                android:text="You need to practice more the words: "
+                android:textColor="@color/colorPrimary"
+                android:paddingTop="20dp"
+                android:text="@string/result_failure"
                 android:textAlignment="viewStart"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textTrainingResultFailureList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

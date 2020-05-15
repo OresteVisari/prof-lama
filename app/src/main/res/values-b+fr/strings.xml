@@ -41,4 +41,8 @@
     <!-- Menu option -->
     <string name="alphabetic_order">Trier par titre</string>
     <string name="historical_order">Trier par date d\'ajout</string>
+
+    <!-- Quiz result -->
+    <string name="result_success">Vous maîtrisez ces mots: </string>
+    <string name="result_failure">Il faudra cependant réviser les mots: </string>
 </resources>

@@ -36,6 +36,8 @@ public class TrainingController {
 
     private TextView textTrainingResultSuccess;
     private TextView textTrainingResultFailure;
+    private final TextView textTrainingResultFailureList;
+    private final TextView textTrainingResultSuccessList;
 
 
     public TrainingController(final MainActivity activity, FloatingActionButton floatingActionButton, List<Note> notes) {
@@ -49,6 +51,8 @@ public class TrainingController {
         this.linearLayoutAnswer1 = activity.findViewById(R.id.layoutAnswer1);
         this.linearLayoutAnswer2 = activity.findViewById(R.id.layoutAnswer2);
         this.linearLayoutAnswer3 = activity.findViewById(R.id.layoutAnswer3);
+        this.textTrainingResultFailureList = activity.findViewById(R.id.textTrainingResultFailureList);
+        this.textTrainingResultSuccessList = activity.findViewById(R.id.textTrainingResultSuccessList);
 
         this.textTrainingResultSuccess = activity.findViewById(R.id.textTrainingResultSuccess);
         this.textTrainingResultFailure = activity.findViewById(R.id.textTrainingResultFailure);
@@ -121,19 +125,34 @@ public class TrainingController {
         trainingLayout.setVisibility(View.GONE);
         trainingResultLayout.setVisibility(View.VISIBLE);
 
-        String success = "Bravo, tu connais bien les mots: ";
-        String failure = "Il faudra cependant réviser les mots: ";
+        String success = "";
+        String failure = "";
 
         for (Question question : trainingMode.getQuestions()) {
             if (question.getNote().getTestStatus() == TestStatus.SUCCESS) {
-                success += question.getNote().getTitle() + " ";
+                success += "    - " + question.getNote().getTitle() + " \n";
             } else {
-                failure += question.getNote().getTitle() + " ";
+                failure += "    - " + question.getNote().getTitle() + " \n";
             }
         }
 
-        this.textTrainingResultSuccess.setText(success);
-        this.textTrainingResultFailure.setText(failure);
+        if (!success.isEmpty()) {
+            this.textTrainingResultSuccessList.setText(success);
+            this.textTrainingResultSuccessList.setVisibility(View.VISIBLE);
+            this.textTrainingResultSuccess.setVisibility(View.VISIBLE);
+        } else {
+            this.textTrainingResultSuccessList.setVisibility(View.GONE);
+            this.textTrainingResultSuccess.setVisibility(View.GONE);
+        }
+
+        if (!failure.isEmpty()) {
+            this.textTrainingResultFailureList.setText(failure);
+            this.textTrainingResultFailureList.setVisibility(View.VISIBLE);
+            this.textTrainingResultFailure.setVisibility(View.VISIBLE);
+        } else {
+            this.textTrainingResultFailureList.setVisibility(View.GONE);
+            this.textTrainingResultFailure.setVisibility(View.GONE);
+        }
 
         JsonFileRepository.saveQuizResult(this.notes, this.trainingMode.getQuestions());
     }

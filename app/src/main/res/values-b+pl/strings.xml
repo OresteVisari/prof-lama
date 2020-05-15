@@ -38,4 +38,8 @@
     <!-- Menu option -->
     <string name="alphabetic_order">Sortuj według tytułu</string>
     <string name="historical_order">Zamów według daty utworzenia</string>
+
+    <!-- Quiz result -->
+    <string name="result_success">Opanowałeś te słówka: </string>
+    <string name="result_failure">Musisz jeszcze poćwiczyć: </string>
 </resources>

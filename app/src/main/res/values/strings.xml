@@ -38,4 +38,8 @@
     <!-- Menu option -->
     <string name="alphabetic_order">Order by title</string>
     <string name="historical_order">Order by creation date</string>
+
+    <!-- Quiz result -->
+    <string name="result_success">You master these words: </string>
+    <string name="result_failure">You need to practice more these words: </string>
 </resources>
