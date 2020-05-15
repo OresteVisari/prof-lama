@@ -34,4 +34,8 @@
     <string name="tutorial2title">Tutorial 2 – Jak dodać nowe słowo ?</string>
     <string name="tutorial2definition">Dodaj nowe słowo ręcznie – kliknij przycisk « + » żeby dodać słowo, które chcesz zachować. Możesz dodać definicje lub cytaty (przykłady użycia).</string>
     <string name="tutorial2quote">Dodaj nowe słowo z Internetu – przyciśnij dłużej słówko, które chcesz zachować i za pomocą opcji « Prof Lama » dodaj je do aplikacji. Nie wiesz jak to zrobić ? Video tutorial jest dostępny na stronie Google Play – Prof Lama.</string>
+
+    <!-- Menu option -->
+    <string name="alphabetic_order">Sortuj według tytułu</string>
+    <string name="historical_order">Zamów według daty utworzenia</string>
 </resources>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -17,4 +17,8 @@
         <item name="android:backgroundTint">@color/colorPrimary</item>
     </style>
 
+    <style name="MyPopupTheme" parent="Widget.AppCompat.PopupMenu">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+    </style>
 </resources>

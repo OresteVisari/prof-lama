@@ -2,12 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu1"
-        android:title="tit2"
-        app:showAsAction="never"
-        ></item>
-    <item android:id="@+id/menu2"
-        android:title="tit3"
-        app:showAsAction="never"
-        ></item>
+    <group android:id="@+id/grp1" android:checkableBehavior="single" >
+        <item android:id="@+id/option_menu_alphabetic"
+            android:title="@string/alphabetic_order"
+            app:showAsAction="never"
+            android:orderInCategory="0"
+            ></item>
+        <item android:id="@+id/option_menu_historical"
+            android:title="@string/historical_order"
+            app:showAsAction="always"
+            android:orderInCategory="1"
+            ></item>
+    </group>
+
+<!--    <group android:id="@+id/grp2" android:checkableBehavior="single" >-->
+<!--        <item android:id="@+id/menu3"-->
+<!--            android:title="Word completed"-->
+<!--            app:showAsAction="never"-->
+<!--            ></item>-->
+<!--        <item android:id="@+id/menu4"-->
+<!--            android:title="Word uncompleted"-->
+<!--            app:showAsAction="never"-->
+<!--            ></item>-->
+<!--    </group>-->
+
 </menu>

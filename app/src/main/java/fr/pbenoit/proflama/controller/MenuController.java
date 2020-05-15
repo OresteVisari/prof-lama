@@ -2,11 +2,13 @@ package fr.pbenoit.proflama.controller;
 
 import android.graphics.Typeface;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 
 import fr.pbenoit.proflama.R;
@@ -29,9 +31,9 @@ public class MenuController {
         this.menuItemAll = activity.findViewById(R.id.textMenuAll);
         this.menuItemTraining = activity.findViewById(R.id.textMenuTraining);
         this.optionMenuView = activity.findViewById(R.id.option_menu_icon);
-        this.popupMenu = new PopupMenu(activity, this.optionMenuView);
-        MenuInflater inflater = this.popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.option_menu, this.popupMenu.getMenu());
+
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(activity, R.style.MyPopupTheme);
+        this.popupMenu = new PopupMenu(wrapper, this.optionMenuView);
 
         View.OnClickListener onClickMainPageMenu = new View.OnClickListener() {
             @Override
@@ -57,6 +59,21 @@ public class MenuController {
         menuItemAll.setOnClickListener(onClickMainPageMenu);
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
         optionMenuView.setOnClickListener(onClickOptionMenu);
+
+        MenuInflater inflater = this.popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.option_menu, this.popupMenu.getMenu());
+        this.popupMenu.getMenu().getItem(0).setChecked(true);
+        this.popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.isChecked()) {
+                    return false;
+                }
+                item.setChecked(true);
+                activity.changeOrder();
+                return true;
+            }
+        });
     }
 
     public void enableMenu(String name) {
@@ -73,10 +90,6 @@ public class MenuController {
                 disableMenuItem(this.menuItemTraining);
                 break;
         }
-    }
-
-    public TextView getMenuItemTraining() {
-        return this.menuItemAll;
     }
 
     private void enableMenuItem(TextView view) {

@@ -55,20 +55,23 @@
                 android:textSize="18sp" />
         </FrameLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="350dp"
-            android:paddingTop="20dp">
+            >
 
             <ImageView
                 android:id="@+id/option_menu_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:scaleType="centerCrop"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="6dp"
+                android:paddingRight="10dp"
                 app:srcCompat="@drawable/ic_more_vert_white_24dp" />
 
-        </FrameLayout>
+        </RelativeLayout>
     </FrameLayout>
     <View
         android:id="@+id/divider"

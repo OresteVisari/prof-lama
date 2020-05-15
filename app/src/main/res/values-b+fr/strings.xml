@@ -37,4 +37,8 @@
     <string name="tutorial2title">Tutoriel 2 - Comment ajouter un mot ?</string>
     <string name="tutorial2definition">Ajouter un nouveau mot manuellement - cliquez sur le bouton «+» pour ajouter un mot que vous souhaitez sauvegarder. Vous pouvez y ajouter la définition ou un exemple.</string>
     <string name="tutorial2quote">Ajoutez un nouveau mot depuis l’Internet - appuyez longuement sur le mot que vous souhaitez sauvegarder et ajoutez-le simplement au professeur Lama.\nVous n’êtes pas sûr comment le faire ? Vous pouvez également regarder le tutoriel vidéo sur la page Google Play du Prof Lama.</string>
+
+    <!-- Menu option -->
+    <string name="alphabetic_order">Trier par titre</string>
+    <string name="historical_order">Trier par date d\'ajout</string>
 </resources>

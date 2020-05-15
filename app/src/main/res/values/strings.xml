@@ -34,4 +34,8 @@
     <string name="tutorial2title">Tutorial 2 - How to add a word?</string>
     <string name="tutorial2definition">Add a new word manually – click on the «+ » button to add a word you want to save. You can add the definition or quotations.</string>
     <string name="tutorial2quote">Add a new word from the Internet – do a long press on the word you want to save and simply add it to Prof Lama.Not sure on how to to this? You can also watch the video tutorial on the Google Play page of Prof Lama.</string>
+
+    <!-- Menu option -->
+    <string name="alphabetic_order">Order by title</string>
+    <string name="historical_order">Order by creation date</string>
 </resources>

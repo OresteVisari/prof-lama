@@ -107,12 +107,15 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         //notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
     }
 
+    public void changeOrder() {
+        Note.toggleMode();
+        Collections.sort(notes);
+        notesView.setAdapter(new NoteAdapter(this, notes));
+        return;
+    }
 
     public void openMainPage() {
         if (MenuController.CURRENT_MENU == MenuController.ALL) {
-            Note.toggleMode();
-            Collections.sort(notes);
-            notesView.setAdapter(new NoteAdapter(this, notes));
             return;
         }
 
