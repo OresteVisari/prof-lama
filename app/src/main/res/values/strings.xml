@@ -39,7 +39,9 @@
     <string name="alphabetic_order">Order by title</string>
     <string name="historical_order">Order by creation date</string>
 
-    <!-- Quiz result -->
+    <!-- Quiz -->
     <string name="result_success">You master these words: </string>
     <string name="result_failure">You need to practice more these words: </string>
+    <string name="select_the_correct_definition">Select the correct definition</string>
+    <string name="toaster_quizz_not_avaible">You need at least 10 complete words to unlock the quiz.</string>
 </resources>

@@ -42,7 +42,10 @@
     <string name="alphabetic_order">Trier par titre</string>
     <string name="historical_order">Trier par date d\'ajout</string>
 
-    <!-- Quiz result -->
+    <!-- Quiz -->
     <string name="result_success">Vous maîtrisez ces mots: </string>
     <string name="result_failure">Il faudra cependant réviser les mots: </string>
+    <string name="select_the_correct_definition">Sélectionnez la bonne définition</string>
+    <string name="toaster_quizz_not_avaible">Vous avez besoin d\'au moins 10 mots complets pour débloquer le quiz.</string>
+
 </resources>

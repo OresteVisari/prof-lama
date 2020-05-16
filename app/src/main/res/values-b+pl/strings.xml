@@ -39,7 +39,10 @@
     <string name="alphabetic_order">Sortuj według tytułu</string>
     <string name="historical_order">Zamów według daty utworzenia</string>
 
-    <!-- Quiz result -->
+    <!-- Quiz -->
     <string name="result_success">Opanowałeś te słówka: </string>
     <string name="result_failure">Musisz jeszcze poćwiczyć: </string>
+    <string name="select_the_correct_definition">Wybierz poprawną definicję</string>
+    <string name="toaster_quizz_not_avaible">Potrzebujesz co najmniej 10 pełnych słów, aby odblokować quiz</string>
+
 </resources>

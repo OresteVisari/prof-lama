@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         }
         List<Note> notesForTraining = NotesUtils.getNotesForTraining(this.notes);
         if (notesForTraining.isEmpty()) {
-            Toast.makeText(getApplicationContext(),"You need to have at least 10 complete words to unlock this mode.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.toaster_quizz_not_avaible, Toast.LENGTH_SHORT).show();
             return;
         }
 
