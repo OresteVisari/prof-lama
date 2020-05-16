@@ -1,5 +1,6 @@
 package fr.pbenoit.proflama.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +14,21 @@ import fr.pbenoit.proflama.R;
 
 import java.util.List;
 
+import fr.pbenoit.proflama.activities.MainActivity;
 import fr.pbenoit.proflama.models.Note;
 
 public class NoteAdapter extends BaseAdapter implements ListAdapter {
+
+    private final MainActivity activity;
 
     private final List<Note> notes;
 
     private final LayoutInflater layoutInflater;
 
-    public NoteAdapter(Context context, List<Note> notes) {
+    public NoteAdapter(MainActivity activity, List<Note> notes) {
+        this.activity = activity;
         this.notes = notes;
-        this.layoutInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(activity);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.note, null);
 
         Note currentNote = getItem(position);
@@ -58,9 +63,17 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         TextView date = view.findViewById(R.id.date);
 
         ImageView editIcon = view.findViewById(R.id.note_edit_icon);
-        if (!currentNote.getDefinition().isEmpty()) {
+        if (!currentNote.getDefinition().isEmpty() && !currentNote.isShouldDisplayAllFields()) {
             editIcon.setVisibility(View.INVISIBLE);
+        } else {
+            editIcon.setVisibility(View.VISIBLE);
         }
+        editIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.openUpdateNoteDialog(position);
+            }
+        });
 
         definition.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);

@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         addNoteDialog.show(getSupportFragmentManager(), "add");
     }
 
-    private void openUpdateNoteDialog(int i) {
+    public void openUpdateNoteDialog(int i) {
         UpdateNoteDialog updateNoteDialog = new UpdateNoteDialog(i, notes.get(i));
         updateNoteDialog.show(getSupportFragmentManager(), "update");
     }
