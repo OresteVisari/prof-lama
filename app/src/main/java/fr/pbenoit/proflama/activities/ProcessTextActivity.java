@@ -26,15 +26,16 @@ public class ProcessTextActivity extends Activity {
 
 
     private void addNewTitle(final String title) {
-        List<Note> notes = JsonFileRepository.getAllNotes();
-        notes.add(new Note(title));
-        Collections.sort(notes);
-        JsonFileRepository.saveNotes(notes);
+        //List<Note> notes = JsonFileRepository.getAllNotes();
+        //notes.add(new Note(title));
+        //Collections.sort(notes);
+        //JsonFileRepository.saveNotes(notes);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationManager.sendWordCreationNotification(pendingIntent, title);
+        //Intent intent = new Intent(this, MainActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        //NotificationManager.sendWordCreationNotification(pendingIntent, title);
+        new FetchWordFromWiktionary(this).execute("en", title);
 
         this.finish();
     }
