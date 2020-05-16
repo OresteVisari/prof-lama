@@ -1,5 +1,10 @@
 package fr.pbenoit.proflama.activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,9 +14,21 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -207,4 +224,40 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     public List<Note> getNotes() {
         return this.notes;
     }
+
+    public void openFile() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("*/*");
+        startActivityForResult(intent, ImportActivity.IMPORT_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ImportActivity.IMPORT_CODE) {
+                if (resultData != null) {
+                    Uri currentUri = resultData.getData();
+                    File file = new File(currentUri.getPath().replace("document/raw:",""));
+                    Gson gson = new Gson();
+                    ArrayList<Note> notes = new ArrayList<>();
+
+                    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                        Type listType = new TypeToken<ArrayList<Note>>(){}.getType();
+                        notes = gson.fromJson(br, listType);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (!notes.isEmpty()) {
+                        System.out.println(notes.size() + "");
+                    }
+                }
+            }
+
+        }
+    }
+
 }

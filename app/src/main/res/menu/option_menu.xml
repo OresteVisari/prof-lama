@@ -15,7 +15,14 @@
             ></item>
     </group>
 
-<!--    <group android:id="@+id/grp2" android:checkableBehavior="single" >-->
+    <item android:id="@+id/option_menu_import"
+        android:title="Import"
+        app:showAsAction="never"
+        android:orderInCategory="2"
+        ></item>
+
+
+    <!--    <group android:id="@+id/grp2" android:checkableBehavior="single" >-->
 <!--        <item android:id="@+id/menu3"-->
 <!--            android:title="Word completed"-->
 <!--            app:showAsAction="never"-->

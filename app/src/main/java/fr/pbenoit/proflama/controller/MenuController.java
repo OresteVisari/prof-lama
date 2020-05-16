@@ -12,6 +12,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 
 import fr.pbenoit.proflama.R;
+import fr.pbenoit.proflama.activities.ImportActivity;
 import fr.pbenoit.proflama.activities.MainActivity;
 
 public class MenuController {
@@ -60,12 +61,19 @@ public class MenuController {
         menuItemTraining.setOnClickListener(onClickTrainingMenu);
         optionMenuView.setOnClickListener(onClickOptionMenu);
 
+        //final ImportActivity importActivity = new ImportActivity();
+
         MenuInflater inflater = this.popupMenu.getMenuInflater();
         inflater.inflate(R.menu.option_menu, this.popupMenu.getMenu());
         this.popupMenu.getMenu().getItem(0).setChecked(true);
         this.popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
+                if (item.getOrder() == 2) {
+                    activity.openFile();
+                    return false;
+                }
                 if (item.isChecked()) {
                     return false;
                 }
