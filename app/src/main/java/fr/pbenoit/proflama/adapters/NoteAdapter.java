@@ -1,15 +1,13 @@
 package fr.pbenoit.proflama.adapters;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
-import org.commonmark.node.Node;
 
 import fr.pbenoit.proflama.R;
 
@@ -58,6 +56,11 @@ public class NoteAdapter extends BaseAdapter implements ListAdapter {
         quote.setText(currentNote.getQuote());
 
         TextView date = view.findViewById(R.id.date);
+
+        ImageView editIcon = view.findViewById(R.id.note_edit_icon);
+        if (!currentNote.getDefinition().isEmpty()) {
+            editIcon.setVisibility(View.INVISIBLE);
+        }
 
         definition.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);

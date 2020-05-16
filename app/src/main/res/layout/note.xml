@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:clickable="false"
-    >
+    android:clickable="false">
 
     <TextView
         android:id="@+id/date"
@@ -25,14 +25,29 @@
         android:background="@drawable/shape"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-
+            android:layout_marginRight="36dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/note_edit_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerCrop"
+                android:layout_alignParentRight="true"
+                android:paddingRight="4dp"
+                app:srcCompat="@drawable/ic_create_primary_24dp" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/definition"
