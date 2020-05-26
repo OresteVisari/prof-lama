@@ -1,6 +1,7 @@
 package fr.pbenoit.proflama.activities;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
     private LinearLayout trainingResultLayout;
 
     private List<Note> notes;
+    private Parcelable notesViewState;
     private ListView notesView;
 
     @Override
@@ -104,7 +106,15 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
             notes.add(defaultNote2);
         }
         notesView.setAdapter(new NoteAdapter(this, notes));
-        //notesView.setAdapter(new EditionNoteAdapter(this, NotesUtils.getUncompleteNote(notes)));
+        if (this.notesViewState != null) {
+            this.notesView.onRestoreInstanceState(this.notesViewState);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        this.notesViewState = this.notesView.onSaveInstanceState();
+        super.onPause();
     }
 
     public void changeOrder() {
@@ -116,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
 
     public void openMainPage() {
         if (MenuController.CURRENT_MENU == MenuController.ALL) {
+            this.notesView.smoothScrollToPosition(0);
             return;
         }
 
