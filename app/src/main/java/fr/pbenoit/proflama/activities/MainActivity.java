@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteDialog.Add
         this.setContentView(R.layout.main_screen_wrapper);
         this.floatingActionButton = findViewById(R.id.fab);
         this.notesView = findViewById(R.id.notesListView);
-        this.menuController = new MenuController(this, notesView);
+        this.menuController = new MenuController(this);
         this.mainLayout = findViewById(R.id.mainLayout);
         this.trainingLayout = findViewById(R.id.trainingLayout);
         this.trainingLayout.setVisibility(View.GONE);

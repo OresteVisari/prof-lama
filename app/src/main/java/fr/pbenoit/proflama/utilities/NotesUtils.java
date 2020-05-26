@@ -13,8 +13,6 @@ import fr.pbenoit.proflama.repositories.JsonFileRepository;
 
 public class NotesUtils {
 
-    private  static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
-
     private static int countNumberOfWordSinceSpecificDate(Calendar date) {
         List<Note> notes = JsonFileRepository.getAllNotes();
         int numberOfWord = 0;
@@ -30,17 +28,8 @@ public class NotesUtils {
         return numberOfWord;
     }
 
-    public static int countNumberOfWordAddToday() {
-        Calendar morning = Calendar.getInstance();
-        morning.set(Calendar.HOUR_OF_DAY, 0);
-        morning.set(Calendar.MINUTE, 0);
-        morning.set(Calendar.SECOND, 0);
-        morning.set(Calendar.MILLISECOND, 0);
-
-        return countNumberOfWordSinceSpecificDate(morning);
-    }
-
     public static int countNumberOfWordThisWeek() {
+        final long DAY_IN_MS = 1000 * 60 * 60 * 24;
         Calendar sevenDaysAgo = Calendar.getInstance();
         sevenDaysAgo.setTime(new Date(System.currentTimeMillis() - (7 * DAY_IN_MS)));
         sevenDaysAgo.set(Calendar.HOUR_OF_DAY, 0);
@@ -51,7 +40,7 @@ public class NotesUtils {
         return countNumberOfWordSinceSpecificDate(sevenDaysAgo);
     }
 
-    public static List<Note> getUncompleteNote(List<Note> notes) {
+    public static List<Note> getUncompletedNote(List<Note> notes) {
         List<Note> uncompletedNotes = new ArrayList<>();
         for (Note note : notes) {
             if (note.getDefinition().isEmpty()) {
